@@ -9,4 +9,8 @@ public class Enemigo extends Personaje{
         super(nombre, velocidad, fuerza, tipoPersonaje);
         this.percepcion = percepcion;
     }
+
+    public int getPercepcion(){
+        return percepcion;
+    }
 }

@@ -77,5 +77,8 @@ public class Posicion {
         return posicionFinal;
     }
 
-    /* Comprueba si es una posicion */
+    /* Sumar dos posiciones */
+    public static int[] mover(int[] posicionOriginal, int[] movimiento) {
+        return new int[] { posicionOriginal[0] + movimiento[0], posicionOriginal[1] + movimiento[1] };
+    }
 }

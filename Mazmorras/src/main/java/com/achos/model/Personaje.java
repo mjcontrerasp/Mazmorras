@@ -90,7 +90,7 @@ public class Personaje implements Comparable<Personaje> {
         return this.posicion;
     }
 
-    public void setPosX(int[] posicion) {
+    public void setPosicion(int[] posicion) {
         this.posicion = posicion;
     }
 
