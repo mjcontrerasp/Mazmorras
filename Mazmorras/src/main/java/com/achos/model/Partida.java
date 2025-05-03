@@ -1,5 +1,6 @@
 package com.achos.model;
 
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 import com.achos.enums.TipoPersonaje;
@@ -11,6 +12,7 @@ public class Partida {
     private TreeSet<Personaje> personajes;
     private String pathPersonajes;
     private String pathMapa;
+    private Heroe heroe;
 
     private Partida() {
         personajes = LectorPersonaje.leerPersonajes(pathPersonajes);
@@ -23,12 +25,20 @@ public class Partida {
         return instance;
     }
 
-    public void moverPersonajes(int x, int y){
+    /* Encuentra y guarda el Heroe de la lista de personajes */
+    public void buscarPersonaje() {
         for (Personaje personaje : personajes) {
-            if (personaje.getTipoPersonaje() != TipoPersonaje.PABLO) {
-                if (per) {
-                    
-                }
+            if (personaje instanceof Heroe) {
+                this.heroe = (Heroe) personaje;
+            }
+        }
+    }
+
+    public void moverPersonajes(int[] posicion) {
+        ArrayList<Personaje> personajesCopia = new ArrayList<>(personajes);
+        for (int i = 0; i < personajesCopia.size(); i++) {
+            if (personajesCopia.get(i) instanceof Heroe) {
+                personajesCopia.get(i).mover(x, y);
             }
         }
     }

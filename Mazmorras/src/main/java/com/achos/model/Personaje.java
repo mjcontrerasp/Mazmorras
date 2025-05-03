@@ -118,11 +118,6 @@ public class Personaje implements Comparable<Personaje> {
         }
     }
 
-    public void mover(int x, int y) {
-        posicion[0]+=x;
-        posicion[1]+=y;
-    }
-
     public void perderVida(int ataque) {
         setVida(vida - ataque);
     }

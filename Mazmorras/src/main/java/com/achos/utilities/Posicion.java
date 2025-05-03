@@ -1,61 +1,81 @@
 package com.achos.utilities;
 
+import java.util.ArrayList;
+
+import com.achos.enums.TipoCelda;
 import com.achos.model.*;
 
 public class Posicion {
-    public static int distancia(Personaje personaje1, Personaje personaje2){
-        int x = personaje1.getPosX() - personaje2.getPosX();
-        int y = personaje1.getPosY() - personaje2.getPosY();
-        return (int) Math.sqrt(x*x + y*y);
+    /*
+     * A partir de una posicion crea un array de 5 posiciones (original, izquierda,
+     * derecha, arriba y abajo)
+     */
+    public static ArrayList<int[]> crearCruceta(int[] posicion) {
+        int x = posicion[0];
+        int y = posicion[1];
+        ArrayList<int[]> cruceta = new ArrayList<>();
+        cruceta.add(new int[] { x, y }); // original
+        cruceta.add(new int[] { x - 1, y }); // izquierda
+        cruceta.add(new int[] { x + 1, y }); // derecha
+        cruceta.add(new int[] { x, y + 1 }); // arriba
+        cruceta.add(new int[] { x, y - 1 }); // abajo
+        return cruceta;
     }
 
-    public static int distancia(Personaje personaje, Celda celda){
-        int x = personaje.getPosX() - celda.getPosX();
-        int y = personaje.getPosY() - celda.getPosY();
-        return (int) Math.sqrt(x*x + y*y);
-    }
-
-    public static int distancia(Personaje personaje, int posX, int posY){
-        int x = personaje.getPosX()-posX;
-        int y = personaje.getPosY()-posY;
-        return (int) Math.sqrt(x*x + y*y);
-    }
-
-    public static void acercar(Personaje personaje1, Personaje personaje2, Mapa mapa){
-        int x = 0, y = 0;
-        int distancia = Integer.MAX_VALUE;
-        int xMenos = personaje2.getPosX()-1;
-        int xMas = personaje2.getPosX()+1;
-        int yMenos = personaje2.getPosY()-1;
-        int yMas = personaje2.getPosY()+1;
-        int xMax = mapa.getCeldas().size()-1;
-        int yMax = mapa.getCeldas().get(0).size()-1;
-        int xNew = 0;
-        int yNew = 0;
-        if (distancia(personaje1, xMenos, yMenos) < distancia) {
-            xNew = xMenos;
-            yNew = yMenos;
-        }
-        if (distancia(personaje1, xMenos, yMenos) < distancia) {
-            xNew = xMenos;
-            yNew = yMenos;
-        }
-        if (distancia(personaje1, xMenos, yMenos) < distancia) {
-            xNew = xMenos;
-            yNew = yMenos;
-        }
-        if (distancia(personaje1, xMenos, yMenos) < distancia) {
-            xNew = xMenos;
-            yNew = yMenos;
+    /* Elimina posiciones de la cruceta que sean fuera del mapa */
+    public static void limpiarFueraLimites(ArrayList<int[]> cruceta, Mapa mapa) {
+        for (int i = 0; i < cruceta.size(); i++) {
+            if (!dentroLimites(cruceta.get(i), mapa)) {
+                cruceta.remove(i);
+            }
         }
     }
 
-    public static boolean dentroLimites(int x, int y, Mapa mapa){
-        if (x < mapa.getCeldas().size() && y < mapa.getCeldas().get(0).size()) {
-            return true;
-        }
-        return false;
+    /* Posicion dentro de los límities */
+    public static boolean dentroLimites(int[] posicion, Mapa mapa) {
+        int xMax = mapa.getCeldas().get(0).size();
+        int yMax = mapa.getCeldas().size();
+        return posicion[0] < xMax || posicion[1] < yMax;
     }
 
-    public static ArrayList<int []>
+    /*
+     * Elimina posiciones de la cruceta de posiciones que colisionen con un
+     * muro
+     */
+    public static void limpiarMuro(ArrayList<int[]> cruceta, Mapa mapa) {
+        for (int i = 0; i < cruceta.size(); i++) {
+            if (!noPared(cruceta.get(i), mapa)) {
+                cruceta.remove(i);
+            }
+        }
+    }
+
+    /* Posicion sin colision con pared */
+    public static boolean noPared(int[] posicion, Mapa mapa) {
+        return mapa.getCeldas().get(posicion[1]).get(posicion[0]).getTipoCelda() != TipoCelda.PARED;
+    }
+
+    /* Devuelve en double la distancia entre dos posiciones */
+    public static double distancia(int[] posicion1, int[] posicion2) {
+        int xPosicion1 = posicion1[0];
+        int yPosicion1 = posicion1[1];
+        int xPosicion2 = posicion2[0];
+        int yPosicion2 = posicion2[1];
+        int xAbsoluta = Math.abs(xPosicion1 - xPosicion2);
+        int yAbsoluta = Math.abs(yPosicion1 - yPosicion2);
+        return Math.sqrt(Math.pow(xAbsoluta, 2) + Math.pow(yAbsoluta, 2));
+    }
+
+    /* Devuelve la posicion más cercana de una cruceta a una posicion dada */
+    public static int[] posicionMasCerca(int[] posicion, ArrayList<int[]> cruceta) {
+        int[] posicionFinal = cruceta.get(0);
+        for (int i = 1; i < cruceta.size(); i++) {
+            if (distancia(posicion, cruceta.get(i)) < distancia(posicion, posicionFinal)) {
+                posicionFinal = cruceta.get(i);
+            }
+        }
+        return posicionFinal;
+    }
+
+    /* Comprueba si es una posicion */
 }
