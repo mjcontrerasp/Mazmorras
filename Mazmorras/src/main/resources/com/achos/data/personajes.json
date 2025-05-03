@@ -1,29 +1,25 @@
 [
     {
         "Nombre": "Pablo",
-        "Vida": 7,
-        "Velocidad": 7,
-        "Fuerza": 7
+        "Velocidad": 5,
+        "Fuerza": 5
     },
     {
         "Nombre": "Manu",
-        "Vida": 6,
-        "Velocidad": 5,
-        "Fuerza": 7,
-        "Percepcion": 6
+        "Velocidad": 4,
+        "Fuerza": 4,
+        "Percepcion": 4
     },
     {
         "Nombre": "Gloria",
-        "Vida": 8,
-        "Velocidad": 7,
-        "Fuerza": 8,
-        "Percepcion": 7
+        "Velocidad": 6,
+        "Fuerza": 6,
+        "Percepcion": 6
     },
     {
         "Nombre": "Gabino",
-        "Vida": 10,
-        "Velocidad": 9,
-        "Fuerza": 10,
-        "Percepcion": 9
+        "Velocidad": 8,
+        "Fuerza": 8,
+        "Percepcion": 8
     }
 ]

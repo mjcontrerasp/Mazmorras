@@ -1,5 +1,89 @@
 package com.achos.utilities;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.TreeSet;
+
+import com.achos.enums.TipoPersonaje;
+import com.achos.model.Enemigo;
+import com.achos.model.Heroe;
+import com.achos.model.Personaje;
+
 public class LectorPersonajes {
-    
+
+    public static TreeSet<Personaje> leerPersonajes(String path) {
+        File fichero = new File(path);
+        TreeSet<Personaje> personajes = new TreeSet<>();
+
+        String nombre = "";
+        int velocidad = 0;
+        int fuerza = 0;
+        TipoPersonaje tipoPersonaje = null;
+        int percepcion = 0;
+
+        boolean construirPersonaje = false;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                linea = linea.trim();
+                if (linea.startsWith("{")) {
+                    construirPersonaje = true;
+                }
+
+                if (linea.startsWith("}")) {
+                    construirPersonaje = false;
+                    if (tipoPersonaje == TipoPersonaje.PABLO) {
+                        personajes.add(new Heroe(nombre, velocidad, fuerza, tipoPersonaje));
+                    } else {
+                        personajes.add(new Enemigo(nombre, velocidad, fuerza, tipoPersonaje, percepcion));
+                    }
+                }
+
+                if (construirPersonaje) {
+                    String[] palabras = linea.split(":");
+                    if (palabras.length < 2) continue; // Evita el error
+                
+                    String clave = palabras[0].toLowerCase().trim().replace("\"", "");
+                    String valor = palabras[1].trim().replace("\"", "").replace(",","");
+                
+                    switch (clave) {
+                        case "nombre":
+                            nombre = valor;
+                            switch (valor.toLowerCase()) {
+                                case "pablo":
+                                    tipoPersonaje = TipoPersonaje.PABLO;
+                                    break;
+                                case "manu":
+                                    tipoPersonaje = TipoPersonaje.MANU;
+                                    break;
+                                case "gloria":
+                                    tipoPersonaje = TipoPersonaje.GLORIA;
+                                    break;
+                                case "gabino":
+                                    tipoPersonaje = TipoPersonaje.GABINO;
+                                    break;
+                            }
+                            break;
+                        case "velocidad":
+                            velocidad = Integer.parseInt(valor);
+                            break;
+                        case "fuerza":
+                            fuerza = Integer.parseInt(valor);
+                            break;
+                        case "percepcion":
+                            percepcion = Integer.parseInt(valor);
+                            break;
+                    }
+                }
+                
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return personajes;
+    }
 }
