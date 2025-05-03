@@ -4,7 +4,7 @@ import java.util.TreeSet;
 
 import com.achos.model.Personaje;
 
-public class lectorPersonaje {
+public class LectorPersonaje {
 
     public static TreeSet<Personaje> leerPersonajes(String path) {
         TreeSet<Personaje> personajes = new TreeSet<>();

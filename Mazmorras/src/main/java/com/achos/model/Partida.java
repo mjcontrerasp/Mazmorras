@@ -1,7 +1,9 @@
 package com.achos.model;
 
 import java.util.TreeSet;
-import com.achos.utilities.lectorPersonaje;
+
+import com.achos.enums.TipoPersonaje;
+import com.achos.utilities.LectorPersonaje;
 
 public class Partida {
     private static Partida instance;
@@ -11,7 +13,7 @@ public class Partida {
     private String pathMapa;
 
     private Partida() {
-        personajes = lectorPersonaje.leerPersonajes(pathPersonajes);
+        personajes = LectorPersonaje.leerPersonajes(pathPersonajes);
     }
 
     public Partida getInstance() {
@@ -19,5 +21,15 @@ public class Partida {
             instance = new Partida();
         }
         return instance;
+    }
+
+    public void moverPersonajes(int x, int y){
+        for (Personaje personaje : personajes) {
+            if (personaje.getTipoPersonaje() != TipoPersonaje.PABLO) {
+                if (per) {
+                    
+                }
+            }
+        }
     }
 }

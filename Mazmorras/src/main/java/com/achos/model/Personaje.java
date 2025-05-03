@@ -3,30 +3,35 @@ package com.achos.model;
 import java.util.Objects;
 import java.util.Random;
 
-import javax.crypto.AEADBadTagException;
-
 import com.achos.enums.TipoPersonaje;
 
 public class Personaje implements Comparable<Personaje> {
-    private String nombre;
-    private int vida;
-    private int velocidad;
-    private int fuerza;
-    private int posX;
-    private int posY;
-    private TipoPersonaje tipoPersonaje;
-    private Random random = new Random();
+    protected String nombre;
+    protected int vida;
+    protected int velocidad;
+    protected int fuerza;
+    protected int[] posicion;
+    protected TipoPersonaje tipoPersonaje;
+    protected Random random = new Random();
 
-    public Personaje() {
+    protected Personaje() {
     }
 
-    public Personaje(String nombre, int vida, int velocidad, int fuerza) {
+    protected Personaje(String nombre, int velocidad, int fuerza, TipoPersonaje tipoPersonaje){
+        this.nombre = nombre;
+        this.vida = 10;
+        this.velocidad = velocidad;
+        this.fuerza = fuerza;
+        this.posicion = new int[2];
+        this.tipoPersonaje = tipoPersonaje;
+    }
+
+    protected Personaje(String nombre, int vida, int velocidad, int fuerza) {
         this.nombre = nombre;
         this.setVelocidad(velocidad);
         this.setVida(vida);
         this.setFuerza(fuerza);
-        this.posX = 0;
-        this.posY = 0;
+        this.posicion = new int[2];
     }
 
     public String getNombre() {
@@ -60,9 +65,9 @@ public class Personaje implements Comparable<Personaje> {
     public void setVelocidad(int velocidad) {
         if (velocidad < 0) {
             this.velocidad = 0;
-        }else if (velocidad > 10) {
+        } else if (velocidad > 10) {
             this.velocidad = 10;
-        }else{
+        } else {
             this.velocidad = velocidad;
         }
     }
@@ -74,66 +79,34 @@ public class Personaje implements Comparable<Personaje> {
     public void setFuerza(int fuerza) {
         if (fuerza < 0) {
             this.fuerza = 0;
-        }else if (fuerza > 10) {
+        } else if (fuerza > 10) {
             this.fuerza = 10;
-        }else{
+        } else {
             this.fuerza = fuerza;
         }
     }
 
-    public int getPosX() {
-        return this.posX;
+    public int[] getPosicicion() {
+        return this.posicion;
     }
 
-    public void setPosX(int posX) {
-        this.posX = posX;
+    public void setPosX(int[] posicion) {
+        this.posicion = posicion;
     }
 
-    public int getPosY() {
-        return this.posY;
+
+    public TipoPersonaje getTipoPersonaje() {
+        return this.tipoPersonaje;
     }
 
-    public void setPosY(int posY) {
-        this.posY = posY;
+    public void setTipoPersonaje(TipoPersonaje tipoPersonaje) {
+        this.tipoPersonaje = tipoPersonaje;
     }
 
-    public int getNumPersonaje() {
-        return this.numPersonaje;
-    }
-
-    public void setNumPersonaje(int numPersonaje) {
-        this.numPersonaje = numPersonaje;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (!(o instanceof Personaje)) {
-            return false;
-        }
-        Personaje personaje = (Personaje) o;
-        return Objects.equals(nombre, personaje.nombre) && vida == personaje.vida && velocidad == personaje.velocidad
-                && fuerza == personaje.fuerza && posX == personaje.posX && posY == personaje.posY
-                && numPersonaje == personaje.numPersonaje;
-    }
-
-    @Override
-    public String toString() {
-        return "{" +
-                " nombre='" + getNombre() + "'" +
-                ", vida='" + getVida() + "'" +
-                ", velocidad='" + getVelocidad() + "'" +
-                ", fuerza='" + getFuerza() + "'" +
-                ", posX='" + getPosX() + "'" +
-                ", posY='" + getPosY() + "'" +
-                ", numPersonaje='" + getNumPersonaje() + "'" +
-                "}";
-    }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nombre, vida, velocidad, fuerza, posX, posY);
+        return Objects.hash(nombre, vida, velocidad, fuerza, posicion);
     }
 
     @Override
@@ -146,8 +119,8 @@ public class Personaje implements Comparable<Personaje> {
     }
 
     public void mover(int x, int y) {
-        posX += x;
-        posY += y;
+        posicion[0]+=x;
+        posicion[1]+=y;
     }
 
     public void perderVida(int ataque) {
@@ -160,6 +133,10 @@ public class Personaje implements Comparable<Personaje> {
             ataqueMin = 0;
         }
         return random.nextInt(ataqueMin, fuerza);
+    }
+
+    public static void main(String[] args) {
+        System.out.println(TipoPersonaje.GABINO);
     }
 
 }
