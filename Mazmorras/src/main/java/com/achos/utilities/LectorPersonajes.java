@@ -45,7 +45,7 @@ public class LectorPersonajes {
 
                 if (construirPersonaje) {
                     String[] palabras = linea.split(":");
-                    if (palabras.length < 2) continue; // Evita el error
+                    if (palabras.length < 2) continue; 
                 
                     String clave = palabras[0].toLowerCase().trim().replace("\"", "");
                     String valor = palabras[1].trim().replace("\"", "").replace(",","");
@@ -85,5 +85,15 @@ public class LectorPersonajes {
             e.printStackTrace();
         }
         return personajes;
+    }
+
+    public static void main(String[] args) {
+        String ruta = "Mazmorras/src/main/resources/com/achos/data/personajes.json";
+
+        TreeSet<Personaje> personajes = LectorPersonajes.leerPersonajes(ruta);
+        
+        for (Personaje p : personajes) {
+            System.out.println(p.toString());
+        }
     }
 }
