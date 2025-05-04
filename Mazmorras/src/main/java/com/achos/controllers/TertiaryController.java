@@ -1,8 +1,10 @@
 package com.achos.controllers;
 
 import java.io.IOException;
-import javafx.fxml.FXML;
+
 import com.achos.App;
+
+import javafx.fxml.FXML;
 
 public class TertiaryController {
 
@@ -11,14 +13,12 @@ public class TertiaryController {
         App.setRoot("primaryview");
     }
 
-    // Aquí puedes añadir lógica de juego si hay enemigos o condiciones para ganar o perder
-
-    // Ejemplo de navegación cuando se gane:
+    @FXML
     private void mostrarVictoria() throws IOException {
         App.setRoot("victoria");
     }
 
-    // Ejemplo de navegación cuando se pierda:
+    @FXML
     private void mostrarGameOver() throws IOException {
         App.setRoot("gameover");
     }

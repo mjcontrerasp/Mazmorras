@@ -26,18 +26,18 @@ public class SecondaryController {
     }
 
     @FXML
-private void switchToPrimary() throws IOException {
+    private void switchToPrimary() throws IOException {
 
-    TextField[] textFields = {vida, daño, velocidad, agilidad, percepcion};
-    Label[] labels = {atri1, atri2, atri3, atri4, atri5};
+        TextField[] textFields = { vida, daño, velocidad, agilidad, percepcion };
+        Label[] labels = { atri1, atri2, atri3, atri4, atri5 };
 
-    for (int i = 0; i < textFields.length; i++) {
-        String text = textFields[i].getText();
-        labels[i].setText(validar(text) ? text : "5");
+        for (int i = 0; i < textFields.length; i++) {
+            String text = textFields[i].getText();
+            labels[i].setText(validar(text) ? text : "5");
+        }
+
+        App.setRoot("tertiaryview");
     }
-
-    App.setRoot("tertiaryview");
-}
 
     private boolean validar(String texto) {
         try {
