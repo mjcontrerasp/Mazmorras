@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 public class SecondaryController {
 
     @FXML
-    private TextField vida, daño, velocidad, agilidad, percepcion;
+    private TextField vida, fuerza, velocidad;
 
     @FXML
     private Label atri1, atri2, atri3, atri4, atri5;
@@ -28,8 +28,8 @@ public class SecondaryController {
     @FXML
     private void switchToPrimary() throws IOException {
 
-        TextField[] textFields = { vida, daño, velocidad, agilidad, percepcion };
-        Label[] labels = { atri1, atri2, atri3, atri4, atri5 };
+        TextField[] textFields = { vida, fuerza, velocidad };
+        Label[] labels = { atri1, atri2, atri3 };
 
         for (int i = 0; i < textFields.length; i++) {
             String text = textFields[i].getText();
