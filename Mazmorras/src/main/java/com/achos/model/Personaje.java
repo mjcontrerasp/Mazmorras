@@ -86,7 +86,7 @@ public class Personaje implements Comparable<Personaje> {
         }
     }
 
-    public int[] getPosicicion() {
+    public int[] getPosicion() {
         return this.posicion;
     }
 
@@ -126,6 +126,18 @@ public class Personaje implements Comparable<Personaje> {
             ataqueMin = 0;
         }
         return random.nextInt(ataqueMin, fuerza);
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " nombre='" + getNombre() + "'" +
+                ", vida='" + getVida() + "'" +
+                ", velocidad='" + getVelocidad() + "'" +
+                ", fuerza='" + getFuerza() + "'" +
+                ", posicion='" + getPosicion() + "'" +
+                ", tipoPersonaje='" + getTipoPersonaje() + "'" +
+                "}";
     }
 
     public static void main(String[] args) {

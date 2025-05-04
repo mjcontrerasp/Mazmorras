@@ -88,7 +88,7 @@ public class Partida {
 
     /* Mover heroe almacenado en partida */
     public void moverHeroe(int[] movimiento) {
-        int[] nuevaPosicion = Posicion.mover(heroe.getPosicicion(), movimiento);
+        int[] nuevaPosicion = Posicion.mover(heroe.getPosicion(), movimiento);
         if (Posicion.dentroLimites(nuevaPosicion, mapa) && Posicion.noPared(nuevaPosicion, mapa)) {
             if (buscarCelda(nuevaPosicion).getOcupadoPor() instanceof Enemigo) {
                 buscarCelda(nuevaPosicion).getOcupadoPor().perderVida(heroe.atacar());
@@ -101,12 +101,12 @@ public class Partida {
     /* Mover cualquier enemigo */
     public void moverEnemigo(Enemigo enemigo) {
         if (enemigo.getVida() > 0
-                && Posicion.distancia(heroe.getPosicicion(), enemigo.getPosicicion()) <= enemigo.getPercepcion()) {
-            ArrayList<int[]> cruceta = Posicion.crearCruceta(enemigo.getPosicicion());
+                && Posicion.distancia(heroe.getPosicion(), enemigo.getPosicion()) <= enemigo.getPercepcion()) {
+            ArrayList<int[]> cruceta = Posicion.crearCruceta(enemigo.getPosicion());
             Posicion.limpiarFueraLimites(cruceta, mapa);
             Posicion.limpiarMuro(cruceta, mapa);
-            int[] posicionMasCerca = Posicion.posicionMasCerca(heroe.getPosicicion(), cruceta);
-            if (posicionMasCerca == heroe.getPosicicion()) {
+            int[] posicionMasCerca = Posicion.posicionMasCerca(heroe.getPosicion(), cruceta);
+            if (posicionMasCerca == heroe.getPosicion()) {
                 heroe.perderVida(enemigo.atacar());
             } else {
                 enemigo.setPosicion(posicionMasCerca);
