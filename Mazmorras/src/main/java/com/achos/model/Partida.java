@@ -4,24 +4,25 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 import com.achos.enums.TipoPersonaje;
-import com.achos.utilities.LectorPersonaje;
+import com.achos.utilities.LectorPersonajes;
 import com.achos.utilities.Posicion;
 
 public class Partida {
     private static Partida instance;
     private TreeSet<Personaje> personajes;
-    private String pathPersonajes = "/data/personajes.csv";
+    private String pathPersonajes = "Mazmorras/src/main/resources/com/achos/data/personajes.json";
     private Heroe heroe;
     private int[][] spawn = new int[][] { { 1, 13 }, { 13, 5 }, { 1, 8 }, { 13, 1 } };
     private String nombreMapa;
     private Mapa mapa;
 
     private Partida() {
-        personajes = LectorPersonaje.leerPersonajes(pathPersonajes);
+        personajes = LectorPersonajes.leerPersonajes(pathPersonajes);
         buscarHeroe();
-        personajesToSpawn();
         nombreMapa = "mapa1";
         mapa = new Mapa(nombreMapa);
+        personajesToSpawn();
+        nombreMapa = "mapa1";
     }
 
     public Partida getInstance() {
@@ -134,5 +135,10 @@ public class Partida {
             }
         }
         return true;
+    }
+
+    /* Testear */
+    public static void main(String[] args) {
+        Partida partida = new Partida();
     }
 }

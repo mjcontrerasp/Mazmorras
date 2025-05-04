@@ -16,8 +16,8 @@ public class Mapa {
 
     public Mapa(String nombre) {
         this.nombre = nombre;
-        this.celdas = LectorMapa.leerMapa(path);
         this.path = createPath(nombre);
+        this.celdas = LectorMapa.leerMapa(path);
     }
 
     public ArrayList<ArrayList<Celda>> getCeldas() {
@@ -45,7 +45,8 @@ public class Mapa {
     }
 
     private String createPath(String nombre) {
-        return "/data/" + nombre + ".txt";
+        return "Mazmorras/src/main/resources/com/achos/data/" + nombre + ".csv";
+
     }
 
     @Override
