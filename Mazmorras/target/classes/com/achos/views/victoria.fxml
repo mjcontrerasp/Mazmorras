@@ -2,8 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -11,18 +9,8 @@
    <children>
       <AnchorPane prefHeight="520.0" prefWidth="877.0">
          <children>
-            <ImageView fitHeight="466.0" fitWidth="902.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/logoJuego.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="img_inicio" fitHeight="169.0" fitWidth="332.0" layoutX="244.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/imgInicio.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="primaryButton" layoutX="151.0" layoutY="382.0" onAction="#switchToSecondary" prefHeight="63.0" prefWidth="186.0" text="Jugar" />
-            <Button fx:id="secondaryButton1" layoutX="483.0" layoutY="382.0" onAction="#switchToSecondary" prefHeight="63.0" prefWidth="186.0" text="Crear Personaje" />
+            <Button fx:id="terminar" layoutX="76.0" layoutY="382.0" onAction="#switchToSecondary" prefHeight="63.0" prefWidth="186.0" text="Terminar" />
+            <Button fx:id="continuar" layoutX="483.0" layoutY="382.0" onAction="#switchToSecondary" prefHeight="63.0" prefWidth="186.0" text="Continuar" />
          </children>
       </AnchorPane>
    </children>
