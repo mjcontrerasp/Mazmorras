@@ -9,15 +9,19 @@ import com.achos.utilities.Posicion;
 
 public class Partida {
     private static Partida instance;
-    private Mapa mapa;
     private TreeSet<Personaje> personajes;
-    private String pathPersonajes;
-    private String pathMapa;
+    private String pathPersonajes = "/data/personajes.csv";
     private Heroe heroe;
     private int[][] spawn = new int[][] { { 1, 13 }, { 13, 5 }, { 1, 8 }, { 13, 1 } };
+    private String nombreMapa;
+    private Mapa mapa;
 
     private Partida() {
         personajes = LectorPersonaje.leerPersonajes(pathPersonajes);
+        buscarHeroe();
+        personajesToSpawn();
+        nombreMapa = "mapa1";
+        mapa = new Mapa(nombreMapa);
     }
 
     public Partida getInstance() {
@@ -28,7 +32,7 @@ public class Partida {
     }
 
     /* Encuentra y guarda el Heroe de la lista de personajes */
-    private void buscarPersonaje() {
+    private void buscarHeroe() {
         for (Personaje personaje : personajes) {
             if (personaje instanceof Heroe) {
                 this.heroe = (Heroe) personaje;
@@ -64,8 +68,9 @@ public class Partida {
         return celdaEncontrada;
     }
 
+    /* Aplica movimiento por orden de velocidad a todos los personajes */
     public void moverPersonajes(int[] posicion) {
-        buscarPersonaje();
+        buscarHeroe();
         ArrayList<Personaje> personajesCopia = new ArrayList<>(personajes);
         for (int i = 0; i < personajesCopia.size(); i++) {
             if (personajesCopia.get(i) instanceof Heroe) {
@@ -73,6 +78,9 @@ public class Partida {
             } else {
                 Enemigo enemigo = (Enemigo) personajesCopia.get(i);
                 moverEnemigo(enemigo);
+            }
+            if (gameOver() || victoria()) {
+                break;
             }
         }
         personajes = new TreeSet<>(personajesCopia);
@@ -90,6 +98,7 @@ public class Partida {
         }
     }
 
+    /* Mover cualquier enemigo */
     public void moverEnemigo(Enemigo enemigo) {
         if (enemigo.getVida() > 0
                 && Posicion.distancia(heroe.getPosicicion(), enemigo.getPosicicion()) <= enemigo.getPercepcion()) {
@@ -103,6 +112,27 @@ public class Partida {
                 enemigo.setPosicion(posicionMasCerca);
             }
         }
+    }
 
+    /* Game Over si el heroe tiene vida menor o igual a cero */
+    public boolean gameOver() {
+        if (heroe.getVida() <= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+     * Victoria es true por defecto a menos que algun personaje enemigo tenga vida
+     * mayor de 0
+     */
+    public boolean victoria() {
+        for (Personaje personaje : personajes) {
+            if (personaje instanceof Enemigo && personaje.getVida() >= 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }

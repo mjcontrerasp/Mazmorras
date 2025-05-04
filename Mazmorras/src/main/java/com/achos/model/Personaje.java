@@ -17,7 +17,7 @@ public class Personaje implements Comparable<Personaje> {
     protected Personaje() {
     }
 
-    protected Personaje(String nombre, int velocidad, int fuerza, TipoPersonaje tipoPersonaje){
+    protected Personaje(String nombre, int velocidad, int fuerza, TipoPersonaje tipoPersonaje) {
         this.nombre = nombre;
         this.vida = 10;
         this.velocidad = velocidad;
@@ -94,7 +94,6 @@ public class Personaje implements Comparable<Personaje> {
         this.posicion = posicion;
     }
 
-
     public TipoPersonaje getTipoPersonaje() {
         return this.tipoPersonaje;
     }
@@ -102,7 +101,6 @@ public class Personaje implements Comparable<Personaje> {
     public void setTipoPersonaje(TipoPersonaje tipoPersonaje) {
         this.tipoPersonaje = tipoPersonaje;
     }
-
 
     @Override
     public int hashCode() {

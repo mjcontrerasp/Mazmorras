@@ -1,7 +1,6 @@
 package com.achos.model;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import com.achos.utilities.LectorMapa;
 
@@ -13,15 +12,10 @@ public class Mapa {
     public Mapa() {
     }
 
-    public Mapa(String nombre, String path){
+    public Mapa(String nombre) {
+        this.nombre = nombre;
         this.celdas = LectorMapa.leerMapa(path);
-        this.nombre = nombre;
-        this.path = path;
-    }
-    public Mapa(ArrayList<ArrayList<Celda>> celdas, String nombre, String path) {
-        this.celdas = celdas;
-        this.nombre = nombre;
-        this.path = path;
+        this.path = createPath(nombre);
     }
 
     public ArrayList<ArrayList<Celda>> getCeldas() {
@@ -47,6 +41,9 @@ public class Mapa {
     public void setPath(String path) {
         this.path = path;
     }
-    
-    
+
+    private String createPath(String nombre) {
+        return "/data/" + nombre + ".txt";
+    }
+
 }
