@@ -16,19 +16,24 @@ public class LectorMapa {
         try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
             String linea;
             TipoCelda tipoCelda;
+            int fila = 0;
             while ((linea = br.readLine()) != null) {
-                String[] lineadeCeldas = linea.split(",");
-                ArrayList<Celda> nuevaLineaCeldas = new ArrayList<>();
+                String[] stringCeldas = linea.split(",");
+                ArrayList<Celda> nuevaFilaCeldas = new ArrayList<>();
 
-                for (int i = 0; i < lineadeCeldas.length; i++) {
-                    if (lineadeCeldas[i].equals("l")) {
+                for (int columna = 0; columna < stringCeldas.length; columna++) {
+                    String celda = stringCeldas[columna].trim().toLowerCase();
+                    if (celda.equals("l")) {
                         tipoCelda = TipoCelda.SUELO;
-                    } else {
+                    } else if (celda.equals("o")) {
                         tipoCelda = TipoCelda.PARED;
+                    } else {
+                        throw new IllegalArgumentException("Carácter inválido en el mapa: " + celda);
                     }
-                    nuevaLineaCeldas.add(new Celda(tipoCelda, i, i));
+                    nuevaFilaCeldas.add(new Celda(tipoCelda, columna, fila));
                 }
-                celdas.add(nuevaLineaCeldas);
+                celdas.add(nuevaFilaCeldas);
+                fila++;
             }
 
         } catch (IOException e) {
