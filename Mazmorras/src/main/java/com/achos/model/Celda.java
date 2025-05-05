@@ -9,7 +9,7 @@ public class Celda {
 
     public Celda() {
     }
-
+    //revisar orden de fila y columna !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public Celda(TipoCelda tipoCelda, int x, int y) {
         this.tipoCelda = tipoCelda;
         this.posicion = new int[] { y, x };
@@ -28,10 +28,13 @@ public class Celda {
     public void setOcupadoPor(Personaje personaje) {
         if (ocupadaPor == null) {
             ocupadaPor = personaje;
+        } else {
+            ocupadaPor = null;
         }
     }
 
     public Personaje getOcupadoPor() {
         return ocupadaPor;
     }
+
 }

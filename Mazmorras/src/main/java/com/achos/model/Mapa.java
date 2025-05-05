@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.achos.enums.TipoCelda;
 import com.achos.utilities.LectorMapa;
-import com.achos.enums.TipoPersonaje;
 
 public class Mapa {
     private ArrayList<ArrayList<Celda>> celdas;
@@ -70,9 +69,9 @@ public class Mapa {
     public String tipoToString(Celda celda) {
         String tipoToString = "";
         if (celda.getTipoCelda() == TipoCelda.PARED) {
-            tipoToString = "\tPared";
+            tipoToString = "\tx";
         } else if (celda.getOcupadoPor() == null) {
-            tipoToString = "\tSuelo";
+            tipoToString = "\t-";
         } else {
             switch (celda.getOcupadoPor().getTipoPersonaje()) {
                 case PABLO:
