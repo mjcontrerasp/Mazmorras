@@ -1,112 +1,111 @@
 package com.achos.controllers;
 
-import com.achos.model.Mapa;
-import com.achos.model.Celda;
 import com.achos.enums.TipoCelda;
-import javafx.event.ActionEvent;
+import com.achos.model.Celda;
+import com.achos.model.Enemigo;
+import com.achos.model.Heroe;
+import com.achos.model.Mapa;
+import com.achos.model.Partida;
+import com.achos.model.Personaje;
+
 import javafx.fxml.FXML;
-import javafx.scene.input.KeyEvent;
+import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
 
 public class TertiaryController {
 
     @FXML
-    private GridPane mapa;
-    private Mapa mapaModelo;
-    private Celda personajeActual;
+    private AnchorPane juego;
 
-    @FXML
-    private Label manu;
+    private final int tileSize = 32;
 
-    @FXML
-    private Label gloria;
+    private final String URL_SUELO = "/com/achos/images/suelo.png";
+    private final String URL_PARED = "/com/achos/images/paredes.png";
 
-    @FXML
-    private Label gabino;
-
-    @FXML
-    private void switchToPrimary(ActionEvent event) {
-        System.out.println("Cambiando a la escena primaria...");
-    }
-
-    @FXML
-    private void moverPersonaje(KeyEvent event) {
-        if (personajeActual == null) return;
-
-        int[] posicionActual = personajeActual.getPosicicion();
-        int nuevaX = posicionActual[0];
-        int nuevaY = posicionActual[1];
-
-        switch (event.getCode()) {
-            case W:
-            case UP:
-                nuevaX--;
-                break;
-            case S:
-            case DOWN:
-                nuevaX++;
-                break;
-            case A:
-            case LEFT:
-                nuevaY--;
-                break;
-            case D:
-            case RIGHT:
-                nuevaY++;
-                break;
-            default:
-                return;
-        }
-        if (nuevaX >= 0 && nuevaX < mapaModelo.getCeldas().size() &&
-            nuevaY >= 0 && nuevaY < mapaModelo.getCeldas().get(0).size()) {
-
-            Celda nuevaCelda = mapaModelo.getCeldas().get(nuevaX).get(nuevaY);
-
-            if (nuevaCelda.getTipoCelda() != TipoCelda.PARED && nuevaCelda.getOcupadoPor() == null) {
-                nuevaCelda.setOcupadoPor(personajeActual.getOcupadoPor());
-                personajeActual.setOcupadoPor(null);
-                personajeActual = nuevaCelda;
-
-                inicializarMapa(mapaModelo);
-            }
-        }
-    }
-
-    public void inicializarMapa(Mapa mapaModelo) {
-        this.mapaModelo = mapaModelo;
-        ArrayList<ArrayList<Celda>> celdas = mapaModelo.getCeldas();
-
-        mapa.getChildren().clear();
-
-        for (int i = 0; i < celdas.size(); i++) {
-            for (int j = 0; j < celdas.get(i).size(); j++) {
-                Celda celda = celdas.get(i).get(j);
-                Rectangle rect = new Rectangle(30, 30);
-                if (celda.getTipoCelda() == TipoCelda.PARED) {
-                    rect.setFill(Color.GRAY);
-                } else if (celda.getOcupadoPor() != null) {
-                    rect.setFill(Color.BLUE);
-                    personajeActual = celda;
-                } else {
-                    rect.setFill(Color.WHITE);
-                }
-                rect.setStroke(Color.BLACK);
-                mapa.add(rect, celda.getPosicicion()[1], celda.getPosicicion()[0]);
-            }
-        }
-    }
+    private final String URL_PABLO = "/com/achos/images/pablo-cenital.png";
+    private final String URL_GABINO = "/com/achos/images/gabino-cenital.png";
+    private final String URL_MANU = "/com/achos/images/manu-cenital.png";
+    private final String URL_GLORIA = "/com/achos/images/gloria-cenital.png";
 
     @FXML
     public void initialize() {
-        System.out.println("Controlador de Tertiary inicializado.");
+        generarMapa();
+    }
 
-        manu.setText("Manu");
-        gloria.setText("Gloria");
-        gabino.setText("Gabino");
+    private void generarMapa() {
+        Partida partida = Partida.getInstance();
+        Mapa mapa = partida.getMapa();
+        ArrayList<ArrayList<Celda>> celdas = mapa.getCeldas();
+
+        
+        juego.getChildren().clear();
+
+        
+        GridPane gridPane = new GridPane();
+        gridPane.setHgap(0);
+        gridPane.setVgap(0);
+
+        for (int y = 0; y < celdas.size(); y++) {
+            for (int x = 0; x < celdas.get(y).size(); x++) {
+                Celda celda = celdas.get(y).get(x);
+                StackPane stackPane = crearCeldaVisual(celda);
+                gridPane.add(stackPane, x, y);
+            }
+        }
+
+        
+        juego.getChildren().add(gridPane);
+    }
+
+    private StackPane crearCeldaVisual(Celda celda) {
+        StackPane stackPane = new StackPane();
+        stackPane.setPrefSize(tileSize, tileSize);
+        stackPane.setAlignment(Pos.CENTER);
+
+        ImageView fondo = new ImageView();
+        fondo.setFitWidth(tileSize);
+        fondo.setFitHeight(tileSize);
+
+        if (celda.getTipoCelda() == TipoCelda.PARED) {
+            fondo.setImage(new Image(getClass().getResourceAsStream(URL_PARED)));
+        } else if (celda.getTipoCelda() == TipoCelda.SUELO) {
+            fondo.setImage(new Image(getClass().getResourceAsStream(URL_SUELO)));
+        }
+        stackPane.getChildren().add(fondo);
+
+        Personaje p = celda.getOcupadoPor();
+        if (p != null) {
+            ImageView personajeView = new ImageView();
+            personajeView.setFitWidth(tileSize);
+            personajeView.setFitHeight(tileSize);
+            personajeView.setImage(new Image(getClass().getResourceAsStream(obtenerImagenPersonaje(p))));
+            stackPane.getChildren().add(personajeView);
+        }
+
+        return stackPane;
+    }
+
+    private String obtenerImagenPersonaje(Personaje p) {
+        if (p instanceof Heroe) {
+            return URL_PABLO;
+        } else if (p instanceof Enemigo) {
+            switch (p.getTipoPersonaje()) {
+                case GABINO:
+                    return URL_GABINO;
+                case MANU:
+                    return URL_MANU;
+                case GLORIA:
+                    return URL_GLORIA;
+                default:
+                    return null;
+            }
+        }
+        return null;
     }
 }

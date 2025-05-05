@@ -21,11 +21,18 @@ public class Partida {
         buscarHeroe();
         nombreMapa = "mapa1";
         mapa = new Mapa(nombreMapa);
+        if (mapa.getCeldas() == null || mapa.getCeldas().isEmpty()) {
+            throw new IllegalStateException("El mapa no se cargó correctamente.");
+        }
         personajesToSpawn();
         nombreMapa = "mapa1";
     }
+    public Mapa getMapa() {
+        return this.mapa;
+    }
+    
 
-    public Partida getInstance() {
+    public static Partida getInstance() {
         if (instance == null) {
             instance = new Partida();
         }
