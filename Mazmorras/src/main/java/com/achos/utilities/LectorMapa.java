@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import com.achos.enums.TipoCelda;
 import com.achos.model.Celda;
 
-public class cabron {
+public class LectorMapa {
     public static ArrayList<ArrayList<Celda>> leerMapa(String path) {
         File fichero = new File(path);
         ArrayList<ArrayList<Celda>> celdas = new ArrayList<>();
@@ -45,7 +45,7 @@ public class cabron {
     public static void main(String[] args) {
         String path = "Mazmorras/src/main/resources/com/achos/data/mapa3.csv";
 
-        ArrayList<ArrayList<Celda>> mapa = cabron.leerMapa(path);
+        ArrayList<ArrayList<Celda>> mapa = LectorMapa.leerMapa(path);
 
         for (int i = 0; i < mapa.size(); i++) {
             for (int j = 0; j < mapa.get(i).size(); j++) {
