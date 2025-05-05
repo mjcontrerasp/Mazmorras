@@ -6,7 +6,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -16,10 +17,15 @@ public class App extends Application {
     @SuppressWarnings("exports")
     @Override
     public void start(Stage stage) throws Exception {
-        StackPane root = FXMLLoader.load(getClass().getResource("/com/achos/views/tertiary.fxml"));
+        SplitPane root = FXMLLoader.load(getClass().getResource("/com/achos/views/tertiary.fxml"));
         Scene scene = new Scene(root, 800, 600);
-        stage.setTitle("Juego de Aventura");
+        stage.setTitle("PATATAZOS");
+        stage.getIcons().add(new Image(App.class.getResource("/com/achos/images/logo.png").toExternalForm()));
         stage.setScene(scene);
+        SceneManager sm = SceneManager.getInstance();
+        sm.setStage(stage);  
+        sm.loadScene(SceneID.PRIMARY); 
+    
         stage.show();
     }
 

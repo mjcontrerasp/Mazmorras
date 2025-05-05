@@ -15,8 +15,10 @@ public class Celda {
         this.posicion = new int[] { y, x };
     }
 
+
     public TipoCelda getTipoCelda() {
         return this.tipoCelda;
+        
     }
 
     public int[] getPosicicion() {
