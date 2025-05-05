@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.achos.enums.TipoCelda;
 import com.achos.utilities.LectorMapa;
-import com.achos.enums.TipoPersonaje;
 
 public class Mapa {
     private ArrayList<ArrayList<Celda>> celdas;

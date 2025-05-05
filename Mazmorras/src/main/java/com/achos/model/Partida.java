@@ -63,7 +63,10 @@ public class Partida {
         buscarPersonaje(TipoPersonaje.GABINO).setPosicion(spawn[3]);
     }
 
-    /* Buscar personaje por tipo */
+    /*
+     * Buscar personaje por tipo. Sirve solo para buscar a un unico Heroe. Si buscas
+     * a un Enemigo, te devolverá el primer Enemigo encontrado.
+     */
     public Personaje buscarPersonaje(TipoPersonaje tipoPersonaje) {
         Personaje personajeEncontrado = null;
         for (Personaje personaje : personajes) {
@@ -85,7 +88,7 @@ public class Partida {
 
     /* Aplica movimiento por orden de velocidad a todos los personajes */
     public void moverPersonajes(int[] posicion) {
-        buscarHeroe();
+        buscarHeroe(); //quizas no es necesario !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         ArrayList<Personaje> personajesCopia = new ArrayList<>(personajes);
         for (int i = 0; i < personajesCopia.size(); i++) {
             if (personajesCopia.get(i) instanceof Heroe) {

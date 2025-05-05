@@ -102,6 +102,7 @@ public class Personaje implements Comparable<Personaje> {
         this.tipoPersonaje = tipoPersonaje;
     }
 
+    //quizas no es necesario. REVISAR
     @Override
     public int hashCode() {
         return Objects.hash(nombre, vida, velocidad, fuerza, posicion);

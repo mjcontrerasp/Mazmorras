@@ -1,7 +1,5 @@
 package com.achos.model;
 
-import java.util.Scanner;
-
 import com.achos.enums.TipoCelda;
 
 public class Celda {
@@ -11,7 +9,7 @@ public class Celda {
 
     public Celda() {
     }
-
+    //revisar orden de fila y columna !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public Celda(TipoCelda tipoCelda, int x, int y) {
         this.tipoCelda = tipoCelda;
         this.posicion = new int[] { y, x };
