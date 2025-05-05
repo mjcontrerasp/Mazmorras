@@ -21,17 +21,13 @@ public class Partida {
     private Partida() {
         personajes = LectorPersonajes.leerPersonajes(pathPersonajes);
         buscarHeroe();
-        nombreMapa = "mapa3";
+        nombreMapa = "mapa1";
         mapa = new Mapa(nombreMapa);
         if (mapa.getCeldas() == null || mapa.getCeldas().isEmpty()) {
             throw new IllegalStateException("El mapa no se cargó correctamente.");
         }
         personajesToSpawn();
     }
-    public Mapa getMapa() {
-        return this.mapa;
-    }
-    
 
     public static Partida getInstance() {
         if (instance == null) {
@@ -95,7 +91,7 @@ public class Partida {
 
     /* Aplica movimiento por orden de velocidad a todos los personajes */
     public void moverPersonajes(int[] posicion) {
-        buscarHeroe(); //quizas no es necesario !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        buscarHeroe(); // quizas no es necesario !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         ArrayList<Personaje> personajesCopia = new ArrayList<>(personajes);
         for (int i = 0; i < personajesCopia.size(); i++) {
             if (personajesCopia.get(i) instanceof Heroe) {

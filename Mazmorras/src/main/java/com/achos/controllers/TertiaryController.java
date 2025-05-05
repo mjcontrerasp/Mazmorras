@@ -23,7 +23,7 @@ public class TertiaryController {
     @FXML
     private AnchorPane juego;
 
-    private final int tileSize = 32;
+    private final int tileSize = 50;
 
     private final String URL_SUELO = "/com/achos/images/suelo.png";
     private final String URL_PARED = "/com/achos/images/paredes.png";
