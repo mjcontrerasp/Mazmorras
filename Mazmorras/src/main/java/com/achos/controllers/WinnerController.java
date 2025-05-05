@@ -1,8 +1,10 @@
 package com.achos.controllers;
 
 import java.io.IOException;
-import javafx.fxml.FXML;
+
 import com.achos.App;
+
+import javafx.fxml.FXML;
 
 public class WinnerController {
 

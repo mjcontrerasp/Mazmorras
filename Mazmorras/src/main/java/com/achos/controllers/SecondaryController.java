@@ -1,9 +1,5 @@
 package com.achos.controllers;
 
-import java.io.IOException;
-
-import com.achos.App;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -11,40 +7,62 @@ import javafx.scene.control.TextField;
 public class SecondaryController {
 
     @FXML
-    private TextField vida, fuerza, velocidad;
+    private Label atri1;
+    @FXML
+    private Label atri2;
+    @FXML
+    private Label atri3;
 
     @FXML
-    private Label atri1, atri2, atri3, atri4, atri5;
+    private TextField vida;
+    @FXML
+    private TextField daño;
+    @FXML
+    private TextField velocidad;
 
     @FXML
     public void initialize() {
+        vida.setText("5");
+        daño.setText("5");
+        velocidad.setText("5");
+
         atri1.setText("5");
         atri2.setText("5");
         atri3.setText("5");
-        atri4.setText("5");
-        atri5.setText("5");
     }
 
     @FXML
-    private void switchToPrimary() throws IOException {
+    public void actualizarAtributos() {
+        try {
+            int valorVida = Integer.parseInt(vida.getText());
+            int valorDaño = Integer.parseInt(daño.getText());
+            int valorVelocidad = Integer.parseInt(velocidad.getText());
 
-        TextField[] textFields = { vida, fuerza, velocidad };
-        Label[] labels = { atri1, atri2, atri3 };
+            if (valorVida >= 1 && valorVida <= 10) {
+                atri1.setText(String.valueOf(valorVida));
+            } else {
+                atri1.setText("Valor fuera de rango");
+            }
 
-        for (int i = 0; i < textFields.length; i++) {
-            String text = textFields[i].getText();
-            labels[i].setText(validar(text) ? text : "5");
+            if (valorDaño >= 1 && valorDaño <= 10) {
+                atri2.setText(String.valueOf(valorDaño));
+            } else {
+                atri2.setText("Valor fuera de rango");
+            }
+
+            if (valorVelocidad >= 1 && valorVelocidad <= 10) {
+                atri3.setText(String.valueOf(valorVelocidad));
+            } else {
+                atri3.setText("Valor fuera de rango");
+            }
+        } catch (NumberFormatException e) {
+            atri1.setText("Valor inválido");
+            atri2.setText("Valor inválido");
+            atri3.setText("Valor inválido");
         }
-
-        App.setRoot("tertiaryview");
     }
 
-    private boolean validar(String texto) {
-        try {
-            int n = Integer.parseInt(texto);
-            return n >= 1 && n <= 10;
-        } catch (NumberFormatException e) {
-            return false;
-        }
+    @FXML
+    public void switchToPrimary() {
     }
 }
