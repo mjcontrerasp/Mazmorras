@@ -3,7 +3,7 @@ package com.achos.model;
 import java.util.ArrayList;
 
 import com.achos.enums.TipoCelda;
-import com.achos.utilities.LectorMapa;
+import com.achos.utilities.cabron;
 
 public class Mapa {
     private ArrayList<ArrayList<Celda>> celdas;
@@ -16,7 +16,7 @@ public class Mapa {
     public Mapa(String nombre) {
         this.nombre = nombre;
         this.path = createPath(nombre);
-        this.celdas = LectorMapa.leerMapa(path);
+        this.celdas = cabron.leerMapa(path);
     }
 
     public ArrayList<ArrayList<Celda>> getCeldas() {
