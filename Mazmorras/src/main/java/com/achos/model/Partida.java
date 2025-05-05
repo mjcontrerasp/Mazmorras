@@ -1,6 +1,7 @@
 package com.achos.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -13,14 +14,14 @@ public class Partida {
     private TreeSet<Personaje> personajes;
     private String pathPersonajes = "Mazmorras/src/main/resources/com/achos/data/personajes.json";
     private Heroe heroe;
-    private int[][] spawn = new int[][] { { 1, 13 }, { 13, 5 }, { 1, 8 }, { 13, 1 } };
+    private int[][] spawn = new int[][] { { 13, 1 }, { 5, 13 }, { 8, 1 }, { 1, 13 } };
     private String nombreMapa;
     private Mapa mapa;
 
     private Partida() {
         personajes = LectorPersonajes.leerPersonajes(pathPersonajes);
         buscarHeroe();
-        nombreMapa = "mapa1";
+        nombreMapa = "mapa3";
         mapa = new Mapa(nombreMapa);
         personajesToSpawn();
     }
@@ -77,7 +78,7 @@ public class Partida {
     public Celda buscarCelda(int[] posicion) {
         Celda celdaEncontrada = null;
         if (Posicion.dentroLimites(posicion, mapa)) {
-            celdaEncontrada = mapa.getCeldas().get(posicion[1]).get(posicion[0]);
+            celdaEncontrada = mapa.getCeldas().get(posicion[0]).get(posicion[1]);
         }
         return celdaEncontrada;
     }
@@ -103,14 +104,17 @@ public class Partida {
     /* Mover heroe almacenado en partida */
     public void moverHeroe(int[] movimiento) {
         int[] nuevaPosicion = Posicion.mover(heroe.getPosicion(), movimiento);
-        if (Posicion.dentroLimites(nuevaPosicion, mapa) && Posicion.noPared(nuevaPosicion, mapa)) {
-            if (buscarCelda(nuevaPosicion).getOcupadoPor() instanceof Enemigo) {
-                buscarCelda(nuevaPosicion).getOcupadoPor().perderVida(heroe.atacar());
-            } else {
-                buscarCelda(heroe.getPosicion()).setOcupadoPor(null);
-                heroe.setPosicion(nuevaPosicion);
-                buscarCelda(heroe.getPosicion()).setOcupadoPor(heroe);
+        if (Posicion.dentroLimites(nuevaPosicion, mapa)) {
+            if (Posicion.noPared(nuevaPosicion, mapa)) {
+                if (buscarCelda(nuevaPosicion).getOcupadoPor() instanceof Enemigo) {
+                    buscarCelda(nuevaPosicion).getOcupadoPor().perderVida(heroe.atacar());
+                } else {
+                    buscarCelda(heroe.getPosicion()).setOcupadoPor(null);
+                    heroe.setPosicion(nuevaPosicion);
+                    buscarCelda(heroe.getPosicion()).setOcupadoPor(heroe);
+                }
             }
+
         }
     }
 
@@ -122,14 +126,17 @@ public class Partida {
             Posicion.limpiarFueraLimites(cruceta, mapa);
             Posicion.limpiarMuro(cruceta, mapa);
             int[] posicionMasCerca = Posicion.posicionMasCerca(heroe.getPosicion(), cruceta);
-            if (posicionMasCerca == heroe.getPosicion()) {
-                heroe.perderVida(enemigo.atacar());
+            if (buscarCelda(posicionMasCerca).getOcupadoPor() != null) {
+                if (Arrays.equals(posicionMasCerca, heroe.getPosicion())) {
+                    heroe.perderVida(enemigo.atacar());
+                }
             } else {
                 buscarCelda(enemigo.getPosicion()).setOcupadoPor(null);
                 enemigo.setPosicion(posicionMasCerca);
                 buscarCelda(enemigo.getPosicion()).setOcupadoPor(enemigo);
             }
         }
+
     }
 
     /* Game Over si el heroe tiene vida menor o igual a cero */
@@ -166,16 +173,16 @@ public class Partida {
             mov = sc.nextLine();
             switch (mov) {
                 case "a":
-                    posicion = new int[] { -1, 0 };
-                    break;
-                case "w":
                     posicion = new int[] { 0, -1 };
                     break;
+                case "w":
+                    posicion = new int[] { -1, 0 };
+                    break;
                 case "s":
-                    posicion = new int[] { 0, 1 };
+                    posicion = new int[] { 1, 0 };
                     break;
                 case "d":
-                    posicion = new int[] { 1, 0 };
+                    posicion = new int[] { 0, 1 };
                     break;
 
                 default:
@@ -186,6 +193,7 @@ public class Partida {
             System.out.println(getMapa().toString());
             System.out.println(this.getPersonajes().toString());
         }
+        sc.close();
     }
 
     /* Testear */

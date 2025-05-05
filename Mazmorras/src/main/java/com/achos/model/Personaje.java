@@ -125,7 +125,7 @@ public class Personaje implements Comparable<Personaje> {
         if (ataqueMin < 0) {
             ataqueMin = 0;
         }
-        return random.nextInt(ataqueMin, fuerza);
+        return random.nextInt(fuerza-ataqueMin)+ataqueMin;
     }
 
     @Override

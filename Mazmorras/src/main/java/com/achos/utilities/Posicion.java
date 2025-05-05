@@ -11,14 +11,14 @@ public class Posicion {
      * derecha, arriba y abajo)
      */
     public static ArrayList<int[]> crearCruceta(int[] posicion) {
-        int x = posicion[0];
-        int y = posicion[1];
+        int fila = posicion[0];
+        int columna = posicion[1];
         ArrayList<int[]> cruceta = new ArrayList<>();
-        cruceta.add(new int[] { x, y }); // original
-        cruceta.add(new int[] { x - 1, y }); // izquierda
-        cruceta.add(new int[] { x + 1, y }); // derecha
-        cruceta.add(new int[] { x, y + 1 }); // arriba
-        cruceta.add(new int[] { x, y - 1 }); // abajo
+        cruceta.add(new int[] { fila, columna }); // original
+        cruceta.add(new int[] { fila, columna - 1 }); // izquierda
+        cruceta.add(new int[] { fila, columna + 1 }); // derecha
+        cruceta.add(new int[] { fila - 1, columna }); // arriba
+        cruceta.add(new int[] { fila + 1, columna }); // abajo
         return cruceta;
     }
 
@@ -31,11 +31,11 @@ public class Posicion {
         }
     }
 
-    /* Posicion dentro de los límities */
+    /* Posicion dentro de los límities, SOLO MAPAS CUADRADOS */
     public static boolean dentroLimites(int[] posicion, Mapa mapa) {
-        int xMax = mapa.getCeldas().get(0).size();
-        int yMax = mapa.getCeldas().size();
-        return posicion[0] < xMax || posicion[1] < yMax;
+        int filas = mapa.getCeldas().size();
+        int columnas = mapa.getCeldas().get(0).size();
+        return (posicion[0] < filas && posicion[0] >= 0) && (posicion[1] < columnas && posicion[1] >= 0);
     }
 
     /*
@@ -52,18 +52,18 @@ public class Posicion {
 
     /* Posicion sin colision con pared */
     public static boolean noPared(int[] posicion, Mapa mapa) {
-        return mapa.getCeldas().get(posicion[1]).get(posicion[0]).getTipoCelda() != TipoCelda.PARED;
+        return mapa.getCeldas().get(posicion[0]).get(posicion[1]).getTipoCelda() != TipoCelda.PARED;
     }
 
     /* Devuelve en double la distancia entre dos posiciones */
     public static double distancia(int[] posicion1, int[] posicion2) {
-        int xPosicion1 = posicion1[0];
-        int yPosicion1 = posicion1[1];
-        int xPosicion2 = posicion2[0];
-        int yPosicion2 = posicion2[1];
-        int xAbsoluta = Math.abs(xPosicion1 - xPosicion2);
-        int yAbsoluta = Math.abs(yPosicion1 - yPosicion2);
-        return Math.sqrt(Math.pow(xAbsoluta, 2) + Math.pow(yAbsoluta, 2));
+        int fila1 = posicion1[0];
+        int columna1 = posicion1[1];
+        int fila2 = posicion2[0];
+        int columna2 = posicion2[1];
+        int distanciaFilas = Math.abs(fila1 - fila2);
+        int distanciaColumnas = Math.abs(columna1 - columna2);
+        return Math.sqrt(Math.pow(distanciaFilas, 2) + Math.pow(distanciaColumnas, 2));
     }
 
     /* Devuelve la posicion más cercana de una cruceta a una posicion dada */
