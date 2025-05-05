@@ -43,7 +43,7 @@ public class LectorMapa {
     }
 
     public static void main(String[] args) {
-        String path = "src/main/resources/com/achos/data/mapa3.csv";
+        String path = "/src/main/resources/com/achos/data/mapa3.csv";
 
         ArrayList<ArrayList<Celda>> mapa = LectorMapa.leerMapa(path);
 
