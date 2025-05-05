@@ -1,6 +1,7 @@
 package com.achos.model;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.TreeSet;
 
 import com.achos.enums.TipoPersonaje;
@@ -22,7 +23,6 @@ public class Partida {
         nombreMapa = "mapa1";
         mapa = new Mapa(nombreMapa);
         personajesToSpawn();
-        nombreMapa = "mapa1";
     }
 
     public Partida getInstance() {
@@ -30,6 +30,15 @@ public class Partida {
             instance = new Partida();
         }
         return instance;
+    }
+
+    /* Getters and setters */
+    public TreeSet<Personaje> getPersonajes() {
+        return personajes;
+    }
+
+    public Mapa getMapa() {
+        return mapa;
     }
 
     /* Encuentra y guarda el Heroe de la lista de personajes */
@@ -44,9 +53,13 @@ public class Partida {
     /* Asignar personajes a sus celdas spawn */
     public void personajesToSpawn() {
         buscarCelda(spawn[0]).setOcupadoPor(buscarPersonaje(TipoPersonaje.PABLO));
+        buscarPersonaje(TipoPersonaje.PABLO).setPosicion(spawn[0]);
         buscarCelda(spawn[1]).setOcupadoPor(buscarPersonaje(TipoPersonaje.MANU));
+        buscarPersonaje(TipoPersonaje.MANU).setPosicion(spawn[1]);
         buscarCelda(spawn[2]).setOcupadoPor(buscarPersonaje(TipoPersonaje.GLORIA));
+        buscarPersonaje(TipoPersonaje.GLORIA).setPosicion(spawn[2]);
         buscarCelda(spawn[3]).setOcupadoPor(buscarPersonaje(TipoPersonaje.GABINO));
+        buscarPersonaje(TipoPersonaje.GABINO).setPosicion(spawn[3]);
     }
 
     /* Buscar personaje por tipo */
@@ -94,7 +107,9 @@ public class Partida {
             if (buscarCelda(nuevaPosicion).getOcupadoPor() instanceof Enemigo) {
                 buscarCelda(nuevaPosicion).getOcupadoPor().perderVida(heroe.atacar());
             } else {
+                buscarCelda(heroe.getPosicion()).setOcupadoPor(null);
                 heroe.setPosicion(nuevaPosicion);
+                buscarCelda(heroe.getPosicion()).setOcupadoPor(heroe);
             }
         }
     }
@@ -110,7 +125,9 @@ public class Partida {
             if (posicionMasCerca == heroe.getPosicion()) {
                 heroe.perderVida(enemigo.atacar());
             } else {
+                buscarCelda(enemigo.getPosicion()).setOcupadoPor(null);
                 enemigo.setPosicion(posicionMasCerca);
+                buscarCelda(enemigo.getPosicion()).setOcupadoPor(enemigo);
             }
         }
     }
@@ -137,8 +154,44 @@ public class Partida {
         return true;
     }
 
+    private void testeo() {
+        Scanner sc = new Scanner(System.in);
+        String mov;
+        boolean flag = true;
+        int[] posicion = new int[2];
+        System.out.println(getMapa().toString());
+        System.out.println(this.getPersonajes().toString());
+        while (flag) {
+            System.out.print("Movimiento: ");
+            mov = sc.nextLine();
+            switch (mov) {
+                case "a":
+                    posicion = new int[] { -1, 0 };
+                    break;
+                case "w":
+                    posicion = new int[] { 0, -1 };
+                    break;
+                case "s":
+                    posicion = new int[] { 0, 1 };
+                    break;
+                case "d":
+                    posicion = new int[] { 1, 0 };
+                    break;
+
+                default:
+                    flag = false;
+                    break;
+            }
+            moverPersonajes(posicion);
+            System.out.println(getMapa().toString());
+            System.out.println(this.getPersonajes().toString());
+        }
+    }
+
     /* Testear */
     public static void main(String[] args) {
         Partida partida = new Partida();
+        partida.testeo();
+
     }
 }

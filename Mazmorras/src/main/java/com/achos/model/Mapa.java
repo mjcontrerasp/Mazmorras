@@ -70,9 +70,9 @@ public class Mapa {
     public String tipoToString(Celda celda) {
         String tipoToString = "";
         if (celda.getTipoCelda() == TipoCelda.PARED) {
-            tipoToString = "\tPared";
+            tipoToString = "\tx";
         } else if (celda.getOcupadoPor() == null) {
-            tipoToString = "\tSuelo";
+            tipoToString = "\t-";
         } else {
             switch (celda.getOcupadoPor().getTipoPersonaje()) {
                 case PABLO:

@@ -112,7 +112,7 @@ public class Personaje implements Comparable<Personaje> {
         if (personaje == null) {
             throw new NullPointerException("El personaje a comparar es nulo");
         } else {
-            return Integer.compare(velocidad, personaje.getVelocidad());
+            return Integer.compare(personaje.getVelocidad(),velocidad);
         }
     }
 
@@ -130,12 +130,12 @@ public class Personaje implements Comparable<Personaje> {
 
     @Override
     public String toString() {
-        return "{" +
+        return "\n{" +
                 " nombre='" + getNombre() + "'" +
                 ", vida='" + getVida() + "'" +
                 ", velocidad='" + getVelocidad() + "'" +
                 ", fuerza='" + getFuerza() + "'" +
-                ", posicion='" + getPosicion() + "'" +
+                ", posicion='[ " + getPosicion()[0] + " , " +getPosicion()[1] +" ]'"+
                 ", tipoPersonaje='" + getTipoPersonaje() + "'" +
                 "}";
     }

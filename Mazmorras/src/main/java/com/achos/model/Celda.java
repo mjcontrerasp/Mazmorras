@@ -1,5 +1,7 @@
 package com.achos.model;
 
+import java.util.Scanner;
+
 import com.achos.enums.TipoCelda;
 
 public class Celda {
@@ -26,10 +28,13 @@ public class Celda {
     public void setOcupadoPor(Personaje personaje) {
         if (ocupadaPor == null) {
             ocupadaPor = personaje;
+        } else {
+            ocupadaPor = null;
         }
     }
 
     public Personaje getOcupadoPor() {
         return ocupadaPor;
     }
+
 }
