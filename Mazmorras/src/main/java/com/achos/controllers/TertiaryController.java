@@ -1,5 +1,6 @@
 package com.achos.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import com.achos.enums.TipoCelda;
@@ -11,7 +12,10 @@ import com.achos.model.Partida;
 import com.achos.model.Personaje;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,7 +33,7 @@ public class TertiaryController implements Observer {
     @FXML
     private SplitPane pantalla;
 
-    private final int tileSize = 50;
+    private final int tileSize = 32;
 
     private final String URL_SUELO = "/com/achos/images/suelo.png";
     private final String URL_PARED = "/com/achos/images/paredes.png";
@@ -39,16 +43,20 @@ public class TertiaryController implements Observer {
     private final String URL_MANU = "/com/achos/images/manu-cenital.png";
     private final String URL_GLORIA = "/com/achos/images/gloria-cenital.png";
 
-    private static Partida partida = Partida.getInstance(); // Obtener la partida actual
+    private Partida partida = Partida.getInstance(); // Obtener la partida actual
 
     // Constructor
     @FXML
-    public void initialize() { 
-        generarMapa(); // Generar el mapa al iniciar la pantalla
-        
-        pantalla.setOnKeyPressed(tecla -> teclaToMovimiento(tecla)); // Asignar el evento de teclado al juego
+    public void initialize() {
 
+        partida.subscribe(this);
+        generarMapa(); // Generar el mapa al iniciar la pantalla
+
+        juego.setOnMouseClicked(e -> juego.requestFocus());
+        juego.setOnKeyPressed(e -> System.out.println("Holiiii"));
+        juego.setOnKeyPressed(e -> teclaToMovimiento(e));
     }
+
     /**
      * Genera el mapa a partir de la partida
      */
@@ -60,19 +68,21 @@ public class TertiaryController implements Observer {
         // Rellenar grid panel
         GridPane gridPane = new GridPane(); // Crear un GridPane para el mapa
         gridPane.setHgap(0); // Espacio horizontal entre celdas
-        gridPane.setVgap(0);  // Espacio vertical entre celdas
+        gridPane.setVgap(0); // Espacio vertical entre celdas
         // Rellenar grid panel
         for (int fila = 0; fila < celdas.size(); fila++) { // Recorrer las filas
             for (int columna = 0; columna < celdas.get(fila).size(); columna++) { // Recorrer las filas y columnas
-                StackPane stackPane = crearCeldaVisual(celdas.get(fila).get(columna));  // Crear la celda visual
+                StackPane stackPane = crearCeldaVisual(celdas.get(fila).get(columna)); // Crear la celda visual
                 gridPane.add(stackPane, columna, fila); // Añadir la celda al GridPane
             }
         }
 
         juego.getChildren().add(gridPane); // Añadir el GridPane al juego
     }
+
     /**
      * Crea una celda visual a partir de la celda del mapa
+     * 
      * @param celda
      * @return
      */
@@ -96,23 +106,28 @@ public class TertiaryController implements Observer {
         // Si hay un personaje en la celda, añadir su imagen
         if (p != null) {
             ImageView personajeView = new ImageView(); // Crear un ImageView para el personaje
-            personajeView.setFitWidth(tileSize);    // Establecer el ancho del personaje
-            personajeView.setFitHeight(tileSize);   // Establecer la altura del personaje
-            personajeView.setImage(new Image(getClass().getResourceAsStream(obtenerImagenPersonaje(p)))); // Establecer la imagen del personaje
+            personajeView.setFitWidth(tileSize); // Establecer el ancho del personaje
+            personajeView.setFitHeight(tileSize); // Establecer la altura del personaje
+            personajeView.setImage(new Image(getClass().getResourceAsStream(obtenerImagenPersonaje(p)))); // Establecer
+                                                                                                          // la imagen
+                                                                                                          // del
+                                                                                                          // personaje
             stackPane.getChildren().add(personajeView); // Añadir el personaje al StackPane
         }
 
         return stackPane; // Devolver el StackPane con la celda
     }
+
     /**
      * Devuelve la URL de la imagen del personaje
+     * 
      * @param p
      * @return
      */
     private String obtenerImagenPersonaje(Personaje p) {
         if (p instanceof Heroe) { // Si es un heroe
-            return URL_PABLO; 
-        } else if (p instanceof Enemigo) { // Si es un enemigo 
+            return URL_PABLO;
+        } else if (p instanceof Enemigo) { // Si es un enemigo
             switch (p.getTipoPersonaje()) { // Comprobamos el tipo de personaje
                 case GABINO:
                     return URL_GABINO;
@@ -126,8 +141,10 @@ public class TertiaryController implements Observer {
         }
         return null; // Si no es un personaje conocido
     }
+
     /**
      * Mueve el personaje a la celda correspondiente
+     * 
      * @param tecla
      */
     public void teclaToMovimiento(KeyEvent tecla) {
@@ -148,7 +165,7 @@ public class TertiaryController implements Observer {
                 break;
             case D:
                 movimiento = new int[] { 0, 1 };// Cambia el personaje a la derecha
-                System.out.println("Derecha"); 
+                System.out.println("Derecha");
                 break;
 
             default:
@@ -158,11 +175,12 @@ public class TertiaryController implements Observer {
         }
         partida.moverPersonajes(movimiento);
     }
+
     /**
      * Cambia la escena a la pantalla de inicio
      */
     @Override
     public void onChange() {
-        generarMapa(); 
+        generarMapa();
     }
 }

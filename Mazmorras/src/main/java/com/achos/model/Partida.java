@@ -19,7 +19,7 @@ public class Partida {
     private String nombreMapa;
     private Mapa mapa;
 
-    private ArrayList<Observer> observers;
+    private ArrayList<Observer> observers = new ArrayList<>();
 
     public void subscribe(Observer observer) {
         observers.add(observer);
@@ -32,12 +32,13 @@ public class Partida {
     private Partida() {
         personajes = LectorPersonajes.leerPersonajes(pathPersonajes);
         buscarHeroe();
-        nombreMapa = "mapa1";
+        nombreMapa = "mapa3";
         mapa = new Mapa(nombreMapa);
         if (mapa.getCeldas() == null || mapa.getCeldas().isEmpty()) {
             throw new IllegalStateException("El mapa no se cargó correctamente.");
         }
         personajesToSpawn();
+    
     }
 
     public static Partida getInstance() {
@@ -116,6 +117,7 @@ public class Partida {
             }
         }
         personajes = new TreeSet<>(personajesCopia);
+        notifyObservers();
     }
 
     /* Mover heroe almacenado en partida */
