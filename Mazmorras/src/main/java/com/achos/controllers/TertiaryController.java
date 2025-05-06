@@ -1,6 +1,7 @@
 package com.achos.controllers;
 
 import com.achos.enums.TipoCelda;
+import com.achos.interfaces.Observer;
 import com.achos.model.Celda;
 import com.achos.model.Enemigo;
 import com.achos.model.Heroe;
@@ -9,19 +10,28 @@ import com.achos.model.Partida;
 import com.achos.model.Personaje;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
 import java.util.ArrayList;
 
-public class TertiaryController {
+public class TertiaryController implements Observer {
 
     @FXML
     private AnchorPane juego;
+
+    @FXML
+    private SplitPane pantalla;
 
     private final int tileSize = 50;
 
@@ -33,33 +43,33 @@ public class TertiaryController {
     private final String URL_MANU = "/com/achos/images/manu-cenital.png";
     private final String URL_GLORIA = "/com/achos/images/gloria-cenital.png";
 
+    private static Partida partida = Partida.getInstance();
+
     @FXML
     public void initialize() {
         generarMapa();
+        
+        pantalla.setOnKeyPressed(tecla -> teclaToMovimiento(tecla));
+
     }
 
     private void generarMapa() {
-        Partida partida = Partida.getInstance();
-        Mapa mapa = partida.getMapa();
-        ArrayList<ArrayList<Celda>> celdas = mapa.getCeldas();
+        ArrayList<ArrayList<Celda>> celdas = partida.getMapa().getCeldas();
 
-        
         juego.getChildren().clear();
 
-        
+        // Rellenar grid panel
         GridPane gridPane = new GridPane();
         gridPane.setHgap(0);
         gridPane.setVgap(0);
-
-        for (int y = 0; y < celdas.size(); y++) {
-            for (int x = 0; x < celdas.get(y).size(); x++) {
-                Celda celda = celdas.get(y).get(x);
-                StackPane stackPane = crearCeldaVisual(celda);
-                gridPane.add(stackPane, x, y);
+        // Rellenar grid panel
+        for (int fila = 0; fila < celdas.size(); fila++) {
+            for (int columna = 0; columna < celdas.get(fila).size(); columna++) {
+                StackPane stackPane = crearCeldaVisual(celdas.get(fila).get(columna));
+                gridPane.add(stackPane, columna, fila);
             }
         }
 
-        
         juego.getChildren().add(gridPane);
     }
 
@@ -107,5 +117,39 @@ public class TertiaryController {
             }
         }
         return null;
+    }
+
+    public void teclaToMovimiento(KeyEvent tecla) {
+        int[] movimiento;
+        KeyCode teclaTocodigo = tecla.getCode();
+        switch (teclaTocodigo) {
+            case A:
+                movimiento = new int[] { 0, -1 };
+                System.out.println("Izquierda");
+                break;
+            case W:
+                movimiento = new int[] { -1, 0 };
+                System.out.println("Arriba");
+                break;
+            case S:
+                movimiento = new int[] { 1, 0 };
+                System.out.println("Abajo");
+                break;
+            case D:
+                movimiento = new int[] { 0, 1 };
+                System.out.println("Derecha");
+                break;
+
+            default:
+                movimiento = new int[] { 0, 0 };
+                System.out.println("Movimiento erroneo");
+                break;
+        }
+        partida.moverPersonajes(movimiento);
+    }
+
+    @Override
+    public void onChange() {
+        generarMapa();
     }
 }

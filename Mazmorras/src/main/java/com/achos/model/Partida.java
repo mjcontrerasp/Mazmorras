@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.TreeSet;
 
 import com.achos.enums.TipoPersonaje;
+import com.achos.interfaces.Observer;
 import com.achos.utilities.LectorPersonajes;
 import com.achos.utilities.Posicion;
 
@@ -17,6 +18,16 @@ public class Partida {
     private int[][] spawn = new int[][] { { 13, 1 }, { 5, 13 }, { 8, 1 }, { 1, 13 } };
     private String nombreMapa;
     private Mapa mapa;
+
+    private ArrayList<Observer> observers;
+
+    public void subscribe(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void notifyObservers() {
+        observers.forEach(i -> i.onChange());
+    }
 
     private Partida() {
         personajes = LectorPersonajes.leerPersonajes(pathPersonajes);
