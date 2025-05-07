@@ -1,68 +1,106 @@
 package com.achos.controllers;
 
+import java.io.IOException;
+
+import com.achos.SceneID;
+import com.achos.SceneManager;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Slider;
+import javafx.scene.control.SplitPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class EditPlayerController {
 
     @FXML
-    private Label atri1;
-    @FXML
-    private Label atri2;
-    @FXML
-    private Label atri3;
+    private VBox mainVBox;
 
     @FXML
-    private TextField vida;
+    private Label titulo;
+
     @FXML
-    private TextField daño;
+    private SplitPane mainSplitPane;
+
     @FXML
-    private TextField velocidad;
+    private ImageView pablo;
+
+    @FXML
+    private VBox VBox2;
+
+    @FXML
+    private Label atributos;
+
+    @FXML
+    private VBox VBox3;
+
+    @FXML
+    private HBox HBox1;
+
+    @FXML
+    private ImageView vida;
+
+    @FXML
+    private Slider sliderVida;
+
+    @FXML
+    private Label labelVida;
+
+    @FXML
+    private HBox HBox2;
+
+    @FXML
+    private ImageView fuerza;
+
+    @FXML
+    private Slider sliderFuerza;
+
+    @FXML
+    private Label labelFuerza;
+
+    @FXML
+    private HBox HBox3;
+
+    @FXML
+    private ImageView velocidad;
+
+    @FXML
+    private Slider sliderVelocidad;
+
+    @FXML
+    private Label labelVelocidad;
+
+    @FXML
+    private Label descripcion;
+
+    @FXML
+    private Button jugar;
 
     @FXML
     public void initialize() {
-        vida.setText("5");
-        daño.setText("5");
-        velocidad.setText("5");
 
-        atri1.setText("5");
-        atri2.setText("5");
-        atri3.setText("5");
+        // valores iniciales de los sliders
+        sliderFuerza.setValue(5);
+        sliderVelocidad.setValue(5);
+
+        // listener para reflejar los cambios del slider en el label
+        sliderFuerza.valueProperty().addListener((observable, oldValue, newValue) -> {
+            int valor = newValue.intValue(); // Convertimos a entero
+            labelFuerza.setText(String.valueOf(valor));
+        });
+
+        sliderVelocidad.valueProperty().addListener((observable, oldValue, newValue) -> {
+            int valor = newValue.intValue();
+            labelVelocidad.setText(String.valueOf(valor));
+        });
+
     }
 
     @FXML
-    public void actualizarAtributos() {
-        try {
-            int valorVida = Integer.parseInt(vida.getText());
-            int valorDaño = Integer.parseInt(daño.getText());
-            int valorVelocidad = Integer.parseInt(velocidad.getText());
-
-            if (valorVida >= 1 && valorVida <= 10) {
-                atri1.setText(String.valueOf(valorVida));
-            } else {
-                atri1.setText("Valor fuera de rango");
-            }
-
-            if (valorDaño >= 1 && valorDaño <= 10) {
-                atri2.setText(String.valueOf(valorDaño));
-            } else {
-                atri2.setText("Valor fuera de rango");
-            }
-
-            if (valorVelocidad >= 1 && valorVelocidad <= 10) {
-                atri3.setText(String.valueOf(valorVelocidad));
-            } else {
-                atri3.setText("Valor fuera de rango");
-            }
-        } catch (NumberFormatException e) {
-            atri1.setText("Valor inválido");
-            atri2.setText("Valor inválido");
-            atri3.setText("Valor inválido");
-        }
-    }
-
-    @FXML
-    public void switchToPrimary() {
+    private void switchToGame() throws IOException {
+        SceneManager.getInstance().loadScene(SceneID.TERTIARY);
     }
 }
