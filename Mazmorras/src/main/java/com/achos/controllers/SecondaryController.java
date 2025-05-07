@@ -1,5 +1,10 @@
 package com.achos.controllers;
 
+import java.io.IOException;
+
+import com.achos.SceneID;
+import com.achos.SceneManager;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -19,7 +24,7 @@ public class SecondaryController {
     private TextField daño;
     @FXML
     private TextField velocidad;
-
+    
     @FXML
     public void initialize() {
         vida.setText("5");
@@ -30,7 +35,12 @@ public class SecondaryController {
         atri2.setText("5");
         atri3.setText("5");
     }
-
+    /**
+     * Este método se encarga de actualizar los atributos de vida, daño y velocidad
+     * en función de los valores introducidos por el usuario en los campos de texto.
+     * 
+     * @throws NumberFormatException si el valor introducido no es un número válido.
+     */
     @FXML
     public void actualizarAtributos() {
         try {
@@ -61,8 +71,13 @@ public class SecondaryController {
             atri3.setText("Valor inválido");
         }
     }
-
+    /**
+     * Este método se encarga de cambiar a la vista de juego.
+     * 
+     * @throws IOException si ocurre un error al cargar la vista.
+     */
     @FXML
-    public void switchToPrimary() {
+    public void switchToGame() throws IOException {
+        SceneManager.getInstance().loadScene(SceneID.GAME);
     }
 }

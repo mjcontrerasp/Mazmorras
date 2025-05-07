@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.achos.controllers.TertiaryController;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,11 +14,11 @@ public class SceneManager {
     private static SceneManager instance;
     private Stage stage;
     private final Map<SceneID, String> sceneMap = new HashMap<>();
-
+    
     private SceneManager() {
         sceneMap.put(SceneID.PRIMARY, "/com/achos/views/primary.fxml");
         sceneMap.put(SceneID.SECONDARY, "/com/achos/views/secondary.fxml");
-        sceneMap.put(SceneID.TERTIARY, "/com/achos/views/tertiary.fxml");
+        sceneMap.put(SceneID.GAME, "/com/achos/views/game.fxml");
         sceneMap.put(SceneID.VICTORY, "/com/achos/views/victoria.fxml");
         sceneMap.put(SceneID.GAMEOVER, "/com/achos/views/gameover.fxml");
     }
@@ -39,7 +37,11 @@ public class SceneManager {
     public void init(Stage stage) {
         this.stage = stage;
     }
-
+    /**
+     * Cargar una escena a partir de su ID
+     * @param sceneID
+     * @throws IOException
+     */
     public void loadScene(SceneID sceneID) throws IOException {
         String fxmlPath = sceneMap.get(sceneID);
         if (fxmlPath == null) {

@@ -1,6 +1,5 @@
 package com.achos.controllers;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.achos.enums.TipoCelda;
@@ -12,10 +11,7 @@ import com.achos.model.Partida;
 import com.achos.model.Personaje;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -25,7 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
-public class TertiaryController implements Observer {
+public class GameController implements Observer {
 
     @FXML
     private AnchorPane juego;

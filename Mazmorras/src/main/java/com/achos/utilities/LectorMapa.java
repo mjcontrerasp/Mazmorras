@@ -8,8 +8,19 @@ import java.util.ArrayList;
 
 import com.achos.enums.TipoCelda;
 import com.achos.model.Celda;
-
+/**
+ * Clase LectorMapa
+ * 
+ * Esta clase se encarga de leer un archivo CSV que representa un mapa y convertirlo en una lista de listas de celdas.
+ * Cada celda puede ser un suelo o una pared, representados por los caracteres 'l' y 'o' respectivamente.
+ */
 public class LectorMapa {
+    /**
+     * Método que lee un archivo CSV y convierte su contenido en una lista de listas de celdas.
+     * 
+     * @param path Ruta del archivo CSV a leer.
+     * @return ArrayList<ArrayList<Celda>> Lista de listas de celdas representando el mapa.
+     */
     public static ArrayList<ArrayList<Celda>> leerMapa(String path) {
         File fichero = new File(path);
         ArrayList<ArrayList<Celda>> celdas = new ArrayList<>();

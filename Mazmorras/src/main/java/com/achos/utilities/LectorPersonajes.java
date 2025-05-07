@@ -10,9 +10,19 @@ import com.achos.enums.TipoPersonaje;
 import com.achos.model.Enemigo;
 import com.achos.model.Heroe;
 import com.achos.model.Personaje;
-
+/**
+ * Clase LectorPersonajes
+ * 
+ * Esta clase se encarga de leer un archivo JSON que representa personajes y convertirlo en un conjunto de personajes.
+ * Cada personaje puede ser un héroe o un enemigo, representados por las clases Heroe y Enemigo respectivamente.
+ */
 public class LectorPersonajes {
-
+    /**
+     * Método que lee un archivo JSON y convierte su contenido en un conjunto de personajes.
+     * 
+     * @param path Ruta del archivo JSON a leer.
+     * @return TreeSet<Personaje> Conjunto de personajes leídos del archivo.
+     */
     public static TreeSet<Personaje> leerPersonajes(String path) {
         File fichero = new File(path);
         TreeSet<Personaje> personajes = new TreeSet<>();

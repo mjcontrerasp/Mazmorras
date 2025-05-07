@@ -17,7 +17,7 @@ public class App extends Application {
     @SuppressWarnings("exports")
     @Override
     public void start(Stage stage) throws Exception {
-        SplitPane root = FXMLLoader.load(getClass().getResource("/com/achos/views/tertiary.fxml"));
+        SplitPane root = FXMLLoader.load(getClass().getResource("/com/achos/views/game.fxml"));
         Scene scene = new Scene(root, 800, 600);
         stage.setTitle("PATATAZOS");
         stage.getIcons().add(new Image(App.class.getResource("/com/achos/images/logo.png").toExternalForm()));
