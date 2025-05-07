@@ -7,8 +7,21 @@
     
 }
 
-.my-button:hover {
+.my-secondary-button {
     -fx-background-color: #33a9b8;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-background-radius: 8;
+    -fx-font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
+}
+
+.my-secondary-button:hover {
+    -fx-background-color: #f8cb13;
+}
+
+.my-button:hover {
+    -fx-background-color: #f8cb13;
 }
 
 .transparent-splitpane {
@@ -23,3 +36,14 @@
 .transparent-pane {
     -fx-background-color: transparent;
 }
+
+.translucent-pane {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-background-radius: 8;
+}
+
+.title-label {
+    -fx-font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    -fx-font-size: 30px;
+}
+

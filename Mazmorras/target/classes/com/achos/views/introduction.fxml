@@ -2,31 +2,79 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="451.0" prefWidth="751.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.IntroductionController">
+
+<StackPane fx:id="mainStackPane" prefHeight="654.0" prefWidth="774.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.IntroductionController">
    <children>
-      <AnchorPane prefHeight="520.0" prefWidth="877.0">
+      <ImageView fx:id="background" fitHeight="656.0" fitWidth="774.0">
+         <image>
+            <Image url="@../images/fondo-blur.jpg" />
+         </image>
+      </ImageView>
+      <VBox fx:id="mainVBox" alignment="CENTER" prefHeight="734.0" prefWidth="774.0" spacing="20.0">
          <children>
-            <ImageView fitHeight="466.0" fitWidth="902.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/logoJuego.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="img_inicio" fitHeight="169.0" fitWidth="332.0" layoutX="244.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/imgInicio.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="jugar" layoutX="151.0" layoutY="382.0" onAction="#switchToTertiary" prefHeight="63.0" prefWidth="186.0" text="Jugar" />
-            <Button fx:id="crearPersonaje" layoutX="483.0" layoutY="382.0" onAction="#switchToSecondary" prefHeight="63.0" prefWidth="186.0" text="Crear Personaje" />
+            <StackPane fx:id="stackPersonajes" prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <ImageView fx:id="img_inicio" fitHeight="313.0" fitWidth="524.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/imgInicio.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <StackPane fx:id="stackIntro" prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <Pane fx:id="cajaTexto" prefHeight="150.0" prefWidth="650.0" styleClass="translucent-pane" stylesheets="@../style/stylesheet.css">
+                     <children>
+                        <VBox fx:id="texto" prefHeight="284.0" prefWidth="734.0">
+                           <children>
+                              <Label fx:id="title" alignment="CENTER" prefHeight="53.0" prefWidth="743.0" styleClass="title-label" stylesheets="@../style/stylesheet.css" text="¡Bienvenido a Patatazos!" textAlignment="CENTER" textFill="WHITE" />
+                              <Label fx:id="p1" alignment="CENTER" prefHeight="20.0" prefWidth="734.0" text="En un mundo dominado por la tecnología surge un héroe humilde y valiente: ¡Pablo Pablete!" textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="p2" alignment="CENTER" prefHeight="67.0" prefWidth="734.0" text="Armado con su legendaria espada-patata, un tubérculo sagrado forjado en aceite hirviendo, Pablo se&#10;lanza a una misión sin precedentes: derrotar al malvado Equipo Apple, una pandilla de elitistas&#10;pixelados que quieren convertir el mundo en un solo botón táctil." textAlignment="CENTER" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </Pane>
+               </children>
+            </StackPane>
+            <StackPane fx:id="stackButton" prefHeight="87.0" prefWidth="734.0">
+               <children>
+                  <SplitPane fx:id="splitButton" dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" styleClass="transparent-splitpane" stylesheets="@../style/stylesheet.css">
+                    <items>
+                        <StackPane fx:id="stackCrear" prefHeight="39.0" prefWidth="732.0">
+                           <children>
+                              <Button fx:id="crearPersonaje" onAction="#switchToEdit" prefHeight="51.0" prefWidth="245.0" styleClass="my-secondary-button" stylesheets="@../style/stylesheet.css" text="Crear Personaje" />
+                           </children>
+                        </StackPane>
+                        <StackPane fx:id="stackJugar" prefHeight="83.0" prefWidth="362.0" stylesheets="@../style/stylesheet.css">
+                           <children>
+                              <Button fx:id="jugar" onAction="#switchToGame" prefHeight="63.0" prefWidth="241.0" styleClass="my-button" stylesheets="@../style/stylesheet.css" text="Jugar" />
+                           </children>
+                        </StackPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </StackPane>
          </children>
-      </AnchorPane>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
    </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-</VBox>
+</StackPane>
