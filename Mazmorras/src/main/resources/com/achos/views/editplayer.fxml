@@ -35,7 +35,7 @@
                   </ImageView>
                   <VBox fx:id="VBox2" alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Label fx:id="atributos" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="116.0" text="  ATRIBUTOS" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+                        <Label fx:id="atributos" alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="116.0" text=" ATRIBUTOS" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -89,7 +89,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <Label fx:id="descripcion" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="291.0" text="Comienza con la vida al máximo y elige los puntos de fuerza y velocidad con los que quieres iniciar la partida." textAlignment="CENTER" wrapText="true">
+                        <Label fx:id="descripcion" alignment="CENTER" contentDisplay="CENTER" prefHeight="92.0" prefWidth="291.0" text="Comienza con la vida al máximo y distribuye 15 puntos entre fuerza y velocidad para empezar la partida." textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font name="Arial" size="14.0" />
                            </font>

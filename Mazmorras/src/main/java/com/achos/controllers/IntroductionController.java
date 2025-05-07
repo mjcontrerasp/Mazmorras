@@ -17,58 +17,58 @@ import javafx.scene.layout.VBox;
 public class IntroductionController {
 
     @FXML
-    StackPane mainStackPane;
+    private StackPane mainStackPane;
 
     @FXML
-    ImageView background;
+    private ImageView background;
 
     @FXML
-    VBox mainVBox;
+    private VBox mainVBox;
 
     @FXML
-    StackPane stackPersonajes;
+    private StackPane stackPersonajes;
 
     @FXML
-    ImageView img_inicio;
+    private ImageView img_inicio;
 
     @FXML
-    StackPane stackIntro;
+    private StackPane stackIntro;
 
     @FXML
-    Pane cajaTexto;
+    private Pane cajaTexto;
 
     @FXML
-    VBox texto;
+    private VBox texto;
 
     @FXML
-    Label title;
+    private Label title;
 
     @FXML
-    Label p1;
+    private Label p1;
 
     @FXML
-    Label p2;
+    private Label p2;
 
     @FXML
-    StackPane stackButton;
+    private StackPane stackButton;
 
     @FXML
-    SplitPane splitButton;
+    private SplitPane splitButton;
 
     @FXML
-    StackPane stackCrear;
+    private StackPane stackCrear;
 
     @FXML
-    Button crearPersonaje;
+    private Button crearPersonaje;
 
     @FXML
-    StackPane stackJugar;
+    private StackPane stackJugar;
 
     @FXML
-    Button jugar;
+    private Button jugar;
 
     @FXML
-    Button startButton;
+    private Button startButton;
 
     @FXML
     private void switchToEdit() throws IOException {

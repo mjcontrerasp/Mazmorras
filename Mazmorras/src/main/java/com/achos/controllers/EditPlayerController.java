@@ -88,13 +88,27 @@ public class EditPlayerController {
 
         // listener para reflejar los cambios del slider en el label
         sliderFuerza.valueProperty().addListener((observable, oldValue, newValue) -> {
-            int valor = newValue.intValue(); // Convertimos a entero
-            labelFuerza.setText(String.valueOf(valor));
+            int fuerza = newValue.intValue(); // Convertimos a entero
+
+            int velocidad = (int) sliderVelocidad.getValue();
+
+            if (fuerza + velocidad > 15) {
+                sliderVelocidad.setValue(15 - fuerza); // limitar la velocidad
+            }
+
+            labelFuerza.setText(String.valueOf(fuerza));
         });
 
         sliderVelocidad.valueProperty().addListener((observable, oldValue, newValue) -> {
-            int valor = newValue.intValue();
-            labelVelocidad.setText(String.valueOf(valor));
+            int velocidad = newValue.intValue();
+
+            int fuerza = (int) sliderFuerza.getValue();
+
+            if (velocidad + fuerza > 15) {
+                sliderFuerza.setValue(15 - velocidad); // limitar la fuerza
+            }
+
+            labelVelocidad.setText(String.valueOf(velocidad));
         });
 
     }

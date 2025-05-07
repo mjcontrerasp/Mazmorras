@@ -14,25 +14,25 @@ import javafx.scene.layout.StackPane;
 public class WelcomeController {
 
     @FXML
-    StackPane mainStackPane;
+    private StackPane mainStackPane;
 
     @FXML
-    ImageView background;
+    private ImageView background;
 
     @FXML
-    SplitPane mainSplitPane;
+    private SplitPane mainSplitPane;
 
     @FXML
-    StackPane stackLogo;
+    private StackPane stackLogo;
 
     @FXML
-    StackPane stackButton;
+    private StackPane stackButton;
 
     @FXML
-    ImageView logo;
+    private ImageView logo;
 
     @FXML
-    Button startButton;
+    private Button startButton;
 
     @FXML
     private void switchToIntroduction() throws IOException {
