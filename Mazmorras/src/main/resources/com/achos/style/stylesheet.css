@@ -1,0 +1,25 @@
+.my-button {
+    -fx-background-color: #ea1a44;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-background-radius: 8;
+    -fx-font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
+}
+
+.my-button:hover {
+    -fx-background-color: #33a9b8;
+}
+
+.transparent-splitpane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.transparent-splitpane .split-pane-divider {
+    -fx-background-color: transparent;
+}
+
+.transparent-pane {
+    -fx-background-color: transparent;
+}
