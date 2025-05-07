@@ -6,6 +6,7 @@ import java.util.Scanner;
 import java.util.TreeSet;
 
 import com.achos.enums.TipoPersonaje;
+import com.achos.interfaces.Observer;
 import com.achos.utilities.LectorPersonajes;
 import com.achos.utilities.Posicion;
 
@@ -18,15 +19,26 @@ public class Partida {
     private String nombreMapa;
     private Mapa mapa;
 
+    private ArrayList<Observer> observers = new ArrayList<>();
+
+    public void subscribe(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void notifyObservers() {
+        observers.forEach(i -> i.onChange());
+    }
+
     private Partida() {
         personajes = LectorPersonajes.leerPersonajes(pathPersonajes);
         buscarHeroe();
-        nombreMapa = "mapa1";
+        nombreMapa = "mapa3";
         mapa = new Mapa(nombreMapa);
         if (mapa.getCeldas() == null || mapa.getCeldas().isEmpty()) {
             throw new IllegalStateException("El mapa no se cargó correctamente.");
         }
         personajesToSpawn();
+    
     }
 
     public static Partida getInstance() {
@@ -91,7 +103,6 @@ public class Partida {
 
     /* Aplica movimiento por orden de velocidad a todos los personajes */
     public void moverPersonajes(int[] posicion) {
-        buscarHeroe(); // quizas no es necesario !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         ArrayList<Personaje> personajesCopia = new ArrayList<>(personajes);
         for (int i = 0; i < personajesCopia.size(); i++) {
             if (personajesCopia.get(i) instanceof Heroe) {
@@ -105,6 +116,7 @@ public class Partida {
             }
         }
         personajes = new TreeSet<>(personajesCopia);
+        notifyObservers();
     }
 
     /* Mover heroe almacenado en partida */

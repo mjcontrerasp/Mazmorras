@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.achos.controllers.TertiaryController;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,9 +24,11 @@ public class SceneManager {
         sceneMap.put(SceneID.VICTORY, "/com/achos/views/victoria.fxml");
         sceneMap.put(SceneID.GAMEOVER, "/com/achos/views/gameover.fxml");
     }
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+
     public static SceneManager getInstance() {
         if (instance == null) {
             instance = new SceneManager();
@@ -49,6 +53,7 @@ public class SceneManager {
         Parent root = loader.load();
         stage.setScene(new Scene(root));
         stage.show();
+
     }
 
 }
