@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.achos.controllers.TertiaryController;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -19,6 +17,7 @@ public class SceneManager {
 
     private SceneManager() {
         sceneMap.put(SceneID.WELCOME, "/com/achos/views/welcome.fxml");
+        sceneMap.put(SceneID.INTRODUCTION, "/com/achos/views/introduction.fxml");
         sceneMap.put(SceneID.EDITPLAYER, "/com/achos/views/editplayer.fxml");
         sceneMap.put(SceneID.TERTIARY, "/com/achos/views/tertiary.fxml");
         sceneMap.put(SceneID.VICTORY, "/com/achos/views/victoria.fxml");

@@ -10,12 +10,8 @@ import javafx.fxml.FXML;
 public class WelcomeController {
 
     @FXML
-    private void switchToSecondary() throws IOException {
-        SceneManager.getInstance().loadScene(SceneID.EDITPLAYER);
+    private void switchToIntroduction() throws IOException {
+        SceneManager.getInstance().loadScene(SceneID.INTRODUCTION);
     }
 
-    @FXML
-    private void switchToTertiary() throws IOException {
-        SceneManager.getInstance().loadScene(SceneID.TERTIARY);
-    }
 }

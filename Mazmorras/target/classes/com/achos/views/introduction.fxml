@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="451.0" prefWidth="751.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.WelcomeController">
+<VBox alignment="CENTER" prefHeight="451.0" prefWidth="751.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.IntroductionController">
    <children>
       <AnchorPane prefHeight="520.0" prefWidth="877.0">
          <children>
@@ -21,7 +21,8 @@
                   <Image url="@../images/imgInicio.png" />
                </image>
             </ImageView>
-            <Button fx:id="crearPersonaje" layoutX="483.0" layoutY="382.0" onAction="#switchToIntroduction" prefHeight="63.0" prefWidth="186.0" text="Crear Personaje" />
+            <Button fx:id="jugar" layoutX="151.0" layoutY="382.0" onAction="#switchToTertiary" prefHeight="63.0" prefWidth="186.0" text="Jugar" />
+            <Button fx:id="crearPersonaje" layoutX="483.0" layoutY="382.0" onAction="#switchToSecondary" prefHeight="63.0" prefWidth="186.0" text="Crear Personaje" />
          </children>
       </AnchorPane>
    </children>
