@@ -103,7 +103,6 @@ public class Partida {
 
     /* Aplica movimiento por orden de velocidad a todos los personajes */
     public void moverPersonajes(int[] posicion) {
-        buscarHeroe(); // quizas no es necesario !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         ArrayList<Personaje> personajesCopia = new ArrayList<>(personajes);
         for (int i = 0; i < personajesCopia.size(); i++) {
             if (personajesCopia.get(i) instanceof Heroe) {
