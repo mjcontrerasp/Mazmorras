@@ -7,15 +7,15 @@ import com.achos.SceneManager;
 
 import javafx.fxml.FXML;
 
-public class PrimaryController {
+public class WelcomeController {
 
     @FXML
     private void switchToSecondary() throws IOException {
-       SceneManager.getInstance().loadScene(SceneID.SECONDARY); 
+        SceneManager.getInstance().loadScene(SceneID.EDITPLAYER);
     }
 
     @FXML
     private void switchToTertiary() throws IOException {
-        SceneManager.getInstance().loadScene(SceneID.TERTIARY);   
+        SceneManager.getInstance().loadScene(SceneID.TERTIARY);
     }
 }

@@ -10,19 +10,25 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.SecondaryController">
-    <children>
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1"
+   xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.EditPlayerController">
+   <children>
       <AnchorPane fx:id="game" prefHeight="347.0" prefWidth="542.0">
          <children>
-            <ImageView fitHeight="289.0" fitWidth="269.0" layoutX="14.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="289.0" fitWidth="269.0" layoutX="14.0" layoutY="46.0"
+               pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/pablo-frontal.png" />
                </image>
             </ImageView>
-            <TextField fx:id="vida" layoutX="401.0" layoutY="102.0" prefHeight="26.0" prefWidth="56.0" />
-            <TextField fx:id="daño" layoutX="401.0" layoutY="136.0" prefHeight="26.0" prefWidth="56.0" />
-            <TextField fx:id="velocidad" layoutX="401.0" layoutY="170.0" prefHeight="26.0" prefWidth="56.0" />
-            <Label layoutX="356.0" layoutY="52.0" prefHeight="41.0" prefWidth="117.0" text="ATRIBUTOS" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
+            <TextField fx:id="vida" layoutX="401.0" layoutY="102.0" prefHeight="26.0"
+               prefWidth="56.0" />
+            <TextField fx:id="daño" layoutX="401.0" layoutY="136.0" prefHeight="26.0"
+               prefWidth="56.0" />
+            <TextField fx:id="velocidad" layoutX="401.0" layoutY="170.0" prefHeight="26.0"
+               prefWidth="56.0" />
+            <Label layoutX="356.0" layoutY="52.0" prefHeight="41.0" prefWidth="117.0"
+               text="ATRIBUTOS" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS">
                <font>
                   <Font size="18.0" />
                </font>
@@ -47,7 +53,9 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="248.0" layoutY="241.0" prefHeight="92.0" prefWidth="291.0" text="RELLENA LOS ATRIBUTOS DE TU HEROE &#10;DE 0 A 10 PUNTOS POR ATRIBUTO &#10;O PUEDES DARLE A JUGAR CON &#10;LOS ATRIBUTOS POR DEFECTO" textAlignment="CENTER">
+            <Label layoutX="248.0" layoutY="241.0" prefHeight="92.0" prefWidth="291.0"
+               text="RELLENA LOS ATRIBUTOS DE TU HEROE &#10;DE 0 A 10 PUNTOS POR ATRIBUTO &#10;O PUEDES DARLE A JUGAR CON &#10;LOS ATRIBUTOS POR DEFECTO"
+               textAlignment="CENTER">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
@@ -69,9 +77,10 @@
             </Label>
          </children>
       </AnchorPane>
-        <Button fx:id="jugar" onAction="#switchToPrimary" prefHeight="41.0" prefWidth="124.0" text="Jugar" />
-    </children>
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
+      <Button fx:id="jugar" onAction="#switchToPrimary" prefHeight="41.0" prefWidth="124.0"
+         text="Jugar" />
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
 </VBox>

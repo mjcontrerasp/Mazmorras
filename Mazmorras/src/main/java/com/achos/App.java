@@ -24,7 +24,7 @@ public class App extends Application {
         stage.setScene(scene);
         SceneManager sm = SceneManager.getInstance();
         sm.setStage(stage);  
-        sm.loadScene(SceneID.PRIMARY); 
+        sm.loadScene(SceneID.WELCOME); 
     
         stage.show();
     }
