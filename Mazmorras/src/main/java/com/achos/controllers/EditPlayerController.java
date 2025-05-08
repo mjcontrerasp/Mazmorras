@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import com.achos.SceneID;
 import com.achos.SceneManager;
+import com.achos.enums.TipoPersonaje;
+import com.achos.model.Heroe;
+import com.achos.model.Partida;
 import com.achos.model.Personaje;
 
 import javafx.fxml.FXML;
@@ -114,6 +117,37 @@ public class EditPlayerController {
 
     }
 
+
+    public void setHeroe(){
+        Partida partida = Partida.getInstance();
+
+        int velocidad = (int) sliderVelocidad.getValue();
+        int fuerza = (int) sliderFuerza.getValue();
+
+        Heroe pablo = null;
+        for (Personaje p : partida.getPersonajes()) {
+            if (p instanceof Heroe) {
+                pablo = (Heroe) p;
+            }
+        }
+
+
+
+        partida.getPersonajes().remove(pablo);
+        System.out.println(partida.getPersonajes().toString());
+        
+        partida.getPersonajes().add(new Heroe("Pablo", velocidad, fuerza, TipoPersonaje.PABLO)); 
+
+        partida.personajesToSpawn();
+        
+        System.out.println(partida.getPersonajes().toString());
+
+        partida.buscarHeroe();
+        System.out.println(partida.getHeroe().toString());
+
+
+    }
+
     // Buscar a Pablo
 // Personaje pablo = null;
 // for (Personaje p : treeSet) {
@@ -137,6 +171,7 @@ public class EditPlayerController {
 
     @FXML
     private void switchToGame() throws IOException {
+        setHeroe();
         SceneManager.getInstance().loadScene(SceneID.TERTIARY);
     }
 }

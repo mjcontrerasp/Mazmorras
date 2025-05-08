@@ -58,12 +58,16 @@ public class Partida {
     }
 
     /* Encuentra y guarda el Heroe de la lista de personajes */
-    private void buscarHeroe() {
+    public void buscarHeroe() {
         for (Personaje personaje : personajes) {
             if (personaje instanceof Heroe) {
                 this.heroe = (Heroe) personaje;
             }
         }
+    }
+
+    public Heroe getHeroe(){
+        return heroe;
     }
 
     /* Asignar personajes a sus celdas spawn */
@@ -114,6 +118,7 @@ public class Partida {
             if (gameOver() || victoria()) {
                 break;
             }
+            System.out.println(personajesCopia.get(i).toString());
         }
         personajes = new TreeSet<>(personajesCopia);
         notifyObservers();
