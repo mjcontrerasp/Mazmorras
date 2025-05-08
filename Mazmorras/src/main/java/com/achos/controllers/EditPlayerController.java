@@ -117,8 +117,7 @@ public class EditPlayerController {
 
     }
 
-
-    public void setHeroe(){
+    public void setHeroe() {
         Partida partida = Partida.getInstance();
 
         int velocidad = (int) sliderVelocidad.getValue();
@@ -130,44 +129,16 @@ public class EditPlayerController {
                 pablo = (Heroe) p;
             }
         }
-
-
-
+        // reemplazar heroe
         partida.getPersonajes().remove(pablo);
-        System.out.println(partida.getPersonajes().toString());
-        
-        partida.getPersonajes().add(new Heroe("Pablo", velocidad, fuerza, TipoPersonaje.PABLO)); 
+        partida.getPersonajes().add(new Heroe("Pablo", velocidad, fuerza, TipoPersonaje.PABLO));
 
-        partida.personajesToSpawn();
-        
-        System.out.println(partida.getPersonajes().toString());
-
+        // añadir posicion y heroe
+        int[] posicion = partida.getSpawn()[0];
+        partida.buscarPersonaje(TipoPersonaje.PABLO).setPosicion(posicion);
         partida.buscarHeroe();
-        System.out.println(partida.getHeroe().toString());
-
 
     }
-
-    // Buscar a Pablo
-// Personaje pablo = null;
-// for (Personaje p : treeSet) {
-//     if (p.getNombre().equals("Pablo")) {
-//         pablo = p;
-//     }
-// }
-
-// if (pablo != null) {
-//     treeSet.remove(pablo); 
-
-//     
-//     pablo.setVelocidad(10); 
-//     pablo.setFuerza(9);      
-
-//     treeSet.add(pablo); 
-
-////// o  personajes.add(new Heroe("Pablo", newvelocidad, newfuerza, TipoPersonaje.PABLO))
-// }
-
 
     @FXML
     private void switchToGame() throws IOException {

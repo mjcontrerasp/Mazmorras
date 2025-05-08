@@ -38,7 +38,7 @@ public class Partida {
             throw new IllegalStateException("El mapa no se cargó correctamente.");
         }
         personajesToSpawn();
-    
+
     }
 
     public static Partida getInstance() {
@@ -57,6 +57,10 @@ public class Partida {
         return mapa;
     }
 
+    public int[][] getSpawn() {
+        return spawn;
+    }
+
     /* Encuentra y guarda el Heroe de la lista de personajes */
     public void buscarHeroe() {
         for (Personaje personaje : personajes) {
@@ -66,7 +70,7 @@ public class Partida {
         }
     }
 
-    public Heroe getHeroe(){
+    public Heroe getHeroe() {
         return heroe;
     }
 
@@ -118,7 +122,6 @@ public class Partida {
             if (gameOver() || victoria()) {
                 break;
             }
-            System.out.println(personajesCopia.get(i).toString());
         }
         personajes = new TreeSet<>(personajesCopia);
         notifyObservers();
