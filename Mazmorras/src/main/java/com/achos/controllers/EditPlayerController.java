@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.achos.SceneID;
 import com.achos.SceneManager;
+import com.achos.model.Personaje;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -88,7 +89,7 @@ public class EditPlayerController {
 
         // listener para reflejar los cambios del slider en el label
         sliderFuerza.valueProperty().addListener((observable, oldValue, newValue) -> {
-            int fuerza = newValue.intValue(); // Convertimos a entero
+            int fuerza = newValue.intValue(); // Convertir a entero
 
             int velocidad = (int) sliderVelocidad.getValue();
 
@@ -112,6 +113,27 @@ public class EditPlayerController {
         });
 
     }
+
+    // Buscar a Pablo
+// Personaje pablo = null;
+// for (Personaje p : treeSet) {
+//     if (p.getNombre().equals("Pablo")) {
+//         pablo = p;
+//     }
+// }
+
+// if (pablo != null) {
+//     treeSet.remove(pablo); 
+
+//     
+//     pablo.setVelocidad(10); 
+//     pablo.setFuerza(9);      
+
+//     treeSet.add(pablo); 
+
+////// o  personajes.add(new Heroe("Pablo", newvelocidad, newfuerza, TipoPersonaje.PABLO))
+// }
+
 
     @FXML
     private void switchToGame() throws IOException {
