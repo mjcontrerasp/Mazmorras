@@ -1,5 +1,5 @@
 package com.achos;
 
 public enum SceneID {
-    PRIMARY,SECONDARY,GAME,VICTORY,GAMEOVER     
+    WELCOME,INTRODUCTION,EDITPLAYER,GAME,VICTORY,GAMEOVER     
 }    

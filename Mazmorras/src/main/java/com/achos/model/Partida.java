@@ -49,7 +49,7 @@ public class Partida {
             throw new IllegalStateException("El mapa no se cargó correctamente.");
         }
         personajesToSpawn();
-    
+
     }
 
     public static Partida getInstance() {
@@ -68,13 +68,21 @@ public class Partida {
         return mapa;
     }
 
+    public int[][] getSpawn() {
+        return spawn;
+    }
+
     /* Encuentra y guarda el Heroe de la lista de personajes */
-    private void buscarHeroe() {
+    public void buscarHeroe() {
         for (Personaje personaje : personajes) {
             if (personaje instanceof Heroe) {
                 this.heroe = (Heroe) personaje;
             }
         }
+    }
+
+    public Heroe getHeroe() {
+        return heroe;
     }
 
     /* Asignar personajes a sus celdas spawn */

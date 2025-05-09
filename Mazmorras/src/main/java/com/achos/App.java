@@ -20,11 +20,11 @@ public class App extends Application {
         SplitPane root = FXMLLoader.load(getClass().getResource("/com/achos/views/game.fxml"));
         Scene scene = new Scene(root, 800, 600);
         stage.setTitle("PATATAZOS");
-        stage.getIcons().add(new Image(App.class.getResource("/com/achos/images/logo.png").toExternalForm()));
+        stage.getIcons().add(new Image(App.class.getResource("/com/achos/images/logoJuego.png").toExternalForm()));
         stage.setScene(scene);
         SceneManager sm = SceneManager.getInstance();
         sm.setStage(stage);  
-        sm.loadScene(SceneID.PRIMARY); 
+        sm.loadScene(SceneID.WELCOME); 
     
         stage.show();
     }

@@ -17,7 +17,7 @@ public class Posicion {
         int fila = posicion[0];
         int columna = posicion[1];
         ArrayList<int[]> cruceta = new ArrayList<>();
-        cruceta.add(new int[] { fila, columna }); // original
+        /* cruceta.add(new int[] { fila, columna }); // original */
         cruceta.add(new int[] { fila, columna - 1 }); // izquierda
         cruceta.add(new int[] { fila, columna + 1 }); // derecha
         cruceta.add(new int[] { fila - 1, columna }); // arriba

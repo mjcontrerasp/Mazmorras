@@ -16,8 +16,9 @@ public class SceneManager {
     private final Map<SceneID, String> sceneMap = new HashMap<>();
     
     private SceneManager() {
-        sceneMap.put(SceneID.PRIMARY, "/com/achos/views/primary.fxml");
-        sceneMap.put(SceneID.SECONDARY, "/com/achos/views/secondary.fxml");
+        sceneMap.put(SceneID.WELCOME, "/com/achos/views/welcome.fxml");
+        sceneMap.put(SceneID.INTRODUCTION, "/com/achos/views/introduction.fxml");
+        sceneMap.put(SceneID.EDITPLAYER, "/com/achos/views/editplayer.fxml");
         sceneMap.put(SceneID.GAME, "/com/achos/views/game.fxml");
         sceneMap.put(SceneID.VICTORY, "/com/achos/views/victoria.fxml");
         sceneMap.put(SceneID.GAMEOVER, "/com/achos/views/gameover.fxml");
