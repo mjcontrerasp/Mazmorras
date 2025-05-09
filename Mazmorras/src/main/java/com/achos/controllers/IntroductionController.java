@@ -77,6 +77,6 @@ public class IntroductionController {
 
     @FXML
     private void switchToGame() throws IOException {
-        SceneManager.getInstance().loadScene(SceneID.TERTIARY);
+        SceneManager.getInstance().loadScene(SceneID.GAME);
     }
 }

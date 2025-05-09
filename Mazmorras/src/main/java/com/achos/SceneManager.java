@@ -14,12 +14,12 @@ public class SceneManager {
     private static SceneManager instance;
     private Stage stage;
     private final Map<SceneID, String> sceneMap = new HashMap<>();
-
+    
     private SceneManager() {
         sceneMap.put(SceneID.WELCOME, "/com/achos/views/welcome.fxml");
         sceneMap.put(SceneID.INTRODUCTION, "/com/achos/views/introduction.fxml");
         sceneMap.put(SceneID.EDITPLAYER, "/com/achos/views/editplayer.fxml");
-        sceneMap.put(SceneID.TERTIARY, "/com/achos/views/tertiary.fxml");
+        sceneMap.put(SceneID.GAME, "/com/achos/views/game.fxml");
         sceneMap.put(SceneID.VICTORY, "/com/achos/views/victoria.fxml");
         sceneMap.put(SceneID.GAMEOVER, "/com/achos/views/gameover.fxml");
     }
@@ -38,7 +38,11 @@ public class SceneManager {
     public void init(Stage stage) {
         this.stage = stage;
     }
-
+    /**
+     * Cargar una escena a partir de su ID
+     * @param sceneID
+     * @throws IOException
+     */
     public void loadScene(SceneID sceneID) throws IOException {
         String fxmlPath = sceneMap.get(sceneID);
         if (fxmlPath == null) {

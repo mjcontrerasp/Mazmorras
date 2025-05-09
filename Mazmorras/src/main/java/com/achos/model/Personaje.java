@@ -16,7 +16,13 @@ public class Personaje implements Comparable<Personaje> {
 
     protected Personaje() {
     }
-
+    /**
+     * Constructor de la clase Personaje
+     * @param nombre
+     * @param velocidad
+     * @param fuerza
+     * @param tipoPersonaje
+     */
     protected Personaje(String nombre, int velocidad, int fuerza, TipoPersonaje tipoPersonaje) {
         this.nombre = nombre;
         this.vida = 10;
@@ -25,7 +31,13 @@ public class Personaje implements Comparable<Personaje> {
         this.posicion = new int[2];
         this.tipoPersonaje = tipoPersonaje;
     }
-
+    /**
+     * Constructor de la clase Personaje
+     * @param nombre
+     * @param vida
+     * @param velocidad
+     * @param fuerza
+     */
     protected Personaje(String nombre, int vida, int velocidad, int fuerza) {
         this.nombre = nombre;
         this.setVelocidad(velocidad);
@@ -116,11 +128,17 @@ public class Personaje implements Comparable<Personaje> {
             return Integer.compare(personaje.getVelocidad(),velocidad);
         }
     }
-
+    /**
+     * 
+     * @param ataque
+     */
     public void perderVida(int ataque) {
         setVida(vida - ataque);
     }
-
+    /**
+     * 
+     * @param ataque
+     */
     public int atacar() {
         int ataqueMin = fuerza - 5;
         if (ataqueMin < 0) {

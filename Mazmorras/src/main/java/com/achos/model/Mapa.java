@@ -61,10 +61,13 @@ public class Mapa {
         return mapaToString;
     }
 
-    /*
+    
+    /**
      * Devuelve en String el tipo de Celda en formato tabulado y en caso de ser un
      * suelo que contenga un
      * personaje, devuelve el tipo de personaje en mayusculas
+     * @param celda
+     * @return
      */
     public String tipoToString(Celda celda) {
         String tipoToString = "";

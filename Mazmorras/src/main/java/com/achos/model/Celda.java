@@ -15,16 +15,25 @@ public class Celda {
         this.posicion = new int[] { y, x };
     }
 
-
+    /**
+     * Devuelve el tipo de celda
+     * @return
+     */
     public TipoCelda getTipoCelda() {
         return this.tipoCelda;
         
     }
-
+    /**
+     * Devuelve el tipo de celda
+     * @return
+     */
     public int[] getPosicicion() {
         return posicion;
     }
-
+    /**
+     * Devuelve la posicion de la celda
+     * @param personaje
+     */
     public void setOcupadoPor(Personaje personaje) {
         if (ocupadaPor == null) {
             ocupadaPor = personaje;
@@ -32,7 +41,10 @@ public class Celda {
             ocupadaPor = null;
         }
     }
-
+    /**
+     * Devuelve el personaje que ocupa la celda
+     * @return
+     */
     public Personaje getOcupadoPor() {
         return ocupadaPor;
     }

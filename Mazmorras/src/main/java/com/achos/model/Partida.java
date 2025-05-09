@@ -10,6 +10,13 @@ import com.achos.interfaces.Observer;
 import com.achos.utilities.LectorPersonajes;
 import com.achos.utilities.Posicion;
 
+/**
+ * Clase Partida
+ * 
+ * Esta clase representa una partida del juego. Se encarga de gestionar los
+ * personajes, el mapa y las interacciones entre ellos.
+ * 
+ */
 public class Partida {
     private static Partida instance;
     private TreeSet<Personaje> personajes;
@@ -21,10 +28,14 @@ public class Partida {
 
     private ArrayList<Observer> observers = new ArrayList<>();
 
+    /**
+     * Constructor privado.
+     * @param observer
+     */
     public void subscribe(Observer observer) {
         observers.add(observer);
     }
-
+     
     public void notifyObservers() {
         observers.forEach(i -> i.onChange());
     }
@@ -86,9 +97,11 @@ public class Partida {
         buscarPersonaje(TipoPersonaje.GABINO).setPosicion(spawn[3]);
     }
 
-    /*
+    /**
      * Buscar personaje por tipo. Sirve solo para buscar a un unico Heroe. Si buscas
      * a un Enemigo, te devolverá el primer Enemigo encontrado.
+     * @param tipoPersonaje
+     * @return
      */
     public Personaje buscarPersonaje(TipoPersonaje tipoPersonaje) {
         Personaje personajeEncontrado = null;
@@ -100,7 +113,13 @@ public class Partida {
         return personajeEncontrado;
     }
 
-    /* Buscar celda */
+    /**
+     * Busca una celda en el mapa por su posicion. Si la posicion no es valida, devuelve
+     * null.
+     * 
+     * @param posicion
+     * @return
+     */
     public Celda buscarCelda(int[] posicion) {
         Celda celdaEncontrada = null;
         if (Posicion.dentroLimites(posicion, mapa)) {
@@ -109,7 +128,11 @@ public class Partida {
         return celdaEncontrada;
     }
 
-    /* Aplica movimiento por orden de velocidad a todos los personajes */
+   
+    /**
+     * Aplica movimiento por orden de velocidad a todos los personajes
+     * @param posicion
+     */
     public void moverPersonajes(int[] posicion) {
         ArrayList<Personaje> personajesCopia = new ArrayList<>(personajes);
         for (int i = 0; i < personajesCopia.size(); i++) {
@@ -127,7 +150,12 @@ public class Partida {
         notifyObservers();
     }
 
-    /* Mover heroe almacenado en partida */
+    /**
+     * Mueve el heroe a la nueva posicion. Si la nueva posicion es un enemigo, el
+     * enemigo pierde vida.
+     * 
+     * @param movimiento
+     */
     public void moverHeroe(int[] movimiento) {
         int[] nuevaPosicion = Posicion.mover(heroe.getPosicion(), movimiento);
         if (Posicion.dentroLimites(nuevaPosicion, mapa)) {
@@ -144,7 +172,11 @@ public class Partida {
         }
     }
 
-    /* Mover cualquier enemigo */
+    /**
+     * Mueve el enemigo a la nueva posicion. Si la nueva posicion es el heroe, el
+     * heroe pierde vida.
+     * @param enemigo
+     */
     public void moverEnemigo(Enemigo enemigo) {
         if (enemigo.getVida() > 0
                 && Posicion.distancia(heroe.getPosicion(), enemigo.getPosicion()) <= enemigo.getPercepcion()) {
@@ -165,7 +197,10 @@ public class Partida {
 
     }
 
-    /* Game Over si el heroe tiene vida menor o igual a cero */
+    /**
+     * Game Over si el heroe tiene vida menor o igual a cero
+     * @return
+     */
     public boolean gameOver() {
         if (heroe.getVida() <= 0) {
             return true;

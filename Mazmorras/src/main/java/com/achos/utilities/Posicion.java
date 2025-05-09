@@ -3,12 +3,15 @@ package com.achos.utilities;
 import java.util.ArrayList;
 
 import com.achos.enums.TipoCelda;
-import com.achos.model.*;
+import com.achos.model.Mapa;
 
 public class Posicion {
-    /*
+    
+    /**
      * A partir de una posicion crea un array de 5 posiciones (original, izquierda,
      * derecha, arriba y abajo)
+     * @param posicion
+     * @return
      */
     public static ArrayList<int[]> crearCruceta(int[] posicion) {
         int fila = posicion[0];
@@ -22,7 +25,12 @@ public class Posicion {
         return cruceta;
     }
 
-    /* Elimina posiciones de la cruceta que sean fuera del mapa */
+    
+    /**
+     * Elimina posiciones de la cruceta que sean fuera del mapa
+     * @param cruceta
+     * @param mapa
+     */
     public static void limpiarFueraLimites(ArrayList<int[]> cruceta, Mapa mapa) {
         for (int i = 0; i < cruceta.size(); i++) {
             if (!dentroLimites(cruceta.get(i), mapa)) {
@@ -31,16 +39,25 @@ public class Posicion {
         }
     }
 
-    /* Posicion dentro de los límities, SOLO MAPAS CUADRADOS */
+   
+    /**
+     * Posicion dentro de los límities, SOLO MAPAS CUADRADOS
+     * @param posicion
+     * @param mapa
+     * @return
+     */
     public static boolean dentroLimites(int[] posicion, Mapa mapa) {
         int filas = mapa.getCeldas().size();
         int columnas = mapa.getCeldas().get(0).size();
         return (posicion[0] < filas && posicion[0] >= 0) && (posicion[1] < columnas && posicion[1] >= 0);
     }
 
-    /*
+    
+    /**
      * Elimina posiciones de la cruceta de posiciones que colisionen con un
      * muro
+     * @param cruceta
+     * @param mapa
      */
     public static void limpiarMuro(ArrayList<int[]> cruceta, Mapa mapa) {
         for (int i = 0; i < cruceta.size(); i++) {
@@ -50,12 +67,23 @@ public class Posicion {
         }
     }
 
-    /* Posicion sin colision con pared */
+   
+    /**
+     * Posicion sin colision con pared
+     * @param posicion
+     * @param mapa
+     * @return
+     */
     public static boolean noPared(int[] posicion, Mapa mapa) {
         return mapa.getCeldas().get(posicion[0]).get(posicion[1]).getTipoCelda() != TipoCelda.PARED;
     }
 
-    /* Devuelve en double la distancia entre dos posiciones */
+    /**
+     * Devuelve en double la distancia entre dos posiciones
+     * @param posicion1
+     * @param posicion2
+     * @return
+     */
     public static double distancia(int[] posicion1, int[] posicion2) {
         int fila1 = posicion1[0];
         int columna1 = posicion1[1];
@@ -66,7 +94,13 @@ public class Posicion {
         return Math.sqrt(Math.pow(distanciaFilas, 2) + Math.pow(distanciaColumnas, 2));
     }
 
-    /* Devuelve la posicion más cercana de una cruceta a una posicion dada */
+    
+    /**
+     * Devuelve la posicion más cercana de una cruceta a una posicion dada
+     * @param posicion
+     * @param cruceta
+     * @return
+     */
     public static int[] posicionMasCerca(int[] posicion, ArrayList<int[]> cruceta) {
         int[] posicionFinal = cruceta.get(0);
         for (int i = 1; i < cruceta.size(); i++) {

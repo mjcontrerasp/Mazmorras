@@ -143,6 +143,6 @@ public class EditPlayerController {
     @FXML
     private void switchToGame() throws IOException {
         setHeroe();
-        SceneManager.getInstance().loadScene(SceneID.TERTIARY);
+        SceneManager.getInstance().loadScene(SceneID.GAME);
     }
 }
