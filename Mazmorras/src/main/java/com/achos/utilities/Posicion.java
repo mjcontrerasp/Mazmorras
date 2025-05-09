@@ -63,7 +63,9 @@ public class Posicion {
         for (int i = 0; i < cruceta.size(); i++) {
             if (!noPared(cruceta.get(i), mapa)) {
                 cruceta.remove(i);
+                i--;
             }
+            
         }
     }
 

@@ -30,12 +30,13 @@ public class Partida {
 
     /**
      * Constructor privado.
+     * 
      * @param observer
      */
     public void subscribe(Observer observer) {
         observers.add(observer);
     }
-     
+
     public void notifyObservers() {
         observers.forEach(i -> i.onChange());
     }
@@ -100,6 +101,7 @@ public class Partida {
     /**
      * Buscar personaje por tipo. Sirve solo para buscar a un unico Heroe. Si buscas
      * a un Enemigo, te devolverá el primer Enemigo encontrado.
+     * 
      * @param tipoPersonaje
      * @return
      */
@@ -114,7 +116,8 @@ public class Partida {
     }
 
     /**
-     * Busca una celda en el mapa por su posicion. Si la posicion no es valida, devuelve
+     * Busca una celda en el mapa por su posicion. Si la posicion no es valida,
+     * devuelve
      * null.
      * 
      * @param posicion
@@ -128,9 +131,9 @@ public class Partida {
         return celdaEncontrada;
     }
 
-   
     /**
      * Aplica movimiento por orden de velocidad a todos los personajes
+     * 
      * @param posicion
      */
     public void moverPersonajes(int[] posicion) {
@@ -162,6 +165,9 @@ public class Partida {
             if (Posicion.noPared(nuevaPosicion, mapa)) {
                 if (buscarCelda(nuevaPosicion).getOcupadoPor() instanceof Enemigo) {
                     buscarCelda(nuevaPosicion).getOcupadoPor().perderVida(heroe.atacar());
+                    if (!(buscarCelda(nuevaPosicion).getOcupadoPor().getVida() > 0)) {
+                        buscarCelda(nuevaPosicion).setOcupadoPor(null);
+                    }
                 } else {
                     buscarCelda(heroe.getPosicion()).setOcupadoPor(null);
                     heroe.setPosicion(nuevaPosicion);
@@ -175,6 +181,7 @@ public class Partida {
     /**
      * Mueve el enemigo a la nueva posicion. Si la nueva posicion es el heroe, el
      * heroe pierde vida.
+     * 
      * @param enemigo
      */
     public void moverEnemigo(Enemigo enemigo) {
@@ -199,6 +206,7 @@ public class Partida {
 
     /**
      * Game Over si el heroe tiene vida menor o igual a cero
+     * 
      * @return
      */
     public boolean gameOver() {
