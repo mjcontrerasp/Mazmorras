@@ -11,8 +11,11 @@ import com.achos.model.Partida;
 import com.achos.model.Personaje;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,10 +23,18 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class GameController implements Observer {
+
+    @FXML
+    private StackPane mainStackPane;
+
+    @FXML
+    private ImageView background;
+
     @FXML
     private VBox infoBox;
 
@@ -31,14 +42,16 @@ public class GameController implements Observer {
     private AnchorPane juego;
 
     @FXML
+    private AnchorPane info;
+
+    @FXML
     private SplitPane pantalla;
 
-    private final int tileSize = 32;
+    private final int tileSize = 40;
 
     // Usamos las rutas relativas para las imágenes
     private final String URL_SUELO = "/com/achos/images/suelo.png";
     private final String URL_PARED = "/com/achos/images/paredes.png";
-    private final String URL_TECLAS = "/com/achos/images/teclas-removebg-preview.png";
 
     private Partida partida = Partida.getInstance(); // Obtener la partida actual
 
@@ -94,9 +107,9 @@ public class GameController implements Observer {
         fondo.setFitHeight(tileSize); // Establecer la altura del fondo
 
         if (celda.getTipoCelda() == TipoCelda.PARED) { // Si es una pared
-            fondo.setImage(new Image(getClass().getResource(URL_PARED).toExternalForm())); 
+            fondo.setImage(new Image(getClass().getResource(URL_PARED).toExternalForm()));
         } else if (celda.getTipoCelda() == TipoCelda.SUELO) { // Si es un suelo
-            fondo.setImage(new Image(getClass().getResource(URL_SUELO).toExternalForm())); 
+            fondo.setImage(new Image(getClass().getResource(URL_SUELO).toExternalForm()));
         }
         stackPane.getChildren().add(fondo); // Añadir el fondo al StackPane
 
@@ -106,7 +119,10 @@ public class GameController implements Observer {
             ImageView personajeView = new ImageView(); // Crear un ImageView para el personaje
             personajeView.setFitWidth(tileSize); // Establecer el ancho del personaje
             personajeView.setFitHeight(tileSize); // Establecer la altura del personaje
-            personajeView.setImage(new Image(getClass().getResource(obtenerImagenPersonaje(p)).toExternalForm())); // Usamos la ruta relativa
+            personajeView.setImage(new Image(getClass().getResource(obtenerImagenPersonaje(p)).toExternalForm())); // Usamos
+                                                                                                                   // la
+                                                                                                                   // ruta
+                                                                                                                   // relativa
             stackPane.getChildren().add(personajeView); // Añadir el personaje al StackPane
         }
 
@@ -120,10 +136,10 @@ public class GameController implements Observer {
      * @return
      */
     private String obtenerImagenPersonaje(Personaje p) {
-        if (p instanceof Heroe) { 
+        if (p instanceof Heroe) {
             return "/com/achos/images/pablo-cenital.png";
-        } else if (p instanceof Enemigo) { 
-            switch (p.getTipoPersonaje()) { 
+        } else if (p instanceof Enemigo) {
+            switch (p.getTipoPersonaje()) {
                 case GABINO:
                     return "/com/achos/images/gabino-cenital.png";
                 case MANU:
@@ -137,6 +153,8 @@ public class GameController implements Observer {
         return null; // Si no es un personaje conocido
     }
 
+    
+
     /**
      * Mueve el personaje a la celda correspondiente
      * 
@@ -148,7 +166,7 @@ public class GameController implements Observer {
         switch (teclaTocodigo) {
             case A:
             case LEFT:
-                movimiento = new int[] { 0, -1 }; 
+                movimiento = new int[] { 0, -1 };
                 System.out.println("Izquierda");
                 break;
             case W:
@@ -157,12 +175,12 @@ public class GameController implements Observer {
                 System.out.println("Arriba");
                 break;
             case S:
-             case DOWN:
+            case DOWN:
                 movimiento = new int[] { 1, 0 };
                 System.out.println("Abajo");
                 break;
             case D:
-             case RIGHT:
+            case RIGHT:
                 movimiento = new int[] { 0, 1 };
                 System.out.println("Derecha");
                 break;
@@ -191,29 +209,64 @@ public class GameController implements Observer {
         infoBox.getChildren().clear();
 
         for (Personaje p : partida.getPersonajes()) {
-            VBox personajeBox = new VBox(5);
-            // Nombre del personaje
-            Label nombre = new Label(p.getTipoPersonaje().name());
+            HBox personajeBox = new HBox(5); // Contenedor principal
+            personajeBox.setAlignment(Pos.CENTER);
 
-            // Imagenes de los personajes
-            ImageView img = new ImageView(new Image(getClass().getResource(obtenerImagenPersonaje(p)).toExternalForm()));
-            img.setFitWidth(35);
-            img.setFitHeight(35);
+            if (p instanceof Heroe) {
+                personajeBox.getStyleClass().add("heroe-box");
+            } else personajeBox.getStyleClass().add("personaje-box");
 
-            Label vida = new Label("Vida: " + p.getVida());
+            // Imagen del personaje
+            ImageView img = new ImageView(
+                    new Image(getClass().getResource(obtenerImagenPersonaje(p)).toExternalForm()));
+            img.setFitWidth(40);
+            img.setFitHeight(40);
 
+            // VBox datos personaje
+            VBox datosBox = new VBox(10);
+
+            // HBox 1: icono + barra de Vida
+            ImageView vidaIcon = new ImageView(
+                    new Image(getClass().getResource("/com/achos/images/vida.png").toExternalForm()));
+            vidaIcon.setFitWidth(20);
+            vidaIcon.setFitHeight(20);
+
+            ProgressBar vidaBar = new ProgressBar(p.getVida() / 10.0);
+
+            HBox vidaBox = new HBox(5, vidaIcon, vidaBar);
+            vidaBox.setAlignment(Pos.CENTER);
+
+            // HBox 2: icono + barra de Fuerza
+            ImageView fuerzaIcon = new ImageView(
+                    new Image(getClass().getResource("/com/achos/images/fuerza.png").toExternalForm()));
+            fuerzaIcon.setFitWidth(20);
+            fuerzaIcon.setFitHeight(20);
+
+            ProgressBar fuerzaBar = new ProgressBar( p.getFuerza() / 10.0);
+
+            HBox fuerzaBox = new HBox(5, fuerzaIcon, fuerzaBar);
+            vidaBox.setAlignment(Pos.CENTER);
+
+            // HBox 2: iconos fuerza y velocidad
+            ImageView velocidadIcon = new ImageView(
+                    new Image(getClass().getResource("/com/achos/images/velocidad.png").toExternalForm()));
+            velocidadIcon.setFitWidth(20);
+            velocidadIcon.setFitHeight(20);
+
+            ProgressBar velocidadBar = new ProgressBar( p.getVelocidad() / 10.0);
+            HBox velocidadBox = new HBox(5, velocidadIcon, velocidadBar);
+            velocidadBox.setAlignment(Pos.CENTER);
+
+            // Opacidad si está muerto
             if (p.getVida() <= 0) {
-                personajeBox.setOpacity(0.3); // ponerlo en gris si muere
+                personajeBox.setOpacity(0.3);
             }
 
-            personajeBox.getChildren().addAll(nombre, img, vida);
+            // Añadir todo al VBox del personaje
+            datosBox.getChildren().addAll(vidaBox, fuerzaBox, velocidadBox);
+            personajeBox.getChildren().addAll(img, datosBox);
             infoBox.getChildren().add(personajeBox);
+            infoBox.setSpacing(5);
         }
-        
-        ImageView footerImage = new ImageView(new Image(getClass().getResource(URL_TECLAS).toExternalForm()));
-        footerImage.setFitWidth(500); 
-        footerImage.setPreserveRatio(true);
-
-        infoBox.getChildren().add(footerImage);
     }
 }
