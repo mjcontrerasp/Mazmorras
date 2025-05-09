@@ -39,6 +39,7 @@ public class Partida {
 
     public void notifyObservers() {
         observers.forEach(i -> i.onChange());
+        System.out.println(observers.toString());
     }
 
     private Partida() {
@@ -167,6 +168,7 @@ public class Partida {
                     buscarCelda(nuevaPosicion).getOcupadoPor().perderVida(heroe.atacar());
                     if (!(buscarCelda(nuevaPosicion).getOcupadoPor().getVida() > 0)) {
                         buscarCelda(nuevaPosicion).setOcupadoPor(null);
+                        heroe.setVida(heroe.getVida() + 5);
                     }
                 } else {
                     buscarCelda(heroe.getPosicion()).setOcupadoPor(null);

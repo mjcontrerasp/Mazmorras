@@ -61,6 +61,7 @@ public class GameController implements Observer {
 
         partida.subscribe(this);
         generarMapa(); // Generar el mapa al iniciar la pantalla
+        System.out.println("inicializando mapaaaa");
         generarInfoPersonajes();
 
         juego.setOnMouseClicked(e -> juego.requestFocus());
@@ -198,8 +199,11 @@ public class GameController implements Observer {
      */
     @Override
     public void onChange() {
+        System.out.println("generando mapa");
         generarMapa();
+        System.out.println("Mapa generado. Generando info.");
         generarInfoPersonajes();
+        System.out.println("Info generada");
     }
 
     /**
