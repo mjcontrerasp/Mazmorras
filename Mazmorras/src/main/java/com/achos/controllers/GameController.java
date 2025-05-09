@@ -12,6 +12,7 @@ import com.achos.model.Personaje;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -20,8 +21,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public class GameController implements Observer {
+    @FXML
+    private VBox infoBox;
 
     @FXML
     private AnchorPane juego;
@@ -31,13 +35,10 @@ public class GameController implements Observer {
 
     private final int tileSize = 32;
 
+    // Usamos las rutas relativas para las imágenes
     private final String URL_SUELO = "/com/achos/images/suelo.png";
     private final String URL_PARED = "/com/achos/images/paredes.png";
-
-    private final String URL_PABLO = "/com/achos/images/pablo-cenital.png";
-    private final String URL_GABINO = "/com/achos/images/gabino-cenital.png";
-    private final String URL_MANU = "/com/achos/images/manu-cenital.png";
-    private final String URL_GLORIA = "/com/achos/images/gloria-cenital.png";
+    private final String URL_TECLAS = "/com/achos/images/teclas-removebg-preview.png";
 
     private Partida partida = Partida.getInstance(); // Obtener la partida actual
 
@@ -47,6 +48,7 @@ public class GameController implements Observer {
 
         partida.subscribe(this);
         generarMapa(); // Generar el mapa al iniciar la pantalla
+        generarInfoPersonajes();
 
         juego.setOnMouseClicked(e -> juego.requestFocus());
         juego.setOnKeyPressed(e -> System.out.println("Holiiii"));
@@ -92,9 +94,9 @@ public class GameController implements Observer {
         fondo.setFitHeight(tileSize); // Establecer la altura del fondo
 
         if (celda.getTipoCelda() == TipoCelda.PARED) { // Si es una pared
-            fondo.setImage(new Image(getClass().getResourceAsStream(URL_PARED))); // Establecer la imagen de la pared
+            fondo.setImage(new Image(getClass().getResource(URL_PARED).toExternalForm())); 
         } else if (celda.getTipoCelda() == TipoCelda.SUELO) { // Si es un suelo
-            fondo.setImage(new Image(getClass().getResourceAsStream(URL_SUELO))); // Establecer la imagen del suelo
+            fondo.setImage(new Image(getClass().getResource(URL_SUELO).toExternalForm())); 
         }
         stackPane.getChildren().add(fondo); // Añadir el fondo al StackPane
 
@@ -104,10 +106,7 @@ public class GameController implements Observer {
             ImageView personajeView = new ImageView(); // Crear un ImageView para el personaje
             personajeView.setFitWidth(tileSize); // Establecer el ancho del personaje
             personajeView.setFitHeight(tileSize); // Establecer la altura del personaje
-            personajeView.setImage(new Image(getClass().getResourceAsStream(obtenerImagenPersonaje(p)))); // Establecer
-                                                                                                          // la imagen
-                                                                                                          // del
-                                                                                                          // personaje
+            personajeView.setImage(new Image(getClass().getResource(obtenerImagenPersonaje(p)).toExternalForm())); // Usamos la ruta relativa
             stackPane.getChildren().add(personajeView); // Añadir el personaje al StackPane
         }
 
@@ -121,16 +120,16 @@ public class GameController implements Observer {
      * @return
      */
     private String obtenerImagenPersonaje(Personaje p) {
-        if (p instanceof Heroe) { // Si es un heroe
-            return URL_PABLO;
-        } else if (p instanceof Enemigo) { // Si es un enemigo
-            switch (p.getTipoPersonaje()) { // Comprobamos el tipo de personaje
+        if (p instanceof Heroe) { 
+            return "/com/achos/images/pablo-cenital.png";
+        } else if (p instanceof Enemigo) { 
+            switch (p.getTipoPersonaje()) { 
                 case GABINO:
-                    return URL_GABINO;
+                    return "/com/achos/images/gabino-cenital.png";
                 case MANU:
-                    return URL_MANU;
+                    return "/com/achos/images/manu-cenital.png";
                 case GLORIA:
-                    return URL_GLORIA;
+                    return "/com/achos/images/gloria-cenital.png";
                 default:
                     return null;
             }
@@ -148,19 +147,23 @@ public class GameController implements Observer {
         KeyCode teclaTocodigo = tecla.getCode();
         switch (teclaTocodigo) {
             case A:
-                movimiento = new int[] { 0, -1 }; // Cambia el personaje a la izquierda
+            case LEFT:
+                movimiento = new int[] { 0, -1 }; 
                 System.out.println("Izquierda");
                 break;
             case W:
-                movimiento = new int[] { -1, 0 };// Cambia el personaje a la derecha
+            case UP:
+                movimiento = new int[] { -1, 0 };
                 System.out.println("Arriba");
                 break;
             case S:
-                movimiento = new int[] { 1, 0 };// Cambia el personaje a la izquierda
+             case DOWN:
+                movimiento = new int[] { 1, 0 };
                 System.out.println("Abajo");
                 break;
             case D:
-                movimiento = new int[] { 0, 1 };// Cambia el personaje a la derecha
+             case RIGHT:
+                movimiento = new int[] { 0, 1 };
                 System.out.println("Derecha");
                 break;
 
@@ -173,10 +176,44 @@ public class GameController implements Observer {
     }
 
     /**
-     * Cambia la escena a la pantalla de inicio
+     * refresca los cambios
      */
     @Override
     public void onChange() {
         generarMapa();
+        generarInfoPersonajes();
+    }
+
+    /**
+     * Genera la información de los personajes en la interfaz
+     */
+    private void generarInfoPersonajes() {
+        infoBox.getChildren().clear();
+
+        for (Personaje p : partida.getPersonajes()) {
+            VBox personajeBox = new VBox(5);
+            // Nombre del personaje
+            Label nombre = new Label(p.getTipoPersonaje().name());
+
+            // Imagenes de los personajes
+            ImageView img = new ImageView(new Image(getClass().getResource(obtenerImagenPersonaje(p)).toExternalForm()));
+            img.setFitWidth(35);
+            img.setFitHeight(35);
+
+            Label vida = new Label("Vida: " + p.getVida());
+
+            if (p.getVida() <= 0) {
+                personajeBox.setOpacity(0.3); // ponerlo en gris si muere
+            }
+
+            personajeBox.getChildren().addAll(nombre, img, vida);
+            infoBox.getChildren().add(personajeBox);
+        }
+        
+        ImageView footerImage = new ImageView(new Image(getClass().getResource(URL_TECLAS).toExternalForm()));
+        footerImage.setFitWidth(500); 
+        footerImage.setPreserveRatio(true);
+
+        infoBox.getChildren().add(footerImage);
     }
 }
