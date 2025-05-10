@@ -1,10 +1,13 @@
 package com.achos.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.TreeSet;
 
+import com.achos.SceneID;
+import com.achos.SceneManager;
 import com.achos.enums.TipoPersonaje;
 import com.achos.interfaces.Observer;
 import com.achos.utilities.LectorPersonajes;
@@ -19,37 +22,48 @@ import com.achos.utilities.Posicion;
  */
 public class Partida {
     private static Partida instance;
+    public static int contadorPartida = 1;
     private TreeSet<Personaje> personajes;
     private String pathPersonajes = "Mazmorras/src/main/resources/com/achos/data/personajes.json";
     private Heroe heroe;
     private int[][] spawn = new int[][] { { 13, 1 }, { 5, 13 }, { 8, 1 }, { 1, 13 } };
     private String nombreMapa;
     private Mapa mapa;
+    private boolean gameOver;
+    private boolean victory;
 
     private ArrayList<Observer> observers = new ArrayList<>();
 
     /**
      * Constructor privado.
+     * 
      * @param observer
      */
     public void subscribe(Observer observer) {
         observers.add(observer);
     }
-     
+
     public void notifyObservers() {
         observers.forEach(i -> i.onChange());
+        System.out.println("Observers: " + observers.toString());
     }
 
     private Partida() {
+        gameOver = false;
+        victory = false;
         personajes = LectorPersonajes.leerPersonajes(pathPersonajes);
         buscarHeroe();
-        nombreMapa = "mapa3";
+        nombreMapa = creadorNombre();
         mapa = new Mapa(nombreMapa);
         if (mapa.getCeldas() == null || mapa.getCeldas().isEmpty()) {
             throw new IllegalStateException("El mapa no se cargó correctamente.");
         }
         personajesToSpawn();
 
+    }
+
+    private String creadorNombre(){
+        return "mapa"+contadorPartida;
     }
 
     public static Partida getInstance() {
@@ -85,6 +99,22 @@ public class Partida {
         return heroe;
     }
 
+    public boolean getGameOver(){
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver){
+        this.gameOver = gameOver;
+    }
+
+    public boolean getVictory(){
+        return victory;
+    }
+
+    public void setVictory(boolean victory){
+        this.victory = victory;
+    }
+
     /* Asignar personajes a sus celdas spawn */
     public void personajesToSpawn() {
         buscarCelda(spawn[0]).setOcupadoPor(buscarPersonaje(TipoPersonaje.PABLO));
@@ -100,6 +130,7 @@ public class Partida {
     /**
      * Buscar personaje por tipo. Sirve solo para buscar a un unico Heroe. Si buscas
      * a un Enemigo, te devolverá el primer Enemigo encontrado.
+     * 
      * @param tipoPersonaje
      * @return
      */
@@ -114,7 +145,8 @@ public class Partida {
     }
 
     /**
-     * Busca una celda en el mapa por su posicion. Si la posicion no es valida, devuelve
+     * Busca una celda en el mapa por su posicion. Si la posicion no es valida,
+     * devuelve
      * null.
      * 
      * @param posicion
@@ -128,9 +160,9 @@ public class Partida {
         return celdaEncontrada;
     }
 
-   
     /**
      * Aplica movimiento por orden de velocidad a todos los personajes
+     * 
      * @param posicion
      */
     public void moverPersonajes(int[] posicion) {
@@ -143,8 +175,13 @@ public class Partida {
                 moverEnemigo(enemigo);
             }
             if (gameOver() || victoria()) {
-                break;
+                if (gameOver()) {
+                    setGameOver(true);
+                }else if (victoria()) {
+                    setVictory(true);
+                }
             }
+
         }
         personajes = new TreeSet<>(personajesCopia);
         notifyObservers();
@@ -162,6 +199,10 @@ public class Partida {
             if (Posicion.noPared(nuevaPosicion, mapa)) {
                 if (buscarCelda(nuevaPosicion).getOcupadoPor() instanceof Enemigo) {
                     buscarCelda(nuevaPosicion).getOcupadoPor().perderVida(heroe.atacar());
+                    if (!(buscarCelda(nuevaPosicion).getOcupadoPor().getVida() > 0)) {
+                        buscarCelda(nuevaPosicion).setOcupadoPor(null);
+                        heroe.setVida(heroe.getVida() + 5);
+                    }
                 } else {
                     buscarCelda(heroe.getPosicion()).setOcupadoPor(null);
                     heroe.setPosicion(nuevaPosicion);
@@ -175,6 +216,7 @@ public class Partida {
     /**
      * Mueve el enemigo a la nueva posicion. Si la nueva posicion es el heroe, el
      * heroe pierde vida.
+     * 
      * @param enemigo
      */
     public void moverEnemigo(Enemigo enemigo) {
@@ -199,6 +241,7 @@ public class Partida {
 
     /**
      * Game Over si el heroe tiene vida menor o igual a cero
+     * 
      * @return
      */
     public boolean gameOver() {

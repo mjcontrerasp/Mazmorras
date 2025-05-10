@@ -17,15 +17,13 @@ public class App extends Application {
     @SuppressWarnings("exports")
     @Override
     public void start(Stage stage) throws Exception {
-        SplitPane root = FXMLLoader.load(getClass().getResource("/com/achos/views/game.fxml"));
-        Scene scene = new Scene(root, 800, 600);
         stage.setTitle("PATATAZOS");
         stage.getIcons().add(new Image(App.class.getResource("/com/achos/images/logoJuego.png").toExternalForm()));
         stage.setScene(scene);
         SceneManager sm = SceneManager.getInstance();
-        sm.setStage(stage);  
-        sm.loadScene(SceneID.WELCOME); 
-    
+        sm.setStage(stage);
+        sm.loadScene(SceneID.WELCOME);
+
         stage.show();
     }
 
@@ -37,7 +35,6 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/com/achos/views/" + fxml + ".fxml"));
         return fxmlLoader.load();
     }
-    
 
     public static void main(String[] args) {
         launch();
