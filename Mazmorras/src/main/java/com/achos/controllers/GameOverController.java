@@ -16,6 +16,7 @@ public class GameOverController {
      */
     @FXML
     private void switchToWelcome() throws IOException {
+
          SceneManager.getInstance().loadScene(SceneID.WELCOME);
     }
     /** 
