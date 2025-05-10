@@ -2,19 +2,41 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="451.0" prefWidth="751.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.WinnerController">
+
+<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.WinnerController">
    <children>
-      <AnchorPane prefHeight="520.0" prefWidth="877.0">
+      <ImageView fitHeight="600.0" fitWidth="800.0">
+         <image>
+            <Image url="@../images/fondo-blur.jpg" />
+         </image>
+      </ImageView>
+      <VBox alignment="CENTER" prefHeight="451.0" prefWidth="751.0" spacing="40.0">
          <children>
-            <Button fx:id="terminar" layoutX="76.0" layoutY="382.0" onAction="#switchToContinuar" prefHeight="63.0" prefWidth="186.0" text="Continuar" />
-            <Button fx:id="continuar" layoutX="483.0" layoutY="382.0" onAction="#switchToExit" prefHeight="63.0" prefWidth="186.0" text="Salir" />
+            <StackPane>
+               <children>
+                  <ImageView fitHeight="331.0" fitWidth="711.0">
+                     <image>
+                        <Image url="@../images/winner.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="100.0">
+               <children>
+                  <Button fx:id="terminar" onAction="#switchToContinuar" prefHeight="63.0" prefWidth="186.0" styleClass="my-button" stylesheets="@../style/stylesheet.css" text="Continuar" />
+                  <Button fx:id="continuar" onAction="#switchToExit" prefHeight="63.0" prefWidth="186.0" styleClass="my-secondary-button" stylesheets="@../style/stylesheet.css" text="Salir" />
+               </children>
+            </HBox>
          </children>
-      </AnchorPane>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="40.0" />
+         </padding>
+      </VBox>
    </children>
-   <padding>
-      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-   </padding>
-</VBox>
+</StackPane>

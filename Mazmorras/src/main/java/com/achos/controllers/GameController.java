@@ -156,6 +156,30 @@ public class GameController implements Observer {
     }
 
     /**
+     * Devuelve la URL de la imagen FRONTAL del personaje
+     * 
+     * @param p
+     * @return
+     */
+    private String obtenerImagenFrontalPersonaje(Personaje p) {
+        if (p instanceof Heroe) {
+            return "/com/achos/images/pablo-frontal.png";
+        } else if (p instanceof Enemigo) {
+            switch (p.getTipoPersonaje()) {
+                case GABINO:
+                    return "/com/achos/images/gabino-frontal.png";
+                case MANU:
+                    return "/com/achos/images/manu-frontal.png";
+                case GLORIA:
+                    return "/com/achos/images/gloria-frontal.png";
+                default:
+                    return null;
+            }
+        }
+        return null; // Si no es un personaje conocido
+    }
+
+    /**
      * Mueve el personaje a la celda correspondiente
      * 
      * @param tecla
@@ -256,9 +280,9 @@ public class GameController implements Observer {
 
             // Imagen del personaje
             ImageView img = new ImageView(
-                    new Image(getClass().getResource(obtenerImagenPersonaje(p)).toExternalForm()));
+                    new Image(getClass().getResource(obtenerImagenFrontalPersonaje(p)).toExternalForm()));
             img.setFitWidth(40);
-            img.setFitHeight(40);
+            img.setFitHeight(60);
 
             // VBox datos personaje
             VBox datosBox = new VBox(10);
