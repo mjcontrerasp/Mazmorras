@@ -22,6 +22,7 @@ import com.achos.utilities.Posicion;
  */
 public class Partida {
     private static Partida instance;
+    public static int contadorPartida = 1;
     private TreeSet<Personaje> personajes;
     private String pathPersonajes = "Mazmorras/src/main/resources/com/achos/data/personajes.json";
     private Heroe heroe;
@@ -52,13 +53,17 @@ public class Partida {
         victory = false;
         personajes = LectorPersonajes.leerPersonajes(pathPersonajes);
         buscarHeroe();
-        nombreMapa = "mapa3";
+        nombreMapa = creadorNombre();
         mapa = new Mapa(nombreMapa);
         if (mapa.getCeldas() == null || mapa.getCeldas().isEmpty()) {
             throw new IllegalStateException("El mapa no se cargó correctamente.");
         }
         personajesToSpawn();
 
+    }
+
+    private String creadorNombre(){
+        return "mapa"+contadorPartida;
     }
 
     public static Partida getInstance() {
