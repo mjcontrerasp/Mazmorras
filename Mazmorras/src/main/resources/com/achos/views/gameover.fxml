@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="451.0" prefWidth="751.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.PrimaryController">
+<VBox alignment="CENTER" prefHeight="451.0" prefWidth="751.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.GameOverController">
    <children>
       <AnchorPane prefHeight="520.0" prefWidth="877.0">
          <children>
-            <Button fx:id="inicio" layoutX="80.0" layoutY="374.0" onAction="#switchToSecondary" prefHeight="63.0" prefWidth="186.0" text="Inicio" />
-            <Button fx:id="salir" layoutX="451.0" layoutY="374.0" onAction="#switchToSecondary" prefHeight="63.0" prefWidth="186.0" text="Salir" />
+            <Button fx:id="inicio" layoutX="80.0" layoutY="374.0" onAction="#switchToWelcome" prefHeight="63.0" prefWidth="186.0" text="Inicio" />
+            <Button fx:id="salir" layoutX="451.0" layoutY="374.0" onAction="#switchToExit" prefHeight="63.0" prefWidth="186.0" text="Salir" />
          </children>
       </AnchorPane>
    </children>
