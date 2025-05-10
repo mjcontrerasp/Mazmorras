@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" prefHeight="451.0" prefWidth="751.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.PrimaryController">
+<VBox alignment="CENTER" prefHeight="451.0" prefWidth="751.0" spacing="20.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.WinnerController">
    <children>
       <AnchorPane prefHeight="520.0" prefWidth="877.0">
          <children>
