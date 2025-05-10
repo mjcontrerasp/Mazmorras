@@ -200,15 +200,16 @@ public class GameController implements Observer {
      */
     @Override
     public void onChange() {
+        System.out.println(partida.getPersonajes().toString());
+        System.out.println(partida.getGameOver());
+        readGameOver();
+        System.out.println(partida.getVictory());
+        readVictory();
         System.out.println("generando mapa");
         generarMapa();
         System.out.println("Mapa generado. Generando info.");
         generarInfoPersonajes();
         System.out.println("Info generada");
-        System.out.println(partida.getGameOver());
-        readGameOver();
-        System.out.println(partida.getVictory());
-        readVictory();
     }
 
     /**
@@ -291,7 +292,6 @@ public class GameController implements Observer {
     }
 
     private void readVictory() {
-
         if (partida.getVictory()) {
             try {
                 SceneManager.getInstance().loadScene(SceneID.VICTORY);

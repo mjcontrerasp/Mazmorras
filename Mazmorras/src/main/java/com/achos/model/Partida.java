@@ -54,7 +54,7 @@ public class Partida {
     }
 
     public void subirNivelPartida() {
-        if (nivelPartida > 3) {
+        if (nivelPartida >= 3) {
             nivelPartida = 1;
         } else {
             nivelPartida++;
@@ -126,6 +126,7 @@ public class Partida {
 
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
+        notifyObservers();
     }
 
     public boolean getVictory() {
@@ -134,6 +135,7 @@ public class Partida {
 
     public void setVictory(boolean victory) {
         this.victory = victory;
+        notifyObservers();
     }
 
     /* Asignar personajes a sus celdas spawn */
@@ -195,17 +197,10 @@ public class Partida {
                 Enemigo enemigo = (Enemigo) personajesCopia.get(i);
                 moverEnemigo(enemigo);
             }
-            if (gameOver() || victoria()) {
-                if (gameOver()) {
-                    setGameOver(true);
-                } else if (victoria()) {
-                    setVictory(true);
-                }
-            }
-
         }
         personajes = new TreeSet<>(personajesCopia);
         notifyObservers();
+
     }
 
     /**
@@ -223,6 +218,9 @@ public class Partida {
                     if (!(buscarCelda(nuevaPosicion).getOcupadoPor().getVida() > 0)) {
                         buscarCelda(nuevaPosicion).setOcupadoPor(null);
                         heroe.setVida(heroe.getVida() + recompensa);
+                        if (victoria()) {
+                            setVictory(true);
+                        }
                     }
                 } else {
                     buscarCelda(heroe.getPosicion()).setOcupadoPor(null);
@@ -250,6 +248,9 @@ public class Partida {
             if (buscarCelda(posicionMasCerca).getOcupadoPor() != null) {
                 if (Arrays.equals(posicionMasCerca, heroe.getPosicion())) {
                     heroe.perderVida(enemigo.atacar());
+                    if (gameOver()) {
+                        setGameOver(true);
+                    }
                 }
             } else {
                 buscarCelda(enemigo.getPosicion()).setOcupadoPor(null);
@@ -279,7 +280,7 @@ public class Partida {
      */
     public boolean victoria() {
         for (Personaje personaje : personajes) {
-            if (personaje instanceof Enemigo && personaje.getVida() >= 0) {
+            if (personaje instanceof Enemigo && personaje.getVida() > 0) {
                 return false;
             }
         }
