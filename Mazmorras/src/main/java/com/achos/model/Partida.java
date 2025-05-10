@@ -31,6 +31,7 @@ public class Partida {
     private Mapa mapa;
     private boolean gameOver;
     private boolean victory;
+    private int recompensa = 1;
 
     private ArrayList<Observer> observers = new ArrayList<>();
 
@@ -221,7 +222,7 @@ public class Partida {
                     buscarCelda(nuevaPosicion).getOcupadoPor().perderVida(heroe.atacar());
                     if (!(buscarCelda(nuevaPosicion).getOcupadoPor().getVida() > 0)) {
                         buscarCelda(nuevaPosicion).setOcupadoPor(null);
-                        heroe.setVida(heroe.getVida() + 5);
+                        heroe.setVida(heroe.getVida() + recompensa);
                     }
                 } else {
                     buscarCelda(heroe.getPosicion()).setOcupadoPor(null);

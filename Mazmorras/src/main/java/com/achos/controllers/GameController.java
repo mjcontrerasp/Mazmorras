@@ -205,7 +205,9 @@ public class GameController implements Observer {
         System.out.println("Mapa generado. Generando info.");
         generarInfoPersonajes();
         System.out.println("Info generada");
+        System.out.println(partida.getGameOver());
         readGameOver();
+        System.out.println(partida.getVictory());
         readVictory();
     }
 
@@ -288,7 +290,8 @@ public class GameController implements Observer {
         }
     }
 
-    private void readVictory(){
+    private void readVictory() {
+
         if (partida.getVictory()) {
             try {
                 SceneManager.getInstance().loadScene(SceneID.VICTORY);
