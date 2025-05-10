@@ -1,7 +1,10 @@
 package com.achos.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import com.achos.SceneID;
+import com.achos.SceneManager;
 import com.achos.enums.TipoCelda;
 import com.achos.interfaces.Observer;
 import com.achos.model.Celda;
@@ -61,7 +64,7 @@ public class GameController implements Observer {
 
         partida.subscribe(this);
         generarMapa(); // Generar el mapa al iniciar la pantalla
-        System.out.println("inicializando mapaaaa");
+        System.out.println("inicializando mapa");
         generarInfoPersonajes();
 
         juego.setOnMouseClicked(e -> juego.requestFocus());
@@ -116,7 +119,7 @@ public class GameController implements Observer {
 
         Personaje p = celda.getOcupadoPor(); // Obtener el personaje que ocupa la celda
         // Si hay un personaje en la celda, añadir su imagen
-        if (p != null && p.getVida()>0) {
+        if (p != null && p.getVida() > 0) {
             ImageView personajeView = new ImageView(); // Crear un ImageView para el personaje
             personajeView.setFitWidth(tileSize); // Establecer el ancho del personaje
             personajeView.setFitHeight(tileSize); // Establecer la altura del personaje
@@ -153,8 +156,6 @@ public class GameController implements Observer {
         }
         return null; // Si no es un personaje conocido
     }
-
-    
 
     /**
      * Mueve el personaje a la celda correspondiente
@@ -204,6 +205,8 @@ public class GameController implements Observer {
         System.out.println("Mapa generado. Generando info.");
         generarInfoPersonajes();
         System.out.println("Info generada");
+        readGameOver();
+        readVictory();
     }
 
     /**
@@ -218,7 +221,8 @@ public class GameController implements Observer {
 
             if (p instanceof Heroe) {
                 personajeBox.getStyleClass().add("heroe-box");
-            } else personajeBox.getStyleClass().add("personaje-box");
+            } else
+                personajeBox.getStyleClass().add("personaje-box");
 
             // Imagen del personaje
             ImageView img = new ImageView(
@@ -246,7 +250,7 @@ public class GameController implements Observer {
             fuerzaIcon.setFitWidth(20);
             fuerzaIcon.setFitHeight(20);
 
-            ProgressBar fuerzaBar = new ProgressBar( p.getFuerza() / 10.0);
+            ProgressBar fuerzaBar = new ProgressBar(p.getFuerza() / 10.0);
 
             HBox fuerzaBox = new HBox(5, fuerzaIcon, fuerzaBar);
             vidaBox.setAlignment(Pos.CENTER);
@@ -257,7 +261,7 @@ public class GameController implements Observer {
             velocidadIcon.setFitWidth(20);
             velocidadIcon.setFitHeight(20);
 
-            ProgressBar velocidadBar = new ProgressBar( p.getVelocidad() / 10.0);
+            ProgressBar velocidadBar = new ProgressBar(p.getVelocidad() / 10.0);
             HBox velocidadBox = new HBox(5, velocidadIcon, velocidadBar);
             velocidadBox.setAlignment(Pos.CENTER);
 
@@ -271,6 +275,26 @@ public class GameController implements Observer {
             personajeBox.getChildren().addAll(img, datosBox);
             infoBox.getChildren().add(personajeBox);
             infoBox.setSpacing(5);
+        }
+    }
+
+    private void readGameOver() {
+        if (partida.getGameOver()) {
+            try {
+                SceneManager.getInstance().loadScene(SceneID.GAMEOVER);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void readVictory(){
+        if (partida.getVictory()) {
+            try {
+                SceneManager.getInstance().loadScene(SceneID.VICTORY);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

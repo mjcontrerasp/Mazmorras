@@ -1,10 +1,13 @@
 package com.achos.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.TreeSet;
 
+import com.achos.SceneID;
+import com.achos.SceneManager;
 import com.achos.enums.TipoPersonaje;
 import com.achos.interfaces.Observer;
 import com.achos.utilities.LectorPersonajes;
@@ -25,6 +28,8 @@ public class Partida {
     private int[][] spawn = new int[][] { { 13, 1 }, { 5, 13 }, { 8, 1 }, { 1, 13 } };
     private String nombreMapa;
     private Mapa mapa;
+    private boolean gameOver;
+    private boolean victory;
 
     private ArrayList<Observer> observers = new ArrayList<>();
 
@@ -39,10 +44,12 @@ public class Partida {
 
     public void notifyObservers() {
         observers.forEach(i -> i.onChange());
-        System.out.println(observers.toString());
+        System.out.println("Observers: " + observers.toString());
     }
 
     private Partida() {
+        gameOver = false;
+        victory = false;
         personajes = LectorPersonajes.leerPersonajes(pathPersonajes);
         buscarHeroe();
         nombreMapa = "mapa3";
@@ -85,6 +92,22 @@ public class Partida {
 
     public Heroe getHeroe() {
         return heroe;
+    }
+
+    public boolean getGameOver(){
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver){
+        this.gameOver = gameOver;
+    }
+
+    public boolean getVictory(){
+        return victory;
+    }
+
+    public void setVictory(boolean victory){
+        this.victory = victory;
     }
 
     /* Asignar personajes a sus celdas spawn */
@@ -147,8 +170,13 @@ public class Partida {
                 moverEnemigo(enemigo);
             }
             if (gameOver() || victoria()) {
-                break;
+                if (gameOver()) {
+                    setGameOver(true);
+                }else if (victoria()) {
+                    setVictory(true);
+                }
             }
+
         }
         personajes = new TreeSet<>(personajesCopia);
         notifyObservers();
