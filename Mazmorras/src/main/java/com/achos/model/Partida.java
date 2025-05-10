@@ -1,13 +1,10 @@
 package com.achos.model;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.TreeSet;
 
-import com.achos.SceneID;
-import com.achos.SceneManager;
 import com.achos.enums.TipoPersonaje;
 import com.achos.interfaces.Observer;
 import com.achos.utilities.LectorPersonajes;
