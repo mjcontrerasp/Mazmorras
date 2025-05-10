@@ -61,6 +61,7 @@ public class GameController implements Observer {
 
         partida.subscribe(this);
         generarMapa(); // Generar el mapa al iniciar la pantalla
+        System.out.println("inicializando mapaaaa");
         generarInfoPersonajes();
 
         juego.setOnMouseClicked(e -> juego.requestFocus());
@@ -115,7 +116,7 @@ public class GameController implements Observer {
 
         Personaje p = celda.getOcupadoPor(); // Obtener el personaje que ocupa la celda
         // Si hay un personaje en la celda, añadir su imagen
-        if (p != null) {
+        if (p != null && p.getVida()>0) {
             ImageView personajeView = new ImageView(); // Crear un ImageView para el personaje
             personajeView.setFitWidth(tileSize); // Establecer el ancho del personaje
             personajeView.setFitHeight(tileSize); // Establecer la altura del personaje
@@ -198,8 +199,11 @@ public class GameController implements Observer {
      */
     @Override
     public void onChange() {
+        System.out.println("generando mapa");
         generarMapa();
+        System.out.println("Mapa generado. Generando info.");
         generarInfoPersonajes();
+        System.out.println("Info generada");
     }
 
     /**
