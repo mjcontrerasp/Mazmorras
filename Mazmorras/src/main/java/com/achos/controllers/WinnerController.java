@@ -2,8 +2,10 @@ package com.achos.controllers;
 
 import java.io.IOException;
 
-import com.achos.App;
+import com.achos.SceneID;
+import com.achos.SceneManager;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 
 public class WinnerController {
@@ -13,15 +15,15 @@ public class WinnerController {
      * @throws IOException
      */
     @FXML
-    private void switchToPrimary() throws IOException {
-        App.setRoot("primaryview");
+    private void switchToContinuar() throws IOException {
+        SceneManager.getInstance().loadScene(SceneID.GAME);
     }
 
     /** 
      * @throws IOException
      */
     @FXML
-    private void terminarJuego() {
-        System.exit(0);
+    private void switchToExit() {
+        Platform.exit();
     }
 }
