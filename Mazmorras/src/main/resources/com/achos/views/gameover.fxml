@@ -9,8 +9,8 @@
    <children>
       <AnchorPane prefHeight="520.0" prefWidth="877.0">
          <children>
-            <Button fx:id="inicio" layoutX="80.0" layoutY="374.0" onAction="#switchToSecondary" prefHeight="63.0" prefWidth="186.0" text="Inicio" />
-            <Button fx:id="salir" layoutX="451.0" layoutY="374.0" onAction="#switchToSecondary" prefHeight="63.0" prefWidth="186.0" text="Salir" />
+            <Button fx:id="inicio" layoutX="80.0" layoutY="374.0" onAction="#switchToWelcome" prefHeight="63.0" prefWidth="186.0" text="Inicio" />
+            <Button fx:id="salir" layoutX="451.0" layoutY="374.0" onAction="#switchToExit" prefHeight="63.0" prefWidth="186.0" text="Salir" />
          </children>
       </AnchorPane>
    </children>
