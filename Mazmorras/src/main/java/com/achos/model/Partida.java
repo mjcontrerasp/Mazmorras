@@ -22,7 +22,7 @@ import com.achos.utilities.Posicion;
  */
 public class Partida {
     private static Partida instance;
-    public static int contadorPartida = 1;
+    private static int nivelPartida = 1;
     private TreeSet<Personaje> personajes;
     private String pathPersonajes = "Mazmorras/src/main/resources/com/achos/data/personajes.json";
     private Heroe heroe;
@@ -48,6 +48,26 @@ public class Partida {
         System.out.println("Observers: " + observers.toString());
     }
 
+    public void resetear() {
+        instance = null;
+    }
+
+    public void subirNivelPartida() {
+        if (nivelPartida > 3) {
+            nivelPartida = 1;
+        } else {
+            nivelPartida++;
+        }
+    }
+
+    public void subirNivelPersonajes() {
+        for (Personaje personaje : personajes) {
+            if (personaje instanceof Enemigo) {
+                personaje.setFuerza(personaje.getFuerza() + nivelPartida);
+            }
+        }
+    }
+
     private Partida() {
         gameOver = false;
         victory = false;
@@ -62,8 +82,8 @@ public class Partida {
 
     }
 
-    private String creadorNombre(){
-        return "mapa"+contadorPartida;
+    private String creadorNombre() {
+        return "mapa" + nivelPartida;
     }
 
     public static Partida getInstance() {
@@ -99,19 +119,19 @@ public class Partida {
         return heroe;
     }
 
-    public boolean getGameOver(){
+    public boolean getGameOver() {
         return gameOver;
     }
 
-    public void setGameOver(boolean gameOver){
+    public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
     }
 
-    public boolean getVictory(){
+    public boolean getVictory() {
         return victory;
     }
 
-    public void setVictory(boolean victory){
+    public void setVictory(boolean victory) {
         this.victory = victory;
     }
 
@@ -177,7 +197,7 @@ public class Partida {
             if (gameOver() || victoria()) {
                 if (gameOver()) {
                     setGameOver(true);
-                }else if (victoria()) {
+                } else if (victoria()) {
                     setVictory(true);
                 }
             }
