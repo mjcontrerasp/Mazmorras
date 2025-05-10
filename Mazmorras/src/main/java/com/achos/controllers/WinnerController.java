@@ -19,7 +19,6 @@ public class WinnerController {
     private void switchToContinuar() throws IOException {
         partida.resetear();
         partida.subirNivelPartida();
-        partida.subirNivelPersonajes();
         SceneManager.getInstance().loadScene(SceneID.GAME);
     }
 

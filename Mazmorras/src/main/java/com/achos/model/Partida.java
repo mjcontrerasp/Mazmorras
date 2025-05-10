@@ -53,22 +53,6 @@ public class Partida {
         instance = null;
     }
 
-    public void subirNivelPartida() {
-        if (nivelPartida >= 3) {
-            nivelPartida = 1;
-        } else {
-            nivelPartida++;
-        }
-    }
-
-    public void subirNivelPersonajes() {
-        for (Personaje personaje : personajes) {
-            if (personaje instanceof Enemigo) {
-                personaje.setFuerza(personaje.getFuerza() + nivelPartida);
-            }
-        }
-    }
-
     private Partida() {
         gameOver = false;
         victory = false;
@@ -80,6 +64,7 @@ public class Partida {
             throw new IllegalStateException("El mapa no se cargó correctamente.");
         }
         personajesToSpawn();
+        subirNivelPersonajes();
 
     }
 
@@ -97,6 +82,10 @@ public class Partida {
     /* Getters and setters */
     public TreeSet<Personaje> getPersonajes() {
         return personajes;
+    }
+
+    public void setPersonajes(TreeSet<Personaje> personajes){
+        this.personajes = personajes;
     }
 
     public Mapa getMapa() {
@@ -136,6 +125,26 @@ public class Partida {
     public void setVictory(boolean victory) {
         this.victory = victory;
         notifyObservers();
+    }
+
+    public int getNivelPartida() {
+        return nivelPartida;
+    }
+
+    public void subirNivelPartida() {
+        if (nivelPartida >= 3) {
+            nivelPartida = 1;
+        } else {
+            nivelPartida++;
+        }
+    }
+
+    public void subirNivelPersonajes() {
+        for (Personaje personaje : personajes) {
+            if (personaje instanceof Enemigo) {
+                personaje.setFuerza(personaje.getFuerza() + getNivelPartida());
+            }
+        }
     }
 
     /* Asignar personajes a sus celdas spawn */

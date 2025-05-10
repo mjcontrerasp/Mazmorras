@@ -2,6 +2,7 @@ package com.achos.controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 import com.achos.SceneID;
 import com.achos.SceneManager;
@@ -187,6 +188,18 @@ public class GameController implements Observer {
                 System.out.println("Derecha");
                 break;
 
+            case G:
+                movimiento = new int[] { 0, 0 }; // No se mueve
+                System.out.println("Game Over forzado");
+                forzarGameOver();
+                break;
+
+            case V:
+                movimiento = new int[] { 0, 0 }; // No se mueve
+                System.out.println("Victoria forzada");
+                forzarVictoria();
+                break;
+
             default:
                 movimiento = new int[] { 0, 0 }; // No se mueve
                 System.out.println("Movimiento erroneo");
@@ -195,11 +208,28 @@ public class GameController implements Observer {
         partida.moverPersonajes(movimiento);
     }
 
+    private void forzarGameOver() {
+        partida.getHeroe().setVida(0);
+        onChange();
+    }
+
+    private void forzarVictoria() {
+        ArrayList<Personaje> personajesCopia = new ArrayList<>(partida.getPersonajes());
+        for (Personaje personaje : personajesCopia) {
+            if (personaje instanceof Enemigo) {
+                personaje.setVida(0);
+            }
+        }
+        partida.setPersonajes(new TreeSet<>(personajesCopia));
+        onChange();
+    }
+
     /**
      * refresca los cambios
      */
     @Override
     public void onChange() {
+        System.out.println("Nivel partida: " + partida.getNivelPartida());
         System.out.println(partida.getPersonajes().toString());
         System.out.println(partida.getGameOver());
         readGameOver();
