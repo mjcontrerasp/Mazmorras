@@ -16,6 +16,7 @@ public class GameOverController {
      */
     @FXML
     private void switchToWelcome() throws IOException {
+        Partida.getInstance().resetearNivelPartida();
         Partida.getInstance().resetear();
         SceneManager.getInstance().loadScene(SceneID.WELCOME);
     }

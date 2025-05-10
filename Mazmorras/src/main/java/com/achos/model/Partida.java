@@ -84,7 +84,7 @@ public class Partida {
         return personajes;
     }
 
-    public void setPersonajes(TreeSet<Personaje> personajes){
+    public void setPersonajes(TreeSet<Personaje> personajes) {
         this.personajes = personajes;
     }
 
@@ -137,6 +137,10 @@ public class Partida {
         } else {
             nivelPartida++;
         }
+    }
+
+    public void resetearNivelPartida() {
+        nivelPartida = 1;
     }
 
     public void subirNivelPersonajes() {

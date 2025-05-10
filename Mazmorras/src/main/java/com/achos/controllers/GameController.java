@@ -210,7 +210,7 @@ public class GameController implements Observer {
 
     private void forzarGameOver() {
         partida.getHeroe().setVida(0);
-        onChange();
+        partida.setGameOver(true);
     }
 
     private void forzarVictoria() {
@@ -221,7 +221,7 @@ public class GameController implements Observer {
             }
         }
         partida.setPersonajes(new TreeSet<>(personajesCopia));
-        onChange();
+        partida.setVictory(true);
     }
 
     /**
