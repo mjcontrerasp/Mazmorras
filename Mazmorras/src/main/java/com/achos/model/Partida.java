@@ -45,7 +45,6 @@ public class Partida {
 
     public void notifyObservers() {
         observers.forEach(i -> i.onChange());
-        System.out.println("Observers: " + observers.toString());
     }
 
     public void resetear() {
@@ -227,9 +226,11 @@ public class Partida {
             if (Posicion.noPared(nuevaPosicion, mapa)) {
                 if (buscarCelda(nuevaPosicion).getOcupadoPor() instanceof Enemigo) {
                     buscarCelda(nuevaPosicion).getOcupadoPor().perderVida(heroe.atacar());
+                    System.out.println("Heroe ataca a " + buscarCelda(nuevaPosicion).getOcupadoPor().getNombre());
                     if (!(buscarCelda(nuevaPosicion).getOcupadoPor().getVida() > 0)) {
                         buscarCelda(nuevaPosicion).setOcupadoPor(null);
                         heroe.setVida(heroe.getVida() + recompensa);
+                        System.out.println("Heroe recupera " + recompensa + " puntos de vida");
                         if (victoria()) {
                             setVictory(true);
                         }
@@ -238,6 +239,7 @@ public class Partida {
                     buscarCelda(heroe.getPosicion()).setOcupadoPor(null);
                     heroe.setPosicion(nuevaPosicion);
                     buscarCelda(heroe.getPosicion()).setOcupadoPor(heroe);
+                    System.out.println("Heroe se mueve a " + heroe.getPosicion()[0] + "," + heroe.getPosicion()[1]);
                 }
             }
 
@@ -253,6 +255,7 @@ public class Partida {
     public void moverEnemigo(Enemigo enemigo) {
         if (enemigo.getVida() > 0) {
             if (Posicion.distancia(heroe.getPosicion(), enemigo.getPosicion()) <= enemigo.getPercepcion()) {
+                System.out.print(enemigo.getNombre() + " ve al Heroe. ");
                 ArrayList<int[]> cruceta = Posicion.crearCruceta(enemigo.getPosicion());
                 Posicion.limpiarFueraLimites(cruceta, mapa);
                 Posicion.limpiarMuro(cruceta, mapa);
@@ -260,6 +263,7 @@ public class Partida {
                 if (buscarCelda(posicionMasCerca).getOcupadoPor() != null) {
                     if (Arrays.equals(posicionMasCerca, heroe.getPosicion())) {
                         heroe.perderVida(enemigo.atacar());
+                        System.out.println(enemigo.getNombre() + " ataca a Heroe");
                         if (gameOver()) {
                             setGameOver(true);
                         }
@@ -268,8 +272,11 @@ public class Partida {
                     buscarCelda(enemigo.getPosicion()).setOcupadoPor(null);
                     enemigo.setPosicion(posicionMasCerca);
                     buscarCelda(enemigo.getPosicion()).setOcupadoPor(enemigo);
+                    System.out.println(enemigo.getNombre() + " se mueve a " + enemigo.getPosicion()[0] + ","
+                            + enemigo.getPosicion()[1]);
                 }
             } else {
+                System.out.print(enemigo.getNombre() + " no ve al Heroe. ");
                 ArrayList<int[]> cruceta = Posicion.crearCruceta(enemigo.getPosicion());
                 Posicion.limpiarFueraLimites(cruceta, mapa);
                 Posicion.limpiarMuro(cruceta, mapa);
@@ -278,6 +285,8 @@ public class Partida {
                     buscarCelda(enemigo.getPosicion()).setOcupadoPor(null);
                     enemigo.setPosicion(cruceta.get(numPosicion));
                     buscarCelda(enemigo.getPosicion()).setOcupadoPor(enemigo);
+                    System.out.println(enemigo.getNombre() + " se mueve a " + enemigo.getPosicion()[0] + ","
+                            + enemigo.getPosicion()[1]);
                 }
 
             }

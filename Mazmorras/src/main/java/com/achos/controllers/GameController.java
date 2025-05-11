@@ -66,7 +66,6 @@ public class GameController implements Observer {
         generarInfoPersonajes();
 
         juego.setOnMouseClicked(e -> juego.requestFocus());
-        juego.setOnKeyPressed(e -> System.out.println("Holiiii"));
         juego.setOnKeyPressed(e -> teclaToMovimiento(e));
     }
 
@@ -187,6 +186,7 @@ public class GameController implements Observer {
     public void teclaToMovimiento(KeyEvent tecla) {
         int[] movimiento;
         KeyCode teclaTocodigo = tecla.getCode();
+        System.out.print("\nTecla pulsada: ");
         switch (teclaTocodigo) {
             case A:
             case LEFT:
@@ -223,7 +223,7 @@ public class GameController implements Observer {
 
             default:
                 movimiento = new int[] { 0, 0 }; // No se mueve
-                System.out.println("Movimiento erroneo");
+                System.out.println("tecla no asignada");
                 break;
         }
         partida.moverPersonajes(movimiento);
@@ -251,16 +251,10 @@ public class GameController implements Observer {
     @Override
     public void onChange() {
         System.out.println("Nivel partida: " + partida.getNivelPartida());
-        System.out.println(partida.getPersonajes().toString());
-        System.out.println(partida.getGameOver());
         readGameOver();
-        System.out.println(partida.getVictory());
         readVictory();
-        System.out.println("generando mapa");
         generarMapa();
-        System.out.println("Mapa generado. Generando info.");
         generarInfoPersonajes();
-        System.out.println("Info generada");
     }
 
     /**
