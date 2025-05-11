@@ -125,7 +125,14 @@ public class Personaje implements Comparable<Personaje> {
         if (personaje == null) {
             throw new NullPointerException("El personaje a comparar es nulo");
         } else {
-            return Integer.compare(personaje.getVelocidad(),velocidad);
+            int comparation = Integer.compare(personaje.getVelocidad(),velocidad);
+            if (comparation == 0) {
+                comparation = Integer.compare(fuerza,personaje.getFuerza());
+                if (comparation == 0) {
+                    comparation = nombre.compareTo(personaje.getNombre());
+                }
+            }
+            return comparation;
         }
     }
     /**
