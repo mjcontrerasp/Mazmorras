@@ -2,6 +2,7 @@ package com.achos.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -29,6 +30,7 @@ public class Partida {
     private boolean gameOver;
     private boolean victory;
     private int recompensa = 1;
+    private Random random = new Random();
 
     private ArrayList<Observer> observers = new ArrayList<>();
 
@@ -249,24 +251,37 @@ public class Partida {
      * @param enemigo
      */
     public void moverEnemigo(Enemigo enemigo) {
-        if (enemigo.getVida() > 0
-                && Posicion.distancia(heroe.getPosicion(), enemigo.getPosicion()) <= enemigo.getPercepcion()) {
-            ArrayList<int[]> cruceta = Posicion.crearCruceta(enemigo.getPosicion());
-            Posicion.limpiarFueraLimites(cruceta, mapa);
-            Posicion.limpiarMuro(cruceta, mapa);
-            int[] posicionMasCerca = Posicion.posicionMasCerca(heroe.getPosicion(), cruceta);
-            if (buscarCelda(posicionMasCerca).getOcupadoPor() != null) {
-                if (Arrays.equals(posicionMasCerca, heroe.getPosicion())) {
-                    heroe.perderVida(enemigo.atacar());
-                    if (gameOver()) {
-                        setGameOver(true);
+        if (enemigo.getVida() > 0) {
+            if (Posicion.distancia(heroe.getPosicion(), enemigo.getPosicion()) <= enemigo.getPercepcion()) {
+                ArrayList<int[]> cruceta = Posicion.crearCruceta(enemigo.getPosicion());
+                Posicion.limpiarFueraLimites(cruceta, mapa);
+                Posicion.limpiarMuro(cruceta, mapa);
+                int[] posicionMasCerca = Posicion.posicionMasCerca(heroe.getPosicion(), cruceta);
+                if (buscarCelda(posicionMasCerca).getOcupadoPor() != null) {
+                    if (Arrays.equals(posicionMasCerca, heroe.getPosicion())) {
+                        heroe.perderVida(enemigo.atacar());
+                        if (gameOver()) {
+                            setGameOver(true);
+                        }
                     }
+                } else {
+                    buscarCelda(enemigo.getPosicion()).setOcupadoPor(null);
+                    enemigo.setPosicion(posicionMasCerca);
+                    buscarCelda(enemigo.getPosicion()).setOcupadoPor(enemigo);
                 }
             } else {
-                buscarCelda(enemigo.getPosicion()).setOcupadoPor(null);
-                enemigo.setPosicion(posicionMasCerca);
-                buscarCelda(enemigo.getPosicion()).setOcupadoPor(enemigo);
+                ArrayList<int[]> cruceta = Posicion.crearCruceta(enemigo.getPosicion());
+                Posicion.limpiarFueraLimites(cruceta, mapa);
+                Posicion.limpiarMuro(cruceta, mapa);
+                int numPosicion = random.nextInt(cruceta.size());
+                if (buscarCelda(cruceta.get(numPosicion)).getOcupadoPor() == null) {
+                    buscarCelda(enemigo.getPosicion()).setOcupadoPor(null);
+                    enemigo.setPosicion(cruceta.get(numPosicion));
+                    buscarCelda(enemigo.getPosicion()).setOcupadoPor(enemigo);
+                }
+
             }
+
         }
 
     }
