@@ -2,6 +2,7 @@ package com.achos.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.TreeSet;
 
@@ -19,12 +20,17 @@ import com.achos.utilities.Posicion;
  */
 public class Partida {
     private static Partida instance;
+    private static int nivelPartida = 1;
     private TreeSet<Personaje> personajes;
     private String pathPersonajes = "Mazmorras/src/main/resources/com/achos/data/personajes.json";
     private Heroe heroe;
     private int[][] spawn = new int[][] { { 13, 1 }, { 5, 13 }, { 8, 1 }, { 1, 13 } };
     private String nombreMapa;
     private Mapa mapa;
+    private boolean gameOver;
+    private boolean victory;
+    private int recompensa = 1;
+    private Random random = new Random();
 
     private ArrayList<Observer> observers = new ArrayList<>();
 
@@ -39,19 +45,29 @@ public class Partida {
 
     public void notifyObservers() {
         observers.forEach(i -> i.onChange());
-        System.out.println(observers.toString());
+    }
+
+    public void resetear() {
+        instance = null;
     }
 
     private Partida() {
+        gameOver = false;
+        victory = false;
         personajes = LectorPersonajes.leerPersonajes(pathPersonajes);
         buscarHeroe();
-        nombreMapa = "mapa3";
+        nombreMapa = creadorNombre();
         mapa = new Mapa(nombreMapa);
         if (mapa.getCeldas() == null || mapa.getCeldas().isEmpty()) {
             throw new IllegalStateException("El mapa no se cargó correctamente.");
         }
         personajesToSpawn();
+        subirNivelPersonajes();
 
+    }
+
+    private String creadorNombre() {
+        return "mapa" + nivelPartida;
     }
 
     public static Partida getInstance() {
@@ -64,6 +80,10 @@ public class Partida {
     /* Getters and setters */
     public TreeSet<Personaje> getPersonajes() {
         return personajes;
+    }
+
+    public void setPersonajes(TreeSet<Personaje> personajes) {
+        this.personajes = personajes;
     }
 
     public Mapa getMapa() {
@@ -85,6 +105,48 @@ public class Partida {
 
     public Heroe getHeroe() {
         return heroe;
+    }
+
+    public boolean getGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
+        notifyObservers();
+    }
+
+    public boolean getVictory() {
+        return victory;
+    }
+
+    public void setVictory(boolean victory) {
+        this.victory = victory;
+        notifyObservers();
+    }
+
+    public int getNivelPartida() {
+        return nivelPartida;
+    }
+
+    public void subirNivelPartida() {
+        if (nivelPartida >= 3) {
+            nivelPartida = 1;
+        } else {
+            nivelPartida++;
+        }
+    }
+
+    public void resetearNivelPartida() {
+        nivelPartida = 1;
+    }
+
+    public void subirNivelPersonajes() {
+        for (Personaje personaje : personajes) {
+            if (personaje instanceof Enemigo) {
+                personaje.setFuerza(personaje.getFuerza() + getNivelPartida());
+            }
+        }
     }
 
     /* Asignar personajes a sus celdas spawn */
@@ -146,12 +208,10 @@ public class Partida {
                 Enemigo enemigo = (Enemigo) personajesCopia.get(i);
                 moverEnemigo(enemigo);
             }
-            if (gameOver() || victoria()) {
-                break;
-            }
         }
         personajes = new TreeSet<>(personajesCopia);
         notifyObservers();
+
     }
 
     /**
@@ -166,14 +226,20 @@ public class Partida {
             if (Posicion.noPared(nuevaPosicion, mapa)) {
                 if (buscarCelda(nuevaPosicion).getOcupadoPor() instanceof Enemigo) {
                     buscarCelda(nuevaPosicion).getOcupadoPor().perderVida(heroe.atacar());
+                    System.out.println("Heroe ataca a " + buscarCelda(nuevaPosicion).getOcupadoPor().getNombre());
                     if (!(buscarCelda(nuevaPosicion).getOcupadoPor().getVida() > 0)) {
                         buscarCelda(nuevaPosicion).setOcupadoPor(null);
-                        heroe.setVida(heroe.getVida() + 5);
+                        heroe.setVida(heroe.getVida() + recompensa);
+                        System.out.println("Heroe recupera " + recompensa + " puntos de vida");
+                        if (victoria()) {
+                            setVictory(true);
+                        }
                     }
                 } else {
                     buscarCelda(heroe.getPosicion()).setOcupadoPor(null);
                     heroe.setPosicion(nuevaPosicion);
                     buscarCelda(heroe.getPosicion()).setOcupadoPor(heroe);
+                    System.out.println("Heroe se mueve a " + heroe.getPosicion()[0] + "," + heroe.getPosicion()[1]);
                 }
             }
 
@@ -187,21 +253,44 @@ public class Partida {
      * @param enemigo
      */
     public void moverEnemigo(Enemigo enemigo) {
-        if (enemigo.getVida() > 0
-                && Posicion.distancia(heroe.getPosicion(), enemigo.getPosicion()) <= enemigo.getPercepcion()) {
-            ArrayList<int[]> cruceta = Posicion.crearCruceta(enemigo.getPosicion());
-            Posicion.limpiarFueraLimites(cruceta, mapa);
-            Posicion.limpiarMuro(cruceta, mapa);
-            int[] posicionMasCerca = Posicion.posicionMasCerca(heroe.getPosicion(), cruceta);
-            if (buscarCelda(posicionMasCerca).getOcupadoPor() != null) {
-                if (Arrays.equals(posicionMasCerca, heroe.getPosicion())) {
-                    heroe.perderVida(enemigo.atacar());
+        if (enemigo.getVida() > 0) {
+            if (Posicion.distancia(heroe.getPosicion(), enemigo.getPosicion()) <= enemigo.getPercepcion()) {
+                System.out.print(enemigo.getNombre() + " ve al Heroe. ");
+                ArrayList<int[]> cruceta = Posicion.crearCruceta(enemigo.getPosicion());
+                Posicion.limpiarFueraLimites(cruceta, mapa);
+                Posicion.limpiarMuro(cruceta, mapa);
+                int[] posicionMasCerca = Posicion.posicionMasCerca(heroe.getPosicion(), cruceta);
+                if (buscarCelda(posicionMasCerca).getOcupadoPor() != null) {
+                    if (Arrays.equals(posicionMasCerca, heroe.getPosicion())) {
+                        heroe.perderVida(enemigo.atacar());
+                        System.out.println(enemigo.getNombre() + " ataca a Heroe");
+                        if (gameOver()) {
+                            setGameOver(true);
+                        }
+                    }
+                } else {
+                    buscarCelda(enemigo.getPosicion()).setOcupadoPor(null);
+                    enemigo.setPosicion(posicionMasCerca);
+                    buscarCelda(enemigo.getPosicion()).setOcupadoPor(enemigo);
+                    System.out.println(enemigo.getNombre() + " se mueve a " + enemigo.getPosicion()[0] + ","
+                            + enemigo.getPosicion()[1]);
                 }
             } else {
-                buscarCelda(enemigo.getPosicion()).setOcupadoPor(null);
-                enemigo.setPosicion(posicionMasCerca);
-                buscarCelda(enemigo.getPosicion()).setOcupadoPor(enemigo);
+                System.out.print(enemigo.getNombre() + " no ve al Heroe. ");
+                ArrayList<int[]> cruceta = Posicion.crearCruceta(enemigo.getPosicion());
+                Posicion.limpiarFueraLimites(cruceta, mapa);
+                Posicion.limpiarMuro(cruceta, mapa);
+                int numPosicion = random.nextInt(cruceta.size());
+                if (buscarCelda(cruceta.get(numPosicion)).getOcupadoPor() == null) {
+                    buscarCelda(enemigo.getPosicion()).setOcupadoPor(null);
+                    enemigo.setPosicion(cruceta.get(numPosicion));
+                    buscarCelda(enemigo.getPosicion()).setOcupadoPor(enemigo);
+                    System.out.println(enemigo.getNombre() + " se mueve a " + enemigo.getPosicion()[0] + ","
+                            + enemigo.getPosicion()[1]);
+                }
+
             }
+
         }
 
     }
@@ -225,7 +314,7 @@ public class Partida {
      */
     public boolean victoria() {
         for (Personaje personaje : personajes) {
-            if (personaje instanceof Enemigo && personaje.getVida() >= 0) {
+            if (personaje instanceof Enemigo && personaje.getVida() > 0) {
                 return false;
             }
         }

@@ -6,10 +6,11 @@ import com.achos.enums.TipoCelda;
 import com.achos.model.Mapa;
 
 public class Posicion {
-    
+
     /**
      * A partir de una posicion crea un array de 5 posiciones (original, izquierda,
      * derecha, arriba y abajo)
+     * 
      * @param posicion
      * @return
      */
@@ -25,9 +26,9 @@ public class Posicion {
         return cruceta;
     }
 
-    
     /**
      * Elimina posiciones de la cruceta que sean fuera del mapa
+     * 
      * @param cruceta
      * @param mapa
      */
@@ -35,13 +36,14 @@ public class Posicion {
         for (int i = 0; i < cruceta.size(); i++) {
             if (!dentroLimites(cruceta.get(i), mapa)) {
                 cruceta.remove(i);
+                i--;
             }
         }
     }
 
-   
     /**
      * Posicion dentro de los límities, SOLO MAPAS CUADRADOS
+     * 
      * @param posicion
      * @param mapa
      * @return
@@ -52,10 +54,10 @@ public class Posicion {
         return (posicion[0] < filas && posicion[0] >= 0) && (posicion[1] < columnas && posicion[1] >= 0);
     }
 
-    
     /**
      * Elimina posiciones de la cruceta de posiciones que colisionen con un
      * muro
+     * 
      * @param cruceta
      * @param mapa
      */
@@ -65,13 +67,12 @@ public class Posicion {
                 cruceta.remove(i);
                 i--;
             }
-            
         }
     }
 
-   
     /**
      * Posicion sin colision con pared
+     * 
      * @param posicion
      * @param mapa
      * @return
@@ -82,6 +83,7 @@ public class Posicion {
 
     /**
      * Devuelve en double la distancia entre dos posiciones
+     * 
      * @param posicion1
      * @param posicion2
      * @return
@@ -96,9 +98,9 @@ public class Posicion {
         return Math.sqrt(Math.pow(distanciaFilas, 2) + Math.pow(distanciaColumnas, 2));
     }
 
-    
     /**
      * Devuelve la posicion más cercana de una cruceta a una posicion dada
+     * 
      * @param posicion
      * @param cruceta
      * @return

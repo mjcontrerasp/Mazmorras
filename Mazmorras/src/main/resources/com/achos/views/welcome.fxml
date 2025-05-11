@@ -7,19 +7,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 
-
 <StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.WelcomeController">
    <children>
-      <ImageView fx:id="background" fitHeight="592.0" fitWidth="891.0">
+      <ImageView fx:id="background" fitHeight="600.0" fitWidth="800.0">
          <image>
             <Image url="@../images/fondo-blur.jpg" />
          </image>
       </ImageView>
       <SplitPane fx:id="mainSplitPane" dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" styleClass="transparent-splitpane" stylesheets="@../style/stylesheet.css">
          <items>
-            <StackPane fx:id="stackLogo" prefHeight="150.0" prefWidth="887.0">
+            <StackPane fx:id="stackLogo" prefHeight="150.0" prefWidth="800.0">
                <children>
-                  <ImageView fx:id="logo" fitHeight="350.0" fitWidth="887.0">
+                  <ImageView fx:id="logo" fitHeight="305.0" fitWidth="774.0">
                      <image>
                         <Image url="@../images/logoJuego.png" />
                      </image>
@@ -28,6 +27,9 @@
                      </StackPane.margin>
                   </ImageView>
                </children>
+               <padding>
+                  <Insets top="30.0" />
+               </padding>
             </StackPane>
             <StackPane fx:id="stackButton" prefHeight="150.0" prefWidth="200.0">
                <children>

@@ -1,7 +1,11 @@
 package com.achos.controllers;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.TreeSet;
 
+import com.achos.SceneID;
+import com.achos.SceneManager;
 import com.achos.enums.TipoCelda;
 import com.achos.interfaces.Observer;
 import com.achos.model.Celda;
@@ -11,11 +15,8 @@ import com.achos.model.Partida;
 import com.achos.model.Personaje;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -61,11 +62,10 @@ public class GameController implements Observer {
 
         partida.subscribe(this);
         generarMapa(); // Generar el mapa al iniciar la pantalla
-        System.out.println("inicializando mapaaaa");
+        System.out.println("inicializando mapa");
         generarInfoPersonajes();
 
         juego.setOnMouseClicked(e -> juego.requestFocus());
-        juego.setOnKeyPressed(e -> System.out.println("Holiiii"));
         juego.setOnKeyPressed(e -> teclaToMovimiento(e));
     }
 
@@ -116,7 +116,7 @@ public class GameController implements Observer {
 
         Personaje p = celda.getOcupadoPor(); // Obtener el personaje que ocupa la celda
         // Si hay un personaje en la celda, añadir su imagen
-        if (p != null && p.getVida()>0) {
+        if (p != null && p.getVida() > 0) {
             ImageView personajeView = new ImageView(); // Crear un ImageView para el personaje
             personajeView.setFitWidth(tileSize); // Establecer el ancho del personaje
             personajeView.setFitHeight(tileSize); // Establecer la altura del personaje
@@ -154,7 +154,29 @@ public class GameController implements Observer {
         return null; // Si no es un personaje conocido
     }
 
-    
+    /**
+     * Devuelve la URL de la imagen FRONTAL del personaje
+     * 
+     * @param p
+     * @return
+     */
+    private String obtenerImagenFrontalPersonaje(Personaje p) {
+        if (p instanceof Heroe) {
+            return "/com/achos/images/pablo-frontal.png";
+        } else if (p instanceof Enemigo) {
+            switch (p.getTipoPersonaje()) {
+                case GABINO:
+                    return "/com/achos/images/gabino-frontal.png";
+                case MANU:
+                    return "/com/achos/images/manu-frontal.png";
+                case GLORIA:
+                    return "/com/achos/images/gloria-frontal.png";
+                default:
+                    return null;
+            }
+        }
+        return null; // Si no es un personaje conocido
+    }
 
     /**
      * Mueve el personaje a la celda correspondiente
@@ -164,6 +186,7 @@ public class GameController implements Observer {
     public void teclaToMovimiento(KeyEvent tecla) {
         int[] movimiento;
         KeyCode teclaTocodigo = tecla.getCode();
+        System.out.print("\nTecla pulsada: ");
         switch (teclaTocodigo) {
             case A:
             case LEFT:
@@ -186,12 +209,40 @@ public class GameController implements Observer {
                 System.out.println("Derecha");
                 break;
 
+            case G:
+                movimiento = new int[] { 0, 0 }; // No se mueve
+                System.out.println("Game Over forzado");
+                forzarGameOver();
+                break;
+
+            case V:
+                movimiento = new int[] { 0, 0 }; // No se mueve
+                System.out.println("Victoria forzada");
+                forzarVictoria();
+                break;
+
             default:
                 movimiento = new int[] { 0, 0 }; // No se mueve
-                System.out.println("Movimiento erroneo");
+                System.out.println("tecla no asignada");
                 break;
         }
         partida.moverPersonajes(movimiento);
+    }
+
+    private void forzarGameOver() {
+        partida.getHeroe().setVida(0);
+        partida.setGameOver(true);
+    }
+
+    private void forzarVictoria() {
+        ArrayList<Personaje> personajesCopia = new ArrayList<>(partida.getPersonajes());
+        for (Personaje personaje : personajesCopia) {
+            if (personaje instanceof Enemigo) {
+                personaje.setVida(0);
+            }
+        }
+        partida.setPersonajes(new TreeSet<>(personajesCopia));
+        partida.setVictory(true);
     }
 
     /**
@@ -199,11 +250,11 @@ public class GameController implements Observer {
      */
     @Override
     public void onChange() {
-        System.out.println("generando mapa");
+        System.out.println("Nivel partida: " + partida.getNivelPartida());
+        readGameOver();
+        readVictory();
         generarMapa();
-        System.out.println("Mapa generado. Generando info.");
         generarInfoPersonajes();
-        System.out.println("Info generada");
     }
 
     /**
@@ -218,13 +269,14 @@ public class GameController implements Observer {
 
             if (p instanceof Heroe) {
                 personajeBox.getStyleClass().add("heroe-box");
-            } else personajeBox.getStyleClass().add("personaje-box");
+            } else
+                personajeBox.getStyleClass().add("personaje-box");
 
             // Imagen del personaje
             ImageView img = new ImageView(
-                    new Image(getClass().getResource(obtenerImagenPersonaje(p)).toExternalForm()));
+                    new Image(getClass().getResource(obtenerImagenFrontalPersonaje(p)).toExternalForm()));
             img.setFitWidth(40);
-            img.setFitHeight(40);
+            img.setFitHeight(60);
 
             // VBox datos personaje
             VBox datosBox = new VBox(10);
@@ -246,7 +298,7 @@ public class GameController implements Observer {
             fuerzaIcon.setFitWidth(20);
             fuerzaIcon.setFitHeight(20);
 
-            ProgressBar fuerzaBar = new ProgressBar( p.getFuerza() / 10.0);
+            ProgressBar fuerzaBar = new ProgressBar(p.getFuerza() / 10.0);
 
             HBox fuerzaBox = new HBox(5, fuerzaIcon, fuerzaBar);
             vidaBox.setAlignment(Pos.CENTER);
@@ -257,7 +309,7 @@ public class GameController implements Observer {
             velocidadIcon.setFitWidth(20);
             velocidadIcon.setFitHeight(20);
 
-            ProgressBar velocidadBar = new ProgressBar( p.getVelocidad() / 10.0);
+            ProgressBar velocidadBar = new ProgressBar(p.getVelocidad() / 10.0);
             HBox velocidadBox = new HBox(5, velocidadIcon, velocidadBar);
             velocidadBox.setAlignment(Pos.CENTER);
 
@@ -271,6 +323,26 @@ public class GameController implements Observer {
             personajeBox.getChildren().addAll(img, datosBox);
             infoBox.getChildren().add(personajeBox);
             infoBox.setSpacing(5);
+        }
+    }
+
+    private void readGameOver() {
+        if (partida.getGameOver()) {
+            try {
+                SceneManager.getInstance().loadScene(SceneID.GAMEOVER);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void readVictory() {
+        if (partida.getVictory()) {
+            try {
+                SceneManager.getInstance().loadScene(SceneID.VICTORY);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
