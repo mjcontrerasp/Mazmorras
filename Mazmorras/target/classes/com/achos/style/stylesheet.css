@@ -1,0 +1,73 @@
+.my-button {
+    -fx-background-color: #ea1a44;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-background-radius: 8;
+    -fx-font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
+}
+
+.my-secondary-button {
+    -fx-background-color: #33a9b8;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-background-radius: 8;
+    -fx-font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    
+}
+
+.my-secondary-button:hover {
+    -fx-background-color: #f8cb13;
+}
+
+.my-button:hover {
+    -fx-background-color: #f8cb13;
+}
+
+.transparent-splitpane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.transparent-splitpane .split-pane-divider {
+    -fx-background-color: transparent;
+}
+
+.transparent-pane {
+    -fx-background-color: transparent;
+}
+
+.white-pane {
+    -fx-background-color: rgba(255, 255, 255, 0.823);
+    -fx-background-radius: 8;
+}
+
+.translucent-pane {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-background-radius: 8;
+}
+
+.title-label {
+    -fx-font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    -fx-font-size: 30px;
+}
+
+.personaje-box {
+    -fx-border-color: #33a9b8;      /* Color del borde */
+    -fx-border-width: 2px;           /* Grosor del borde */
+    -fx-border-radius: 10px;         /* Bordes redondeados */
+    -fx-background-color: #cdf9ff;   /* Color de fondo suave (opcional) */
+    -fx-background-radius: 10px;     /* Fondo redondeado igual que el borde */
+    -fx-padding: 7px;               /* Espaciado interior */
+}
+
+.heroe-box {
+    -fx-border-color: #ea1a44;       /* Color del borde */
+    -fx-border-width: 2px;           /* Grosor del borde */
+    -fx-border-radius: 10px;         /* Bordes redondeados */
+    -fx-background-color: #fce4ec;   /* Color de fondo suave (opcional) */
+    -fx-background-radius: 10px;     /* Fondo redondeado igual que el borde */
+    -fx-padding: 7px;               /* Espaciado interior */
+}
+
+

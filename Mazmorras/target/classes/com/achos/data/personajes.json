@@ -1,0 +1,25 @@
+[
+    {
+        "Nombre": "Pablo",
+        "Velocidad": 7,
+        "Fuerza": 8
+    },
+    {
+        "Nombre": "Manu",
+        "Velocidad": 4,
+        "Fuerza": 5,
+        "Percepcion": 4
+    },
+    {
+        "Nombre": "Gloria",
+        "Velocidad": 6,
+        "Fuerza": 6,
+        "Percepcion": 6
+    },
+    {
+        "Nombre": "Gabino",
+        "Velocidad": 10,
+        "Fuerza": 7,
+        "Percepcion": 7
+    }
+]

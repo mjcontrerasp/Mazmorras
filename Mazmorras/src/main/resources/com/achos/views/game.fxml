@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane fx:id="pantalla" dividerPositions="0.5084541062801933" styleClass="transparent-splitpane" stylesheets="@../style/stylesheet.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.achos.controllers.GameController">
+  <items>
+      <StackPane maxHeight="750" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="600.0" fitWidth="600.0">
+               <image>
+                  <Image url="@../images/fondo-blur.jpg" />
+               </image>
+            </ImageView>
+            <StackPane prefHeight="600.0" prefWidth="600.0">
+               <children>
+                <AnchorPane fx:id="juego" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="600.0" />
+               </children>
+            </StackPane>
+         </children>
+      </StackPane>
+      <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="250.0">
+         <children>
+            <ImageView fitHeight="600.0" fitWidth="250.0">
+               <image>
+                  <Image url="@../images/fondo-blur.jpg" />
+               </image>
+            </ImageView>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="230.0" styleClass="white-pane" stylesheets="@../style/stylesheet.css">
+               <StackPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </StackPane.margin>
+               <children>
+                  <SplitPane dividerPositions="0.7380106571936057" orientation="VERTICAL" prefHeight="573.0" prefWidth="230.0" styleClass="transparent-splitpane" stylesheets="@../style/stylesheet.css">
+                    <items>
+                      <AnchorPane fx:id="info" prefWidth="210.0" SplitPane.resizableWithParent="false">
+                           <children>
+                              <VBox fx:id="infoBox" alignment="TOP_CENTER" layoutX="9.0" layoutY="11.0" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="440.0" prefWidth="210.0" />
+                           </children>
+                        </AnchorPane>
+                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="113.0" prefWidth="210.0">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefWidth="200.0" text="¡Amigo!" wrapText="true">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label alignment="CENTER" prefWidth="200.0" text="Muevete con estas teclas:" textAlignment="CENTER">
+                                 <font>
+                                    <Font size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <padding>
+                                    <Insets bottom="10.0" />
+                                 </padding>
+                              </Label>
+                              <ImageView fitHeight="60.0" fitWidth="209.0">
+                                 <image>
+                                    <Image url="@../images/teclas-removebg-preview.png" />
+                                 </image>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </ImageView>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                        </VBox>
+                    </items>
+                  </SplitPane>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+  </items>
+</SplitPane>
