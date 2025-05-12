@@ -19,6 +19,9 @@ public class WinnerController {
     private void switchToContinuar() throws IOException {
         partida.resetear();
         partida.subirNivelPartida();
+        Partida.setFuerza(partida.getHeroe().getFuerza());
+        Partida.setVelocidad(partida.getHeroe().getVelocidad());
+        Partida.setPartidaNueva(false);
         SceneManager.getInstance().loadScene(SceneID.GAME);
     }
 
