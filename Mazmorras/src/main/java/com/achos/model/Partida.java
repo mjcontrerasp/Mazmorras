@@ -62,7 +62,7 @@ public class Partida {
         if (!partidaNueva) {
             heroe.setFuerza(fuerza);
             heroe.setVelocidad(velocidad);
-        }        
+        }
         nombreMapa = creadorNombre();
         mapa = new Mapa(nombreMapa);
         if (mapa.getCeldas() == null || mapa.getCeldas().isEmpty()) {
@@ -114,15 +114,15 @@ public class Partida {
         return heroe;
     }
 
-    public static void setFuerza(int fuerza){
+    public static void setFuerza(int fuerza) {
         Partida.fuerza = fuerza;
     }
 
-    public static void setVelocidad(int velocidad){
+    public static void setVelocidad(int velocidad) {
         Partida.velocidad = velocidad;
     }
 
-    public static void setPartidaNueva(boolean partidaNueva){
+    public static void setPartidaNueva(boolean partidaNueva) {
         Partida.partidaNueva = partidaNueva;
     }
 
@@ -172,12 +172,41 @@ public class Partida {
     public void personajesToSpawn() {
         buscarCelda(spawn[0]).setOcupadoPor(buscarPersonaje(TipoPersonaje.PABLO));
         buscarPersonaje(TipoPersonaje.PABLO).setPosicion(spawn[0]);
-        buscarCelda(spawn[1]).setOcupadoPor(buscarPersonaje(TipoPersonaje.MANU));
+        for (int i = 1; i < spawn.length; i++) {
+            for (Personaje personaje : personajes) {
+                if (personaje instanceof Enemigo) {
+                    switch (i) {
+                        case 1:
+                            if (personaje.getTipoPersonaje() == TipoPersonaje.MANU) {
+                                buscarCelda(spawn[i]).setOcupadoPor(personaje);
+                                personaje.setPosicion(spawn[i]);
+                            }
+                            break;
+                        case 2:
+                            if (personaje.getTipoPersonaje() == TipoPersonaje.GLORIA) {
+                                buscarCelda(spawn[i]).setOcupadoPor(personaje);
+                                personaje.setPosicion(spawn[i]);
+                            }
+                            break;
+                        case 3:
+                            if (personaje.getTipoPersonaje() == TipoPersonaje.GABINO) {
+                                buscarCelda(spawn[i]).setOcupadoPor(personaje);
+                                personaje.setPosicion(spawn[i]);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+
+        /* buscarCelda(spawn[1]).setOcupadoPor(buscarPersonaje(TipoPersonaje.MANU));
         buscarPersonaje(TipoPersonaje.MANU).setPosicion(spawn[1]);
         buscarCelda(spawn[2]).setOcupadoPor(buscarPersonaje(TipoPersonaje.GLORIA));
         buscarPersonaje(TipoPersonaje.GLORIA).setPosicion(spawn[2]);
         buscarCelda(spawn[3]).setOcupadoPor(buscarPersonaje(TipoPersonaje.GABINO));
-        buscarPersonaje(TipoPersonaje.GABINO).setPosicion(spawn[3]);
+        buscarPersonaje(TipoPersonaje.GABINO).setPosicion(spawn[3]); */
     }
 
     /**

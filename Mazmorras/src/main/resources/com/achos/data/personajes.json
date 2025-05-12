@@ -7,7 +7,7 @@
     {
         "Nombre": "Manu",
         "Velocidad": 4,
-        "Fuerza": 5,
+        "Fuerza": 4,
         "Percepcion": 4
     },
     {
@@ -19,7 +19,7 @@
     {
         "Nombre": "Gabino",
         "Velocidad": 10,
-        "Fuerza": 7,
+        "Fuerza": 8,
         "Percepcion": 7
     }
 ]
