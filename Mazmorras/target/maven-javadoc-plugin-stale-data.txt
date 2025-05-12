@@ -1,0 +1,48 @@
+@options
+@packages
+@argfile
+--class-path
+'/Users/manucp/.m2/repository/org/openjfx/javafx-graphics/24/javafx-graphics-24.jar:/Users/manucp/.m2/repository/org/openjfx/javafx-base/24/javafx-base-24.jar:/Users/manucp/.m2/repository/org/openjfx/javafx-controls/24/javafx-controls-24.jar:/Users/manucp/.m2/repository/org/openjfx/javafx-fxml/24/javafx-fxml-24.jar'
+--module-path
+'/Users/manucp/.m2/repository/org/openjfx/javafx-controls/24/javafx-controls-24-mac-aarch64.jar:/Users/manucp/.m2/repository/org/openjfx/javafx-graphics/24/javafx-graphics-24-mac-aarch64.jar:/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/classes:/Users/manucp/.m2/repository/org/openjfx/javafx-fxml/24/javafx-fxml-24-mac-aarch64.jar:/Users/manucp/.m2/repository/org/openjfx/javafx-base/24/javafx-base-24-mac-aarch64.jar'
+--patch-module
+com.achos='/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/src/main/java'
+-encoding
+'UTF-8'
+-protected
+-source
+'23'
+--module-source-path
+'/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/src'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'Mazmorras 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'Mazmorras 1.0-SNAPSHOT API'
+com.achos
+com.achos.controllers
+'/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/src/main/java/module-info.java'
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/tag-search-index.js = 1747079756816
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/overview-tree.html = 1747079756812
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/module-search-index.js = 1747079756816
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/index.html = 1747079756821
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/package-search-index.js = 1747079756816
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/index-all.html = 1747079756820
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/allpackages-index.html = 1747079756816
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/member-search-index.js = 1747079756816
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/help-doc.html = 1747079756822
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/javadoc.sh = 1747079313053
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/element-list = 1747079756793
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/search.html = 1747079756821
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/allclasses-index.html = 1747079756815
+/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/site/apidocs/type-search-index.js = 1747079756816

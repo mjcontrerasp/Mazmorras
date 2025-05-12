@@ -45,7 +45,6 @@ public class SceneManager {
     }
     /**
      * Obtener el escenario actual
-     * @return
      */
     public void init(Stage stage) {
         this.stage = stage;
