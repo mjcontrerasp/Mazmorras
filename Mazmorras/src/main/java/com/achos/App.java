@@ -18,7 +18,6 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
         stage.setTitle("PATATAZOS");
         stage.getIcons().add(new Image(App.class.getResource("/com/achos/images/logoJuego.png").toExternalForm()));
-        stage.setScene(scene);
         SceneManager sm = SceneManager.getInstance();
         sm.setStage(stage);
         sm.loadScene(SceneID.WELCOME);
