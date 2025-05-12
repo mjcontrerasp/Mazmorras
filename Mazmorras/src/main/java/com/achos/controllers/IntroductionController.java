@@ -70,11 +70,18 @@ public class IntroductionController {
     @FXML
     private Button startButton;
 
+    /**
+     * 
+     * @throws IOException
+     */
     @FXML
     private void switchToEdit() throws IOException {
         SceneManager.getInstance().loadScene(SceneID.EDITPLAYER);
     }
-
+    /**
+     * 
+     * @throws IOException
+     */
     @FXML
     private void switchToGame() throws IOException {
         SceneManager.getInstance().loadScene(SceneID.GAME);

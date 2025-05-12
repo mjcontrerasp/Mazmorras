@@ -116,7 +116,9 @@ public class EditPlayerController {
         });
 
     }
-
+    /**
+     * Cambia el personaje por el heroe
+     */
     public void setHeroe() {
         Partida partida = Partida.getInstance();
 

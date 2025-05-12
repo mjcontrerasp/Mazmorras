@@ -4,7 +4,12 @@ import java.util.Objects;
 import java.util.Random;
 
 import com.achos.enums.TipoPersonaje;
-
+/**
+ * Clase Personaje
+ * 
+ * @author Manu, Gloria, Gabino
+ * @version 1.0
+ */
 public class Personaje implements Comparable<Personaje> {
     protected String nombre;
     protected int vida;
@@ -45,7 +50,7 @@ public class Personaje implements Comparable<Personaje> {
         this.setFuerza(fuerza);
         this.posicion = new int[2];
     }
-
+    
     public String getNombre() {
         return this.nombre;
     }
@@ -73,7 +78,10 @@ public class Personaje implements Comparable<Personaje> {
     public int getVelocidad() {
         return this.velocidad;
     }
-
+    /**
+     * 
+     * @param velocidad
+     */
     public void setVelocidad(int velocidad) {
         if (velocidad < 0) {
             this.velocidad = 0;
@@ -153,7 +161,10 @@ public class Personaje implements Comparable<Personaje> {
         }
         return random.nextInt(fuerza-ataqueMin)+ataqueMin;
     }
-
+    /**
+     * 
+     * @param personaje
+     */
     @Override
     public String toString() {
         return "\n{" +

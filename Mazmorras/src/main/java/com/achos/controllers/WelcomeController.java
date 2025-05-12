@@ -34,6 +34,9 @@ public class WelcomeController {
     @FXML
     private Button startButton;
 
+    /**
+     * @throws IOException
+     */
     @FXML
     private void switchToIntroduction() throws IOException {
         SceneManager.getInstance().loadScene(SceneID.INTRODUCTION);
