@@ -24,6 +24,9 @@ public class Partida {
     private TreeSet<Personaje> personajes;
     private String pathPersonajes = "Mazmorras/src/main/resources/com/achos/data/personajes.json";
     private Heroe heroe;
+    private static boolean partidaNueva = true;
+    private static int fuerza = 0;
+    private static int velocidad = 0;
     private int[][] spawn = new int[][] { { 13, 1 }, { 5, 13 }, { 8, 1 }, { 1, 13 } };
     private String nombreMapa;
     private Mapa mapa;
@@ -56,6 +59,10 @@ public class Partida {
         victory = false;
         personajes = LectorPersonajes.leerPersonajes(pathPersonajes);
         buscarHeroe();
+        if (!partidaNueva) {
+            heroe.setFuerza(fuerza);
+            heroe.setVelocidad(velocidad);
+        }        
         nombreMapa = creadorNombre();
         mapa = new Mapa(nombreMapa);
         if (mapa.getCeldas() == null || mapa.getCeldas().isEmpty()) {
@@ -105,6 +112,18 @@ public class Partida {
 
     public Heroe getHeroe() {
         return heroe;
+    }
+
+    public static void setFuerza(int fuerza){
+        Partida.fuerza = fuerza;
+    }
+
+    public static void setVelocidad(int velocidad){
+        Partida.velocidad = velocidad;
+    }
+
+    public static void setPartidaNueva(boolean partidaNueva){
+        Partida.partidaNueva = partidaNueva;
     }
 
     public boolean getGameOver() {

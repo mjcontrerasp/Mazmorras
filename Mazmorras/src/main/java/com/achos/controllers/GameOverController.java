@@ -18,6 +18,7 @@ public class GameOverController {
     private void switchToWelcome() throws IOException {
         Partida.getInstance().resetearNivelPartida();
         Partida.getInstance().resetear();
+        Partida.setPartidaNueva(true);
         SceneManager.getInstance().loadScene(SceneID.WELCOME);
     }
 
