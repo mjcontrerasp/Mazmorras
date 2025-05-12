@@ -42,7 +42,7 @@ public class Partida {
     public void subscribe(Observer observer) {
         observers.add(observer);
     }
-
+   
     public void notifyObservers() {
         observers.forEach(i -> i.onChange());
     }
@@ -50,7 +50,10 @@ public class Partida {
     public void resetear() {
         instance = null;
     }
-
+    /**
+     * Constructor privado de la clase Partida. Inicializa los personajes, el mapa y
+     * busca al héroe.
+     */
     private Partida() {
         gameOver = false;
         victory = false;
@@ -65,11 +68,19 @@ public class Partida {
         subirNivelPersonajes();
 
     }
-
+    /**
+     * Crea el nombre del mapa a partir del nivel de partida.
+     * 
+     * @return
+     */
     private String creadorNombre() {
         return "mapa" + nivelPartida;
     }
-
+    /**
+     * Devuelve la instancia de la clase Partida. Si no existe, la crea.
+     * 
+     * @return
+     */
     public static Partida getInstance() {
         if (instance == null) {
             instance = new Partida();

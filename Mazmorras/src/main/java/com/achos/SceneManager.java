@@ -14,7 +14,10 @@ public class SceneManager {
     private static SceneManager instance;
     private Stage stage;
     private final Map<SceneID, String> sceneMap = new HashMap<>();
-    
+    /**
+     * Mapeo de los ID de las escenas a sus rutas FXML
+     * @param sceneID
+     */
     private SceneManager() {
         sceneMap.put(SceneID.WELCOME, "/com/achos/views/welcome.fxml");
         sceneMap.put(SceneID.INTRODUCTION, "/com/achos/views/introduction.fxml");
@@ -23,18 +26,26 @@ public class SceneManager {
         sceneMap.put(SceneID.VICTORY, "/com/achos/views/victoria.fxml");
         sceneMap.put(SceneID.GAMEOVER, "/com/achos/views/gameover.fxml");
     }
-
+    /**
+     * Establecer el escenario actual
+     * @param stage
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
+    /**
+     * Obtener la instancia del SceneManager
+     * @return
+     */
     public static SceneManager getInstance() {
         if (instance == null) {
             instance = new SceneManager();
         }
         return instance;
     }
-
+    /**
+     * Obtener el escenario actual
+     */
     public void init(Stage stage) {
         this.stage = stage;
     }

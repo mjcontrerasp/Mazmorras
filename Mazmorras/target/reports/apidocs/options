@@ -1,0 +1,28 @@
+--class-path
+'/Users/manucp/.m2/repository/org/openjfx/javafx-graphics/24/javafx-graphics-24.jar:/Users/manucp/.m2/repository/org/openjfx/javafx-base/24/javafx-base-24.jar:/Users/manucp/.m2/repository/org/openjfx/javafx-controls/24/javafx-controls-24.jar:/Users/manucp/.m2/repository/org/openjfx/javafx-fxml/24/javafx-fxml-24.jar'
+--module-path
+'/Users/manucp/.m2/repository/org/openjfx/javafx-controls/24/javafx-controls-24-mac-aarch64.jar:/Users/manucp/.m2/repository/org/openjfx/javafx-graphics/24/javafx-graphics-24-mac-aarch64.jar:/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/classes:/Users/manucp/.m2/repository/org/openjfx/javafx-fxml/24/javafx-fxml-24-mac-aarch64.jar:/Users/manucp/.m2/repository/org/openjfx/javafx-base/24/javafx-base-24-mac-aarch64.jar'
+--patch-module
+com.achos='/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/src/main/java'
+-encoding
+'UTF-8'
+-protected
+-source
+'24'
+--module-source-path
+'/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/reports/apidocs/src'
+-author
+-bottom
+'Copyright &#169; 2025. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/manucp/Desktop/ESCRITORIO/CLASE/PROGRAMACION/3EVA/Mazmorras/Mazmorras/target/reports/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'Mazmorras 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'Mazmorras 1.0-SNAPSHOT API'
