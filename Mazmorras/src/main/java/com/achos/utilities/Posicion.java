@@ -4,7 +4,13 @@ import java.util.ArrayList;
 
 import com.achos.enums.TipoCelda;
 import com.achos.model.Mapa;
-
+/**
+ * Clase Posicion
+ * 
+ * Esta clase contiene métodos para trabajar con posiciones en un mapa, como crear una cruceta de posiciones,
+ * verificar si una posición está dentro de los límites del mapa, limpiar posiciones fuera de límites y
+ * calcular distancias entre posiciones.
+ */
 public class Posicion {
 
     /**
@@ -12,7 +18,7 @@ public class Posicion {
      * derecha, arriba y abajo)
      * 
      * @param posicion
-     * @return
+     * @return regresa un array de 5 posiciones
      */
     public static ArrayList<int[]> crearCruceta(int[] posicion) {
         int fila = posicion[0];
@@ -75,7 +81,7 @@ public class Posicion {
      * 
      * @param posicion
      * @param mapa
-     * @return
+     * @return regresa true si la posicion no es una pared
      */
     public static boolean noPared(int[] posicion, Mapa mapa) {
         return mapa.getCeldas().get(posicion[0]).get(posicion[1]).getTipoCelda() != TipoCelda.PARED;
@@ -86,7 +92,7 @@ public class Posicion {
      * 
      * @param posicion1
      * @param posicion2
-     * @return
+     * @return regresa la distancia entre las dos posiciones
      */
     public static double distancia(int[] posicion1, int[] posicion2) {
         int fila1 = posicion1[0];
@@ -101,9 +107,9 @@ public class Posicion {
     /**
      * Devuelve la posicion más cercana de una cruceta a una posicion dada
      * 
-     * @param posicion
+     * @param posicion 
      * @param cruceta
-     * @return
+     * @return regresa la posicion más cercana
      */
     public static int[] posicionMasCerca(int[] posicion, ArrayList<int[]> cruceta) {
         int[] posicionFinal = cruceta.get(0);
@@ -115,7 +121,13 @@ public class Posicion {
         return posicionFinal;
     }
 
-    /* Sumar dos posiciones */
+    /**
+     * Mueve una posicion a otra posicion
+     * 
+     * @param posicionOriginal
+     * @param movimiento
+     * @return regresa la nueva posicion
+     */
     public static int[] mover(int[] posicionOriginal, int[] movimiento) {
         return new int[] { posicionOriginal[0] + movimiento[0], posicionOriginal[1] + movimiento[1] };
     }

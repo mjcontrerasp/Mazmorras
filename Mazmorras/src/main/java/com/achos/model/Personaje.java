@@ -4,7 +4,11 @@ import java.util.Objects;
 import java.util.Random;
 
 import com.achos.enums.TipoPersonaje;
-
+/**
+ * Clase Personaje
+ * Esta clase representa un personaje en el juego. Contiene atributos como nombre, vida, velocidad,
+ * fuerza y posicion. También contiene métodos para atacar y perder vida.
+ */
 public class Personaje implements Comparable<Personaje> {
     protected String nombre;
     protected int vida;
@@ -18,10 +22,10 @@ public class Personaje implements Comparable<Personaje> {
     }
     /**
      * Constructor de la clase Personaje
-     * @param nombre
-     * @param velocidad
-     * @param fuerza
-     * @param tipoPersonaje
+     * @param nombre nombre del personaje
+     * @param velocidad velocidad del personaje
+     * @param fuerza fuerza del personaje
+     * @param tipoPersonaje     tipo de personaje
      */
     protected Personaje(String nombre, int velocidad, int fuerza, TipoPersonaje tipoPersonaje) {
         this.nombre = nombre;
@@ -33,10 +37,10 @@ public class Personaje implements Comparable<Personaje> {
     }
     /**
      * Constructor de la clase Personaje
-     * @param nombre
-     * @param vida
-     * @param velocidad
-     * @param fuerza
+     * @param nombre nombre del personaje
+     * @param vida vida del personaje
+     * @param velocidad velocidad del personaje
+     * @param fuerza fuerza del personaje
      */
     protected Personaje(String nombre, int vida, int velocidad, int fuerza) {
         this.nombre = nombre;
@@ -45,19 +49,31 @@ public class Personaje implements Comparable<Personaje> {
         this.setFuerza(fuerza);
         this.posicion = new int[2];
     }
-
+    /**
+     *  Devuelve el nombre del personaje
+     * @return de tipo String
+     */
     public String getNombre() {
         return this.nombre;
     }
-
+    /**
+     * Devuelve el nombre del personaje
+     * @param nombre nombre del personaje
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
+    /**
+     * Devuelve la vida del personaje
+     * @return de tipo int
+     */
     public int getVida() {
         return this.vida;
     }
-
+    /**
+     * Devuelve la vida del personaje
+     * @param vida vida del personaje
+     */
     public void setVida(int vida) {
         if (vida < 0) {
             this.vida = 0;
@@ -69,11 +85,17 @@ public class Personaje implements Comparable<Personaje> {
         }
 
     }
-
+    /**
+     * Devuelve la velocidad del personaje
+     * @return de tipo int
+     */
     public int getVelocidad() {
         return this.velocidad;
     }
-
+    /**
+     * Devuelve la velocidad del personaje
+     * @param velocidad velocidad del personaje
+     */
     public void setVelocidad(int velocidad) {
         if (velocidad < 0) {
             this.velocidad = 0;
@@ -83,11 +105,17 @@ public class Personaje implements Comparable<Personaje> {
             this.velocidad = velocidad;
         }
     }
-
+    /**
+     * Devuelve la fuerza del personaje
+     * @return de tipo int
+     */
     public int getFuerza() {
         return this.fuerza;
     }
-
+    /**
+     * Devuelve la fuerza del personaje
+     * @param fuerza fuerza del personaje
+     */
     public void setFuerza(int fuerza) {
         if (fuerza < 0) {
             this.fuerza = 0;
@@ -97,19 +125,31 @@ public class Personaje implements Comparable<Personaje> {
             this.fuerza = fuerza;
         }
     }
-
+    /**
+     * Devuelve la posicion del personaje
+     * @return de tipo int[]
+     */
     public int[] getPosicion() {
         return this.posicion;
     }
-
+    /**
+     * Devuelve la posicion del personaje
+     * @param posicion posicion del personaje
+     */
     public void setPosicion(int[] posicion) {
         this.posicion = posicion;
     }
-
+    /**
+     * Devuelve el tipo de personaje
+     * @return de tipo TipoPersonaje
+     */
     public TipoPersonaje getTipoPersonaje() {
         return this.tipoPersonaje;
     }
-
+    /**
+     * Devuelve el tipo de personaje
+     * @param tipoPersonaje tipo de personaje
+     */
     public void setTipoPersonaje(TipoPersonaje tipoPersonaje) {
         this.tipoPersonaje = tipoPersonaje;
     }
@@ -119,7 +159,11 @@ public class Personaje implements Comparable<Personaje> {
     public int hashCode() {
         return Objects.hash(nombre, vida, velocidad, fuerza, posicion);
     }
-
+    /**
+     * Compara dos personajes
+     * @param personaje el personaje a comparar
+     * @return un entero que indica si el personaje es mayor, menor o igual al personaje a comparar
+     */
     @Override
     public int compareTo(Personaje personaje) {
         if (personaje == null) {
@@ -136,15 +180,15 @@ public class Personaje implements Comparable<Personaje> {
         }
     }
     /**
-     * 
-     * @param ataque
+     *  Devuelve true si el objeto es igual al personaje
+     * @param ataque el objeto a comparar
      */
     public void perderVida(int ataque) {
         setVida(vida - ataque);
     }
     /**
-     * 
-     * @param ataque
+     *  Devuelve true si el objeto es igual al personaje
+     * @param ataque el objeto a comparar
      */
     public int atacar() {
         int ataqueMin = fuerza - 5;
@@ -153,7 +197,10 @@ public class Personaje implements Comparable<Personaje> {
         }
         return random.nextInt(fuerza-ataqueMin)+ataqueMin;
     }
-
+    /**
+     *  Devuelve true si el objeto es igual al personaje
+     * @param obj el objeto a comparar
+     */
     @Override
     public String toString() {
         return "\n{" +
@@ -165,7 +212,10 @@ public class Personaje implements Comparable<Personaje> {
                 ", tipoPersonaje='" + getTipoPersonaje() + "'" +
                 "}";
     }
-
+    /**
+     *  Devuelve true si el objeto es igual al personaje
+     * @param obj el objeto a comparar
+     */
     public static void main(String[] args) {
         System.out.println(TipoPersonaje.GABINO);
     }

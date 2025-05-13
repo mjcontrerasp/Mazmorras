@@ -28,6 +28,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controlador de la pantalla de juego
+ */
 public class GameController implements Observer {
 
     @FXML
@@ -56,7 +59,9 @@ public class GameController implements Observer {
 
     private Partida partida = Partida.getInstance(); // Obtener la partida actual
 
-    // Constructor
+    /**
+     * Inicializa el controlador
+     */
     @FXML
     public void initialize() {
 
@@ -228,12 +233,16 @@ public class GameController implements Observer {
         }
         partida.moverPersonajes(movimiento);
     }
-
+    /**
+     * Forzar el game over
+     */
     private void forzarGameOver() {
         partida.getHeroe().setVida(0);
         partida.setGameOver(true);
     }
-
+    /**
+     * Forzar la victoria
+     */
     private void forzarVictoria() {
         ArrayList<Personaje> personajesCopia = new ArrayList<>(partida.getPersonajes());
         for (Personaje personaje : personajesCopia) {
@@ -325,7 +334,9 @@ public class GameController implements Observer {
             infoBox.setSpacing(5);
         }
     }
-
+    /**
+     * Método que se encarga de cargar la escena de GameOver
+     */
     private void readGameOver() {
         if (partida.getGameOver()) {
             try {
@@ -335,7 +346,9 @@ public class GameController implements Observer {
             }
         }
     }
-
+    /**
+     * Método que se encarga de cargar la escena de Victoria
+     */
     private void readVictory() {
         if (partida.getVictory()) {
             try {

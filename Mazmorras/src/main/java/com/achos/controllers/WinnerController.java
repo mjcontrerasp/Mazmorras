@@ -13,7 +13,8 @@ public class WinnerController {
 
     private Partida partida = Partida.getInstance();
     /** 
-     * @throws IOException
+     * boton para volver a la pantalla de inicio pero reseteando la partida 
+     * @throws IOException excepcion de entrada/salida
      */
     @FXML
     private void switchToContinuar() throws IOException {
@@ -26,7 +27,8 @@ public class WinnerController {
     }
 
     /** 
-     * @throws IOException
+     * boton para salir del juego
+     * @throws IOException  excepcion de entrada/salida
      */
     @FXML
     private void switchToExit() {

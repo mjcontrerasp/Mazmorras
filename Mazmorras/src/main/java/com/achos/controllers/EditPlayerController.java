@@ -18,6 +18,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controlador de la escena de edicion del jugador
+ */
 public class EditPlayerController {
 
     @FXML
@@ -82,7 +85,9 @@ public class EditPlayerController {
 
     @FXML
     private Button jugar;
-
+    /**
+     * inicializa los valores de los sliders y añade listeners a los sliders
+     */
     @FXML
     public void initialize() {
 
@@ -116,7 +121,9 @@ public class EditPlayerController {
         });
 
     }
-
+    /**
+     * metodo que se encarga de crear el heroe y añadirlo a la partida
+     */
     public void setHeroe() {
         Partida partida = Partida.getInstance();
 
@@ -139,7 +146,10 @@ public class EditPlayerController {
         partida.buscarHeroe();
 
     }
-
+    /**
+     * cambia de escena a la escena del juego
+     * @throws IOException excepcion de entrada/salida
+     */
     @FXML
     private void switchToGame() throws IOException {
         setHeroe();

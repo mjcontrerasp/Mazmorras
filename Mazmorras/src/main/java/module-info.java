@@ -1,3 +1,8 @@
+/**
+ * este modulo es el principal de la aplicacion
+ * contiene la clase principal y el controlador de la aplicacion
+ * @author Manu, Gloria, Gabino
+ */
 module com.achos {
     requires javafx.controls;
     requires javafx.fxml;

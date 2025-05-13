@@ -52,7 +52,11 @@ public class LectorMapa {
         }
         return celdas;
     }
-
+    /**
+     * Método principal para probar la lectura del mapa.
+     * 
+     * @param args Argumentos de línea de comandos (no se utilizan).
+     */
     public static void main(String[] args) {
         String path = "Mazmorras/src/main/resources/com/achos/data/mapa3.csv";
 

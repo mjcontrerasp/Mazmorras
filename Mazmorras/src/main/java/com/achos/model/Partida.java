@@ -40,7 +40,7 @@ public class Partida {
     /**
      * Constructor privado.
      * 
-     * @param observer
+     * @param observer 
      */
     public void subscribe(Observer observer) {
         observers.add(observer);
@@ -214,7 +214,7 @@ public class Partida {
      * a un Enemigo, te devolverá el primer Enemigo encontrado.
      * 
      * @param tipoPersonaje
-     * @return
+     * @return de tipo Personaje
      */
     public Personaje buscarPersonaje(TipoPersonaje tipoPersonaje) {
         Personaje personajeEncontrado = null;
@@ -232,7 +232,7 @@ public class Partida {
      * null.
      * 
      * @param posicion
-     * @return
+     * @return de tipo Celda
      */
     public Celda buscarCelda(int[] posicion) {
         Celda celdaEncontrada = null;
@@ -298,7 +298,7 @@ public class Partida {
      * Mueve el enemigo a la nueva posicion. Si la nueva posicion es el heroe, el
      * heroe pierde vida.
      * 
-     * @param enemigo
+     * @param enemigo 
      */
     public void moverEnemigo(Enemigo enemigo) {
         if (enemigo.getVida() > 0) {
@@ -346,7 +346,7 @@ public class Partida {
     /**
      * Game Over si el heroe tiene vida menor o igual a cero
      * 
-     * @return
+     * @return true si el heroe tiene vida menor o igual a cero
      */
     public boolean gameOver() {
         if (heroe.getVida() <= 0) {
@@ -404,7 +404,11 @@ public class Partida {
         sc.close();
     }
 
-    /* Testear */
+    /**
+     * Main para testeo
+     * 
+     * @param args 
+     */
     public static void main(String[] args) {
         Partida partida = new Partida();
         partida.testeo();

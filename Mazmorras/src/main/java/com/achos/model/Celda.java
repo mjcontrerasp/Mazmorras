@@ -1,12 +1,22 @@
 package com.achos.model;
 
 import com.achos.enums.TipoCelda;
-
+/**
+ * clase Celda
+ * Esta clase representa una celda en el laberinto. Cada celda tiene un tipo (suelo o pared),
+ * una posición (fila y columna) y puede estar ocupada por un personaje.
+ * La celda puede ser ocupada por un personaje, y si es así, se guarda una referencia a ese personaje.
+ * La celda también tiene un método para cambiar su estado de ocupación.
+ * La celda puede ser de tipo suelo o pared, y su posición se representa como un array de dos enteros.
+ */
 public class Celda {
     private TipoCelda tipoCelda;
     private int[] posicion;
     private Personaje ocupadaPor;
-
+    /**
+     * Constructor por defecto
+     * Inicializa la celda sin tipo ni posición.
+     */
     public Celda() {
     }
     //revisar orden de fila y columna !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -17,7 +27,7 @@ public class Celda {
 
     /**
      * Devuelve el tipo de celda
-     * @return
+     * @return de tipo TipoCelda
      */
     public TipoCelda getTipoCelda() {
         return this.tipoCelda;
@@ -25,14 +35,14 @@ public class Celda {
     }
     /**
      * Devuelve el tipo de celda
-     * @return
+     * @return de tipo TipoCelda
      */
     public int[] getPosicicion() {
         return posicion;
     }
     /**
      * Devuelve la posicion de la celda
-     * @param personaje
+     * @param personaje el personaje que ocupa la celda
      */
     public void setOcupadoPor(Personaje personaje) {
         if (ocupadaPor == null) {
@@ -43,7 +53,7 @@ public class Celda {
     }
     /**
      * Devuelve el personaje que ocupa la celda
-     * @return
+     * @return de tipo Personaje
      */
     public Personaje getOcupadoPor() {
         return ocupadaPor;
