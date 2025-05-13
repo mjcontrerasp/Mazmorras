@@ -8,13 +8,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+/**
+ * Clase SceneManager
+ * Esta clase se encarga de gestionar las escenas de la aplicación. Permite cargar diferentes escenas
+ */
 public class SceneManager {
 
     private static SceneManager instance;
     private Stage stage;
     private final Map<SceneID, String> sceneMap = new HashMap<>();
-    
+    /**
+     * Constructor privado para evitar la creación de instancias externas
+     */
     private SceneManager() {
         sceneMap.put(SceneID.WELCOME, "/com/achos/views/welcome.fxml");
         sceneMap.put(SceneID.INTRODUCTION, "/com/achos/views/introduction.fxml");
@@ -23,25 +28,34 @@ public class SceneManager {
         sceneMap.put(SceneID.VICTORY, "/com/achos/views/victoria.fxml");
         sceneMap.put(SceneID.GAMEOVER, "/com/achos/views/gameover.fxml");
     }
-
+    /**
+     * Devuelve el escenario actual
+     * @return de tipo Stage
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
+    /**
+     * Devuelve el escenario actual
+     * @return de tipo Stage
+     */
     public static SceneManager getInstance() {
         if (instance == null) {
             instance = new SceneManager();
         }
         return instance;
     }
-
+    /**
+     * Devuelve el escenario actual
+     * @return de tipo Stage
+     */
     public void init(Stage stage) {
         this.stage = stage;
     }
     /**
      * Cargar una escena a partir de su ID
-     * @param sceneID
-     * @throws IOException
+     * @param sceneID ID de la escena a cargar
+     * @throws IOException excepción de entrada/salida
      */
     public void loadScene(SceneID sceneID) throws IOException {
         String fxmlPath = sceneMap.get(sceneID);

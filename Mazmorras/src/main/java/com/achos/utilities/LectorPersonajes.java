@@ -96,7 +96,11 @@ public class LectorPersonajes {
         }
         return personajes;
     }
-
+    /**
+     * Método principal para probar la lectura de personajes desde un archivo JSON.
+     * 
+     * @param args Argumentos de línea de comandos (no se utilizan).
+     */
     public static void main(String[] args) {
         String ruta = "Mazmorras/src/main/resources/com/achos/data/personajes.json";
 

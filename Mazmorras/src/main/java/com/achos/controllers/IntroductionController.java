@@ -69,12 +69,18 @@ public class IntroductionController {
 
     @FXML
     private Button startButton;
-
+    /**
+     * boton que te lleva a la pantalla de crear personaje
+     * @throws IOException excepcion de entrada/salida
+     */
     @FXML
     private void switchToEdit() throws IOException {
         SceneManager.getInstance().loadScene(SceneID.EDITPLAYER);
     }
-
+    /**
+     * boton que te lleva a la pantalla de jugar
+     * @throws IOException excepcion de entrada/salida
+     */
     @FXML
     private void switchToGame() throws IOException {
         SceneManager.getInstance().loadScene(SceneID.GAME);

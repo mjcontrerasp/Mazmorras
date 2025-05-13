@@ -12,7 +12,9 @@ import javafx.fxml.FXML;
 public class GameOverController {
 
     /**
-     * @throws IOException
+     * boton para volver a la pantalla de inicio
+     *
+     * @throws IOException excepcion de entrada/salida
      */
     @FXML
     private void switchToWelcome() throws IOException {
@@ -23,7 +25,8 @@ public class GameOverController {
     }
 
     /**
-     * @throws IOException
+     * boton para salir del juego
+     * @throws IOException excepcion de entrada/salida
      */
     @FXML
     private void switchToExit() {

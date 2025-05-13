@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.achos","l":"com.achos"},{"m":"com.achos","l":"com.achos.controllers"},{"m":"com.achos","l":"com.achos.enums"},{"m":"com.achos","l":"com.achos.interfaces"},{"m":"com.achos","l":"com.achos.model"},{"m":"com.achos","l":"com.achos.utilities"}];updateSearchResults();
