@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.TreeSet;
 
+import com.achos.enums.TipoCelda;
 import com.achos.enums.TipoPersonaje;
 import com.achos.interfaces.Observer;
 import com.achos.utilities.LectorPersonajes;
@@ -40,7 +41,7 @@ public class Partida {
     /**
      * Constructor privado.
      * 
-     * @param observer 
+     * @param observer
      */
     public void subscribe(Observer observer) {
         observers.add(observer);
@@ -201,12 +202,14 @@ public class Partida {
             }
         }
 
-        /* buscarCelda(spawn[1]).setOcupadoPor(buscarPersonaje(TipoPersonaje.MANU));
-        buscarPersonaje(TipoPersonaje.MANU).setPosicion(spawn[1]);
-        buscarCelda(spawn[2]).setOcupadoPor(buscarPersonaje(TipoPersonaje.GLORIA));
-        buscarPersonaje(TipoPersonaje.GLORIA).setPosicion(spawn[2]);
-        buscarCelda(spawn[3]).setOcupadoPor(buscarPersonaje(TipoPersonaje.GABINO));
-        buscarPersonaje(TipoPersonaje.GABINO).setPosicion(spawn[3]); */
+        /*
+         * buscarCelda(spawn[1]).setOcupadoPor(buscarPersonaje(TipoPersonaje.MANU));
+         * buscarPersonaje(TipoPersonaje.MANU).setPosicion(spawn[1]);
+         * buscarCelda(spawn[2]).setOcupadoPor(buscarPersonaje(TipoPersonaje.GLORIA));
+         * buscarPersonaje(TipoPersonaje.GLORIA).setPosicion(spawn[2]);
+         * buscarCelda(spawn[3]).setOcupadoPor(buscarPersonaje(TipoPersonaje.GABINO));
+         * buscarPersonaje(TipoPersonaje.GABINO).setPosicion(spawn[3]);
+         */
     }
 
     /**
@@ -286,9 +289,21 @@ public class Partida {
                 } else {
                     buscarCelda(heroe.getPosicion()).setOcupadoPor(null);
                     heroe.setPosicion(nuevaPosicion);
-                    buscarCelda(heroe.getPosicion()).setOcupadoPor(heroe);
+                    Celda nuevaCelda = buscarCelda(heroe.getPosicion());
+
+                    nuevaCelda.setOcupadoPor(heroe);
                     System.out.println("Heroe se mueve a " + heroe.getPosicion()[0] + "," + heroe.getPosicion()[1]);
+
+                    if (nuevaCelda.getTipoCelda() == TipoCelda.TRAMPA) { 
+                        heroe.perderVida(1); 
+                        System.out.println("El compa Pablo pisa trampa y pierde 1 de viada. Vida restante: " + heroe.getVida());
+
+                        if (heroe.getVida() <= 0) {
+                            setGameOver(true);
+                        }
+                    }
                 }
+
             }
 
         }
@@ -298,7 +313,7 @@ public class Partida {
      * Mueve el enemigo a la nueva posicion. Si la nueva posicion es el heroe, el
      * heroe pierde vida.
      * 
-     * @param enemigo 
+     * @param enemigo
      */
     public void moverEnemigo(Enemigo enemigo) {
         if (enemigo.getVida() > 0) {
@@ -407,7 +422,7 @@ public class Partida {
     /**
      * Main para testeo
      * 
-     * @param args 
+     * @param args
      */
     public static void main(String[] args) {
         Partida partida = new Partida();

@@ -103,30 +103,35 @@ public class Mapa {
      * @return de tipo String
      */
     public String tipoToString(Celda celda) {
-        String tipoToString = "";
-        if (celda.getTipoCelda() == TipoCelda.PARED) {
-            tipoToString = "\tx";
-        } else if (celda.getOcupadoPor() == null) {
-            tipoToString = "\t-";
-        } else {
-            switch (celda.getOcupadoPor().getTipoPersonaje()) {
-                case PABLO:
-                    tipoToString = "\tPABLO";
-                    break;
-                case MANU:
-                    tipoToString = "\tMANU";
-                    break;
-                case GLORIA:
-                    tipoToString = "\tGLORIA";
-                    break;
-                case GABINO:
-                    tipoToString = "\tGABINO";
-                    break;
-                default:
-                    tipoToString = "\tERROR";
-            }
+    String tipoToString = "";
+
+    if (celda.getTipoCelda() == TipoCelda.PARED) {
+        tipoToString = "\tx";
+    } else if (celda.getOcupadoPor() != null) {
+        switch (celda.getOcupadoPor().getTipoPersonaje()) {
+            case PABLO:
+                tipoToString = "\tPABLO";
+                break;
+            case MANU:
+                tipoToString = "\tMANU";
+                break;
+            case GLORIA:
+                tipoToString = "\tGLORIA";
+                break;
+            case GABINO:
+                tipoToString = "\tGABINO";
+                break;
+            default:
+                tipoToString = "\tERROR";
         }
-        return tipoToString;
+    } else if (celda.isPeligrosa()) { 
+        tipoToString ="/td"; //Aqui 
+    } else {
+        tipoToString = "\t-"; 
     }
+    
+
+    return tipoToString;
+}
 
 }

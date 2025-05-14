@@ -21,37 +21,41 @@ public class LectorMapa {
      * @param path Ruta del archivo CSV a leer.
      * @return ArrayList<ArrayList<Celda>> Lista de listas de celdas representando el mapa.
      */
-    public static ArrayList<ArrayList<Celda>> leerMapa(String path) {
-        File fichero = new File(path);
-        ArrayList<ArrayList<Celda>> celdas = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
-            String linea;
-            TipoCelda tipoCelda;
-            int columna = 0;
-            while ((linea = br.readLine()) != null) {
-                String[] stringCeldas = linea.split(",");
-                ArrayList<Celda> nuevaFilaCeldas = new ArrayList<>();
+   public static ArrayList<ArrayList<Celda>> leerMapa(String path) {
+    File fichero = new File(path);
+    ArrayList<ArrayList<Celda>> celdas = new ArrayList<>();
+    try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
+        String linea;
+        TipoCelda tipoCelda;
+        int columna = 0;
+        while ((linea = br.readLine()) != null) {
+            String[] stringCeldas = linea.split(",");
+            ArrayList<Celda> nuevaFilaCeldas = new ArrayList<>();
 
-                for (int fila = 0; fila < stringCeldas.length; fila++) {
-                    String celda = stringCeldas[fila].trim().toLowerCase();
-                    if (celda.equals("l")) {
-                        tipoCelda = TipoCelda.SUELO;
-                    } else if (celda.equals("o")) {
-                        tipoCelda = TipoCelda.PARED;
-                    } else {
-                        throw new IllegalArgumentException("Carácter inválido en el mapa: " + celda);
-                    }
-                    nuevaFilaCeldas.add(new Celda(tipoCelda, fila, columna));
+            for (int fila = 0; fila < stringCeldas.length; fila++) {
+                String celda = stringCeldas[fila].trim().toLowerCase();
+                if (celda.equals("l")) {
+                    tipoCelda = TipoCelda.SUELO;
+                } else if (celda.equals("o")) {
+                    tipoCelda = TipoCelda.PARED;
+                } else if (celda.equals("d")) {
+                    tipoCelda = TipoCelda.TRAMPA;
+                } else {
+                    throw new IllegalArgumentException("Carácter inválido en el mapa: " + celda);
                 }
-                celdas.add(nuevaFilaCeldas);
-                columna++;
+                nuevaFilaCeldas.add(new Celda(tipoCelda, fila, columna));
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            celdas.add(nuevaFilaCeldas);
+            columna++;
         }
-        return celdas;
+
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+    return celdas;
+}
+
+
     /**
      * Método principal para probar la lectura del mapa.
      * 
@@ -67,7 +71,7 @@ public class LectorMapa {
                 Celda celda = mapa.get(i).get(j);
                 System.out.print(celda.getTipoCelda() + " ");
             }
-            System.out.println(); // salto de línea entre filas
+            System.out.println(); 
         }
     }
 }

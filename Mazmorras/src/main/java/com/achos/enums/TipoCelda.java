@@ -4,5 +4,5 @@ package com.achos.enums;
  *  Esta enumeración define los tipos de celdas que pueden existir en un laberinto.
  */
 public enum TipoCelda {
-    SUELO, PARED;
+    SUELO, PARED, TRAMPA;
 }
