@@ -74,7 +74,8 @@ public class Mapa {
      * @return de tipo String
      */
     private String createPath(String nombre) {
-        return "Mazmorras/src/main/resources/com/achos/data/" + nombre + ".csv";
+        return getClass().getResource("/com/achos/data/" + nombre + ".csv").toExternalForm();
+        // return "Mazmorras/src/main/resources/com/achos/data/" + nombre + ".csv";
 
     }
     /**
