@@ -270,14 +270,20 @@ public class GameController implements Observer {
      * Genera la información de los personajes en la interfaz
      */
     private void generarInfoPersonajes() {
+        //infoBox es una VBox creada desde SceneBuilder
         infoBox.getChildren().clear();
 
         for (Personaje p : partida.getPersonajes()) {
-            HBox personajeBox = new HBox(5); // Contenedor principal
+            // HBox es el contenedor de cada personaje y está formado por
+            // una imageview con la foto del personaje (FRONTAL) y una VBOX
+            // con sus datos (datosBox)
+            HBox personajeBox = new HBox(5); 
             personajeBox.setAlignment(Pos.CENTER);
 
+            //Si es un heroe coge los stylos de heroe-box para ser rojo
             if (p instanceof Heroe) {
                 personajeBox.getStyleClass().add("heroe-box");
+                //Si NO es un heroe coge los stylos de personaje-box para ser azul
             } else
                 personajeBox.getStyleClass().add("personaje-box");
 
@@ -290,7 +296,9 @@ public class GameController implements Observer {
             // VBox datos personaje
             VBox datosBox = new VBox(10);
 
-            // HBox 1: icono + barra de Vida
+            //Dentro de datosBox hay 3 HBox:
+
+            // HBox 1: icono vida + barra de Vida
             ImageView vidaIcon = new ImageView(
                     new Image(getClass().getResource("/com/achos/images/vida.png").toExternalForm()));
             vidaIcon.setFitWidth(20);
@@ -298,10 +306,11 @@ public class GameController implements Observer {
 
             ProgressBar vidaBar = new ProgressBar(p.getVida() / 10.0);
 
+            //Añade todo al HBOX1:
             HBox vidaBox = new HBox(5, vidaIcon, vidaBar);
             vidaBox.setAlignment(Pos.CENTER);
 
-            // HBox 2: icono + barra de Fuerza
+            // HBox 2: icono fuerza + barra de Fuerza
             ImageView fuerzaIcon = new ImageView(
                     new Image(getClass().getResource("/com/achos/images/fuerza.png").toExternalForm()));
             fuerzaIcon.setFitWidth(20);
@@ -309,16 +318,19 @@ public class GameController implements Observer {
 
             ProgressBar fuerzaBar = new ProgressBar(p.getFuerza() / 10.0);
 
+            //Añade todo al HBOX2:
             HBox fuerzaBox = new HBox(5, fuerzaIcon, fuerzaBar);
             vidaBox.setAlignment(Pos.CENTER);
 
-            // HBox 2: iconos fuerza y velocidad
+            // HBox 3: icono velocidad + barra de velocidad
             ImageView velocidadIcon = new ImageView(
                     new Image(getClass().getResource("/com/achos/images/velocidad.png").toExternalForm()));
             velocidadIcon.setFitWidth(20);
             velocidadIcon.setFitHeight(20);
 
             ProgressBar velocidadBar = new ProgressBar(p.getVelocidad() / 10.0);
+
+            //Añade todo al HBOX3:
             HBox velocidadBox = new HBox(5, velocidadIcon, velocidadBar);
             velocidadBox.setAlignment(Pos.CENTER);
 
@@ -327,9 +339,13 @@ public class GameController implements Observer {
                 personajeBox.setOpacity(0.3);
             }
 
-            // Añadir todo al VBox del personaje
+            // Añadir los 3 HBOX a datosBox:
             datosBox.getChildren().addAll(vidaBox, fuerzaBox, velocidadBox);
+
+            // Añadir la imagen de personaje y datosBox a personajeBox(roja o azul)
             personajeBox.getChildren().addAll(img, datosBox);
+
+            //Añadir todo al VBox creado desde Scene Builder con un spacing de 5
             infoBox.getChildren().add(personajeBox);
             infoBox.setSpacing(5);
         }
