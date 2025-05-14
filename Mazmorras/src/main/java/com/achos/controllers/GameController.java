@@ -113,9 +113,9 @@ public class GameController implements Observer {
         fondo.setFitHeight(tileSize); // Establecer la altura del fondo
 
         if (celda.getTipoCelda() == TipoCelda.PARED) { // Si es una pared
-            fondo.setImage(new Image(getClass().getResource(URL_PARED).toExternalForm()));
+            fondo.setImage(new Image(getClass().getResource("/com/achos/images/Paredes.png").toExternalForm()));
         } else if (celda.getTipoCelda() == TipoCelda.SUELO) { // Si es un suelo
-            fondo.setImage(new Image(getClass().getResource(URL_SUELO).toExternalForm()));
+            fondo.setImage(new Image(getClass().getResource("/com/achos/images/suelo.png").toExternalForm()));
         }
         stackPane.getChildren().add(fondo); // Añadir el fondo al StackPane
 
